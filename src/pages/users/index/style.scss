@@ -1,0 +1,176 @@
+.my-wrap {
+  .login-list {
+    height: 258px;
+    background: #F5A623;
+    overflow: hidden;
+    margin-bottom: 142px;
+
+    .login-box {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 40px;
+
+      .heard-img {
+        width: 100px;
+        height: 100px;
+        margin-left: 30px;
+        margin-right: 20px;
+      }
+
+      .login-btn {
+        font-size: 34px;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 1);
+        line-height: 100px;
+        display: block;
+      }
+    }
+
+    .user-inforn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 690px;
+      margin: auto;
+      margin-top: 40px;
+
+      .user-left {
+        display: flex;
+        justify-content: flex-start;
+
+        .heard-img {
+          width: 100px;
+          height: 100px;
+          margin-right: 20px;
+        }
+
+        .user-li {
+          .vip-inforn {
+            display: flex;
+            justify-content: flex-start;
+
+            .user-name {
+              font-size: 34px;
+              font-weight: bold;
+              color: rgba(255, 255, 255, 1);
+              line-height: 48px;
+              margin-right: 20px;
+            }
+
+            .vip-box {
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              width: 154px;
+              height: 40px;
+              border-radius: 20px;
+              line-height: 40px;
+              border: 1px solid rgba(255, 255, 255, 1);
+
+              .vip {
+                width: 28px;
+                height: 24px;
+                margin-left: 12px;
+                // margin-top: 8px;
+              }
+
+              .vip-level {
+                font-size: 24px;
+                font-weight: 400;
+                color: rgba(255, 255, 255, 1);
+                line-height: 33px;
+                margin-left: 6px;
+                line-height: 40px;
+              }
+            }
+          }
+
+          .phone-inforn {
+            .iphone {
+              width: 16px;
+              height: 24px;
+            }
+
+            .number {
+              color: rgba(255, 255, 255, 1);
+              line-height: 33px;
+              font-size: 24px;
+              color: rgba(255, 255, 255, 1);
+              margin-left: 10px;
+            }
+          }
+
+
+        }
+      }
+
+      .user-right {
+        color: #FFFFFF;
+        font-size: 50px;
+      }
+
+
+    }
+  }
+
+  .interests-box {
+    width: 690px;
+    height: 185px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    position: absolute;
+    top: 185px;
+    left: 30px;
+
+    .interests-li {
+      width: 344px;
+      height: 105px;
+      text-align: center;
+      margin-top: 40px;
+
+      .interests-icon {
+        width: 68px;
+        height: 58px;
+      }
+
+      .interests-name {
+        font-size: 24px;
+        color: rgba(51, 51, 51, 1);
+        line-height: 33px;
+      }
+
+    }
+
+    .border-right {
+      border-right: 1px solid rgba(217, 217, 217, 1);
+    }
+
+  }
+
+  .about-box {
+    background: #fff;
+
+    .about-li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 110px;
+      margin-left: 30px;
+      border-bottom: 1px solid #E9E9E9;
+
+      .about-name {
+        font-size: 34px;
+        color: rgba(51, 51, 51, 1);
+      }
+
+      .at-icon {
+        font-size: 34px;
+        color: #333333;
+        margin-right: 34px;
+      }
+    }
+  }
+}

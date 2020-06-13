@@ -1,0 +1,26 @@
+.interests-wrap {
+    .interests-commentary {
+        font-size: 32px;
+        font-weight: 500;
+        color: rgba(51, 51, 51, 1);
+        line-height: 45px;
+        margin-top: 40px;
+        text-align: center;
+        display: block;
+    }
+
+    .interests-li {
+        margin: 30px;
+        .interests-tit {
+            font-size: 28px;
+            font-weight: bold;
+            color: rgba(51, 51, 51, 1);
+        }
+        .interests-introduce {
+            font-size: 24px;
+            font-weight: 400;
+            color: rgba(51, 51, 51, 1);
+            line-height: 36px;
+        }
+    }
+}

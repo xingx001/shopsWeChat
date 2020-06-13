@@ -1,0 +1,24 @@
+.activities-wrap {
+    .activities-ul {
+       background: #fff;
+       margin-bottom: 20px;
+       height: 400px;
+        .activities-li {
+            width: 690px;
+            margin: auto;
+            .activities_title {
+                font-size: 28px;
+                color: rgba(51, 51, 51, 1);
+                line-height: 40px;
+            }
+
+            .activities_img {
+                width: 690px;
+                height: 300px;
+                margin-top: 20px;
+            }
+
+        }
+
+    }
+}

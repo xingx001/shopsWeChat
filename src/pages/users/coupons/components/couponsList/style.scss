@@ -1,0 +1,121 @@
+.coupons_wrap{
+  padding: 20px 30px;
+  .coupons_li{
+    display: flex;
+    align-items: center;
+    height:170px;
+    width: 100%;
+    background:url('../../../../../assets/images/icon/quanbj@2x.png');
+    background-repeat:no-repeat;
+    background-position:top left;
+    background-size:690px 170px;
+    margin-bottom: 20px;
+    .li_left{
+      width: 200px;
+      text-align: center;
+      align-self:center;
+      color:rgba(245,166,35,1);
+      position: relative;
+      &::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 1px;
+        height: 130px;
+        border-left: 1px dashed #979797;
+      }
+      .title{
+        font-size:60px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        line-height:84px;
+        .unit{
+          font-size:32px;
+          font-family:PingFangSC-Regular,PingFang SC;
+          font-weight:400;
+          line-height:45px;
+        }
+      }
+      .desc{
+        font-size:26px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(245,166,35,1);
+        line-height:37px;
+      }
+    }
+    .li_middle{
+      flex: 1;
+      align-self:center;
+      padding-left: 36px;
+      .title{
+        font-size:32px;
+        font-family:PingFangSC-Medium,PingFang SC;
+        font-weight:500;
+        color:rgba(51,51,51,1);
+        line-height:45px;
+      }
+      .desc{
+        font-size:26px;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        line-height:37px;
+      }
+    }
+    .li_right{
+      width:92px;
+      height:170px;
+      font-size:28px;
+      font-family:PingFangSC-Medium,PingFang SC;
+      color:rgba(255,255,255,1);
+      line-height:40px;
+      background:url('../../../../../assets/images/icon/quanh@2x.png');
+      background-repeat:no-repeat;
+      background-position:top left;
+      background-size:92px 170px;
+      position: relative;
+      .btn{
+        position: absolute;
+        width: 56px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+      }
+    }
+    &.isPass{
+      .coupons_li{
+        .li_left,.li_middle{
+          .title,.desc{color: #CCCCCC;}
+        }
+        .li_right{
+           background: url('../../../../../assets/images/icon/quanhui@2x.png');
+        }
+        .li_left{
+          &::after{
+            border-left: 1px dashed #979797;
+          }
+        }
+
+      }
+      filter: grayscale(120%);
+    }
+  }
+  .coupons_more{
+    text-align: center;
+    font-size:24px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(153,153,153,1);
+    line-height:33px;
+    margin-top: 50px;
+    .split{
+      color: #979797;
+      margin: 0 20px;
+    }
+    .more{
+      color: #F5A623;
+    }
+  }
+}

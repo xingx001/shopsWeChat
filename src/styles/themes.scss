@@ -1,0 +1,4 @@
+$color-brand: #F5A623;
+/* 引入 Taro UI 默认样式 */
+@import "~taro-ui/dist/style/index.scss";
+@import './custom.scss';
