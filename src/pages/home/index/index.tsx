@@ -43,8 +43,8 @@ interface Index {
 class Index extends Component {
   state = {
     value: false,
-    latitude:30.274825,
-    longitude:119.961748,
+    latitude: 30.274825,
+    longitude: 119.961748,
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -54,7 +54,7 @@ class Index extends Component {
   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
   */
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '我的店铺'
   }
 
   handleChange = value => {
@@ -70,9 +70,9 @@ class Index extends Component {
         if (res.code) {
           //发起网络请求
           API.getUserIdByOpenId({
-            openid:1,
-            shopid:1
-          }).then(result=>{
+            openid: 1,
+            shopid: 1
+          }).then(result => {
             console.log(result)
           })
         } else {
@@ -104,113 +104,65 @@ class Index extends Component {
     const { latitude, longitude } = this.state;
     return (
       <View className='home_index'>
-        <Image src={require('@/assets/images/card/1.png')} className="banner_img" />
-        <View className="shop_info">
-          <View><Text className="shop_title">店铺名称</Text></View>
-          <View><Text className="shop_desc">店铺基本信息介绍，需要先确定店铺基本信息内容后，才能确定怎么排版合适</Text></View>
-        </View>
-        <View className="section_recommend">
-          <View className="section_title"><Text className="title">推荐菜品</Text> <Text className="at-icon at-icon-chevron-right"></Text></View>
-          <View className="recommend_goods">
-            <View className="goods_item">
-              <Image src={require('@/assets/images/card/2.png')} className="goods_img" />
-              <View className="goods_name">原味香草泡芙</View>
-              <View className="goods_price">¥19.9</View>
+        <View className="stores-introd">
+          <View className="stores-list">
+            <View className="stores-left">
+              <Image src={require('@/assets/images/card/4.png')} className="store_img" />
+              <View className="stores-name">
+                <View className="name">门店名称</View>
+                <View className="inforn">门店简介</View>
+              </View>
             </View>
-            <View className="goods_item">
-              <Image src={require('@/assets/images/card/2.png')} className="goods_img" />
-              <View className="goods_name">原味香草泡芙</View>
-              <View className="goods_price">¥19.9</View>
-            </View>
-            <View className="goods_item">
-              <Image src={require('@/assets/images/card/2.png')} className="goods_img" />
-              <View className="goods_name">原味香草泡芙</View>
-              <View className="goods_price">¥19.9</View>
-            </View>
+            <Text className="at-icon at-icon-chevron-right store_right" ></Text>
           </View>
         </View>
-        <View className="section_store">
-          <View className="section_title"><Text className="title">门店介绍</Text> <Text className="at-icon at-icon-chevron-right"></Text></View>
-          <View className="slide_wrap">
-            <View className="slide_container">
-              <View className="slide_li"><Image src={require('@/assets/images/card/6.png')} className="store_img" /></View>
-              <View className="slide_li"><Image src={require('@/assets/images/card/6.png')} className="store_img" /></View>
-              <View className="slide_li"><Image src={require('@/assets/images/card/6.png')} className="store_img" /></View>
-              <View className="slide_li"><Image src={require('@/assets/images/card/6.png')} className="store_img" /></View>
-              <View className="slide_li"><Image src={require('@/assets/images/card/6.png')} className="store_img" /></View>
-            </View>
+        <View className="store-box">
+          <View className="store-li">
+            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Text className="store-title">店面装修</Text>
+          </View>
+          <View className="store-li">
+            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Text className="store-title">商品管理</Text>
+          </View>
+          <View className="store-li">
+            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Text className="store-title">优惠券</Text>
+          </View>
+          <View className="store-li">
+            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Text className="store-title">活动管理</Text>
+          </View>
+          <View className="store-li">
+            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Text className="store-title">会员权益</Text>
           </View>
         </View>
-        <View className="section_coupon">
-          <View className="section_title"><Text className="title">优惠券</Text> <Text className="at-icon at-icon-chevron-right"></Text></View>
-          <View className="coupon_wrap">
-            <View className="coupon_li">
-              <View className="li_left">
-                <View className="coupon_name">100元代金券</View>
-                <View className="coupon_desc">周一至周日9:00-22:00  可重复使用</View>
-                <View className="coupon_price"><Text className="unit">¥</Text>50</View>
-              </View>
-              <View className="li_right">
-                <View className="coupon_button">立即抢购</View>
-                <View className="sold_out">已售 58</View>
-              </View>
-            </View>
-            <View className="coupon_li">
-              <View className="li_left">
-                <View className="coupon_name">100元代金券</View>
-                <View className="coupon_desc">周一至周日9:00-22:00  可重复使用</View>
-                <View className="coupon_price"><Text className="unit">¥</Text>50</View>
-              </View>
-              <View className="li_right">
-                <View className="coupon_button">立即抢购</View>
-                <View className="sold_out">已售 58</View>
-              </View>
+        <View className="member-detail">
+          <View className="member-top">
+            <View className="detail-name">会员数据</View>
+            <View className="check-detail">
+              <Text className="tit">会员明细</Text>
+              <Text className="at-icon at-icon-chevron-right icon_right" ></Text>
             </View>
           </View>
-        </View>
-        <View className="section_activites">
-          <View className="section_title"><Text className="title">最新活动</Text> <Text className="at-icon at-icon-chevron-right"></Text></View>
-          <View className="slide_wrap">
-            <View className="slide_container">
-              <View className="slide_li">
-                <View className="activite_item">
-                  <View className="activite_left">
-                    <View className="activite_name">集赞免单</View>
-                    <View className="activite_desc">集赞打折 最高免单</View>
-                  </View>
-                  <Image src={require('@/assets/images/card/17.png')} className="activite_img" />
-                </View>
-              </View>
-              <View className="slide_li">
-                <View className="activite_item">
-                  <View className="activite_left">
-                    <View className="activite_name">周三五折</View>
-                    <View className="activite_desc">快乐享美食</View>
-                  </View>
-                  <Image src={require('@/assets/images/card/18.png')} className="activite_img" />
-                </View>
-              </View>
-              <View className="slide_li">
-                <View className="activite_item">
-                  <View className="activite_left">
-                    <View className="activite_name">集赞免单</View>
-                    <View className="activite_desc">集赞打折 最高免单</View>
-                  </View>
-                  <Image src={require('@/assets/images/card/17.png')} className="activite_img" />
-                </View>
-              </View>
+          <View className="detail-ul">
+            <View className="detail-li">
+              <Text className="num">58</Text>
+              <Text className="tit">今日新增</Text>
+            </View>
+            <View className="detail-li">
+              <Text className="num">58</Text>
+              <Text className="tit">今日进店</Text>
+            </View>
+            <View className="detail-li">
+              <Text className="num">58</Text>
+              <Text className="tit">会员总计</Text>
+            </View>
+            
 
-            </View>
           </View>
-        </View>
-        <View className="address_info">
-          <View><Text className="address_title">联系我们</Text></View>
-          <View><Text className="address_desc_li">营业时间：9:00-22:00</Text></View>
-          <View><Text className="address_desc_li">联系电话：0571-88888888</Text></View>
-          <View><Text className="address_desc_li">门店地址：杭州市余杭区文一西路1888号万达广场4楼</Text></View>
-          <Map className="address_img" id="map" scale={16} longitude={longitude} latitude={latitude}>
-            {/* <Image onClick={this.onOpenMap} src={require('@/assets/images/card/8.png')} className="address_img" /> */}
-          </Map>
+
         </View>
 
       </View>

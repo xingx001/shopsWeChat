@@ -1,0 +1,46 @@
+.storesinform-box {
+  padding-bottom: 88px;
+  .inform-li {
+    font-size: 34px;
+    color: rgba(51, 51, 51, 1);
+    padding: 30px;
+    background: #fff;
+    margin-top: 20px;
+    
+
+    .msg {
+      font-size: 24px;
+      color: rgba(153, 153, 153, 1);
+      line-height: 33px;
+      margin-left: 15px;
+    }
+
+
+  }
+  .upload_img{
+    .img-list{
+      
+    }
+
+  }
+
+  .inform-tit {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .save_btn {
+    width: 750px;
+    height: 88px;
+    background: rgba(245, 166, 35, 1);
+    line-height: 88px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    font-size:36px;
+    color:rgba(255,255,255,1);
+    text-align: center;
+
+  }
+
+}
