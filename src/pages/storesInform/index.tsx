@@ -116,7 +116,7 @@ class Index extends Component {
           <View className="stores-images">
             <View className="img-list">
               <View className="on-upload">
-                <AtIcon value='add' size='30' color='rgba(216, 216, 216, 1)' className="add-icon"></AtIcon>
+                <Image src={require('@/assets/images/icon/upload.png')} className="add-icon" />
                 <Text className="upload-msg">上传视频或照片</Text>
               </View>
             </View>

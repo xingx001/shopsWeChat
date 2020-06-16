@@ -106,13 +106,51 @@ class Index extends Component {
           <View className="upload_img">
             <View className="img-list">
               <View className="on-upload">
-                <AtIcon value='add' size='30' color='rgba(216, 216, 216, 1)' className="add-icon"></AtIcon>
-                <Text className="upload-msg">上传视频或照片</Text>
+                <Image src={require('@/assets/images/icon/upload.png')} className="add-icon" />
+                <Text className="upload-msg">上传照片</Text>
+              </View>
+            </View>
+            <View className="img-list">
+              <Image src={require('@/assets/images/card/7.png')} className="shop_img" />
+              <View className="delect-btn">
+                <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
+              </View>
+            </View>
+            <View className="img-list">
+              <Image src={require('@/assets/images/card/7.png')} className="shop_img" />
+              <View className="delect-btn">
+                <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
+              </View>
+            </View>
+            <View className="img-list ">
+              <Image src={require('@/assets/images/card/7.png')} className="shop_img" />
+              <View className="delect-btn">
+                <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
               </View>
             </View>
 
           </View>
         </View>
+        <View className="inform-li inform-box">
+          <View className="inform-tit">
+            <View className="store-msg">门店图册</View>
+            <View className="store-msg">9:00-22:00</View>
+          </View>
+          <View className="inform-tit">
+            <View className="store-msg">联系电话</View>
+            <View className="store-msg">13878677654</View>
+          </View>
+          <View className="inform-tit">
+            <View className="store-msg">门店地址</View>
+            <View className="store-msg">9:00-22:00</View>
+          </View>
+          <View className="inform-tit">
+            <View className="store-msg">门牌号</View>
+            <View className="store-msg">4楼421</View>
+          </View>
+        </View>
+        <View className="warn_msg">门店地址用地图选点的方式得到， 选的点即为用户端地图展示的地点</View>
+
         <View className="save_btn">保存</View>
       </View>
     )

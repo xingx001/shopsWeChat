@@ -1,34 +1,88 @@
 .storesinform-box {
   padding-bottom: 88px;
+
   .inform-li {
     font-size: 34px;
     color: rgba(51, 51, 51, 1);
     padding: 30px;
     background: #fff;
     margin-top: 20px;
-    
-
     .msg {
       font-size: 24px;
       color: rgba(153, 153, 153, 1);
       line-height: 33px;
       margin-left: 15px;
     }
-
-
   }
-  .upload_img{
-    .img-list{
-      
+  .inform-box{
+    padding: 0px;
+    border-bottom: 1px solid rgba(233, 233, 233, 1); 
+    .store-msg{
+      margin-right: 30px;
     }
-
   }
 
-  .inform-tit {
+  .upload_img {
     display: flex;
-    justify-content: space-between;
-  }
+    justify-content: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-top: 20px;
+    .img-list {
+      width:196px;
+      height:148px;
+      border-radius:8px;
+      position: relative;
+      margin-right: 15px;
+      .on-upload {
+        width: 196px;
+        height: 148px;
+        background: rgba(246, 246, 246, 1);
+        border-radius: 8px;
+        text-align: center;
 
+        .add-icon {
+          width: 50px;
+          height: 50px;
+          margin-top: 34px;
+        }
+
+        .upload-msg {
+          font-size: 24px;
+          color: rgba(196, 196, 196, 1);
+          line-height: 33px;
+          display: block;
+        }
+      }
+      .shop_img {
+        width:196px;
+        height:148px;
+      }
+      .delect-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 50px;
+        height: 50px;
+        background: rgba(0, 0, 0, 1);
+        border-radius: 0px 5px 0px 0px;
+        opacity: 0.5;
+        text-align: center;
+        line-height: 50px;
+      }
+    }
+  }
+  .inform-tit {
+    height: 110px;
+    display: flex;
+    line-height: 110px;
+    margin-left: 30px;
+    border-bottom: 1px solid rgba(233, 233, 233, 1);
+    justify-content: space-between;
+    &:last-child{
+      border-bottom:0 none;
+    }
+  }
   .save_btn {
     width: 750px;
     height: 88px;
@@ -37,10 +91,17 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    font-size:36px;
-    color:rgba(255,255,255,1);
+    font-size: 36px;
+    color: rgba(255, 255, 255, 1);
     text-align: center;
-
+  }
+  .warn_msg {
+    font-size: 34px;
+    color: rgba(51, 51, 51, 1);
+    line-height: 48px;
+    width: 510px;
+    margin: auto;
+    margin-top: 85px;
   }
 
 }
