@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro';
+import moment from 'moment';
 
 const setCookie = (res: {
   cookies: Array<{
@@ -27,7 +28,16 @@ const setCookie = (res: {
     Taro.setStorageSync('cookies', res.header['Set-Cookie'])
   }
 }
+const formatDate = (str:string,format="HH:mm") => { //"YYYY-MM-DD HH:mm:ss"
 
-export default {
-  setCookie
+let result = str.match(/\(([^)]*)\)/);
+  if (result) {
+      return  moment(parseInt(result[1])).format(format);
+  }
+  return null;
+}
+
+export {
+  setCookie,
+  formatDate
 }

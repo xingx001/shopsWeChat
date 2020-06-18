@@ -1,5 +1,6 @@
 import Taro from '@tarojs/taro'
 import { HTTP_STATUS } from '@/constants/status';
+
 import { logError } from '@/utils/error';
 
 const baseUrl='http://ykd.aoqikc.com';//api地址
@@ -8,8 +9,6 @@ type OptionType = {
   data?: object | string
   method?: any
   header: object
-  success: any
-  error: any
   xhrFields: object
   mode: "no-cors" | "cors" | "same-origin"
 }
@@ -27,29 +26,32 @@ export default {
         cookie: Taro.getStorageSync('cookies')
       },
       mode: 'cors',
-      xhrFields: { withCredentials: true },
-      success(res) {
-        if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
-          return logError('api', '请求资源不存在')
-        } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
-          return logError('api', '服务端出现了问题')
-        } else if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
-          return logError('api', '没有权限访问')
-        } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
-          Taro.clearStorage()
-          Taro.navigateTo({
-            url: '/pages/login/index'
-          })
-          return logError('api', '请先登录')
-        } else if (res.statusCode === HTTP_STATUS.SUCCESS) {
-          return res.data
-        }
-      },
-      error(e) {
-        logError('api', '请求接口出现问题', e)
-      }
+      xhrFields: { withCredentials: true }
     }
-    return Taro.request(option)
+    Taro.showLoading({
+      title: "加载中..."
+    })
+    return Taro.request(option).then((res) => {
+      Taro.hideLoading();
+      if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
+        return logError('api', '请求资源不存在')
+      } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
+        return logError('api', '服务端出现了问题')
+      } else if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
+        return logError('api', '没有权限访问')
+      } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
+        Taro.clearStorage()
+        return logError('api', '请先登录')
+      } else if (res.statusCode === HTTP_STATUS.SUCCESS) {
+        return res.data
+      }
+    }).catch(err=>{
+      logError('api', '请求接口出现问题', err);
+      Taro.showToast({
+        title: err && err.msg||'请求异常',
+        icon: 'none'
+      })
+    })
   },
   get(url, data?: object) {
     const option = { url, data }
