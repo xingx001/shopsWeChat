@@ -1,24 +1,79 @@
 .activities-wrap {
+    padding-bottom: 88px;
     .activities-ul {
        background: #fff;
-       margin-bottom: 20px;
-       height: 400px;
+       margin: 20px 0;
         .activities-li {
             width: 690px;
-            margin: auto;
+            margin: 0 auto;
             .activities_title {
                 font-size: 28px;
                 color: rgba(51, 51, 51, 1);
                 line-height: 40px;
             }
-
-            .activities_img {
+            .card-wrap{
+              .activities_img {
                 width: 690px;
                 height: 300px;
-                margin-top: 20px;
+                display: block;
+                margin: 20px 0;
+              }
+              .card-foot{
+                display: flex;
+                height:50px;
+                background:rgba(255,255,255,1);
+                border-top: 1px solid #EEEEEE;
+                .foot-item{
+                  flex: 1;
+                  color: #666666;
+                  text-align: center;
+                  font-size: 20px;
+                  line-height: 50px;
+                  border-right: 1px solid #EEEEEE;
+                  .foot-icon{
+                    width:24px;
+                    height: 24px;
+                    display: inline-block;
+                    margin-right: 6px;
+                    vertical-align: middle;
+                  }
+                  &:nth-child(1){
+                    .foot-icon{
+                      background-image: url('../../../assets/images/icon/yulan.png');
+                      background-size: 24px 24px;
+                    }
+                  }
+                  &:nth-child(2){
+                    .foot-icon{
+                      background-image: url('../../../assets/images/icon/bianji.png');
+                      background-size: 24px 24px;
+                    }
+                  }
+                  &:last-child{
+                     border-right: 0 none;
+                     .foot-icon{
+                       background-image: url('../../../assets/images/icon/shanchu.png');
+                       background-size: 24px 24px;
+                    }
+                  }
+                }
+              }
             }
+
 
         }
 
+    }
+    .fix_bottom_btn{
+      width: 750px;
+      height: 88px;
+      background: rgba(245, 166, 35, 1);
+      line-height: 88px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      font-size: 36px;
+      color: rgba(255, 255, 255, 1);
+      text-align: center;
     }
 }

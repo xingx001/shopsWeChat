@@ -37,11 +37,20 @@ class Index extends Component<IProps, IState> {
             <View  className='activities-ul'>
               <View className="activities-li">
                 <Text className="activities_title">{item.name}</Text>
-                <Image src={item.img} className="activities_img" />
+                <View className="card-wrap">
+                    <Image src={item.img} className="activities_img" />
+                    <View className="card-foot">
+                        <Text className="foot-item"><Text className="foot-icon"></Text>预览</Text>
+                        <Text className="foot-item"><Text className="foot-icon"></Text>编辑</Text>
+                        <Text className="foot-item"><Text className="foot-icon"></Text>删除</Text>
+                    </View>
+                </View>
               </View>
             </View>
           )
-          )}
+          )
+        }
+        <View className="fix_bottom_btn">发布活动</View>
       </View>
     )
   }

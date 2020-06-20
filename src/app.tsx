@@ -24,14 +24,16 @@ class App extends Component {
   config: Config = {
     pages: [
       'pages/home/index/index',
-      'pages/shops/index/index',
+      'pages/shopManage/index/index',
+      'pages/shopManage/editShop/index',
       'pages/activities/index/index',
+      'pages/coupons/index/index',
       'pages/users/index/index',
       'pages/users/membersInterests/index',
       'pages/users/coupons/index',
       'pages/storesInform/index',
       'pages/shopDecoration/index'
-      
+
 
     ],
     window: {

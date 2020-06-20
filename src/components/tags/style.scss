@@ -1,12 +1,14 @@
 .tags{
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   .tags_item{
     height:48px;
     line-height: 48px;
     text-align: center;
     border-radius:24px;
     font-size:28px;
+    margin-bottom: 20px;
     font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
     color: #888888;

@@ -169,4 +169,17 @@
 
 
   }
+  .echart-wrap{
+    background:rgba(255,255,255,1);
+    border-radius:10px;
+    margin: 20px 30px;
+    .echart-title{
+      font-size:28px;
+      font-family:PingFangSC-Medium,PingFang SC;
+      font-weight:500;
+      color:rgba(51,51,51,1);
+      padding: 20px;
+      text-align: center;
+    }
+  }
 }
