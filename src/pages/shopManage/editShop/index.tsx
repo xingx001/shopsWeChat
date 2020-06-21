@@ -21,14 +21,19 @@ class Index extends Component<IProps, IState> {
     isOpened:false
   }
   config: Config = {
-    navigationBarTitleText: '修改商品'||'新增商品',
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(this.props, nextProps)
+    navigationBarTitleText: '',
   }
   componentDidMount() {
-
+    const { type,id } = this.$router.params;
+    if(type==='0'){
+      Taro.setNavigationBarTitle({
+        title: '新增商品'
+      })
+    } else{
+      Taro.setNavigationBarTitle({
+        title: '修改商品'
+      })
+    }
   }
   componentWillUnmount() { }
 

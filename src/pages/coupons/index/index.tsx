@@ -45,6 +45,11 @@ class Index extends Component<IProps, IState> {
       isOpened:true
     })
   }
+  onHandleAdd = () => {
+    Taro.navigateTo({
+      url: "/pages/coupons/editCoupons/index?type=0&id="
+    })
+  }
   render() {
     const { isOpened } =this.state;
     return (
@@ -100,7 +105,7 @@ class Index extends Component<IProps, IState> {
                 content='确定取消上架吗？'
               />
         </View>
-        <View className="fix_bottom_btn">创建优惠券</View>
+        <View className="fix_bottom_btn" onClick={this.onHandleAdd}>创建优惠券</View>
       </View>
     )
   }

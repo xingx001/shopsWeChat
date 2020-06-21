@@ -65,6 +65,11 @@ class Index extends Component<IProps, IState> {
       isOpened:true
     })
   }
+  onHandleAdd = () => {
+    Taro.navigateTo({
+      url: "/pages/shopManage/editShop/index?type=0&id="
+    })
+  }
   render() {
     const { activeTabKey,isOpened } = this.state;
     return (
@@ -114,7 +119,7 @@ class Index extends Component<IProps, IState> {
           />
 
         </View>
-        <View className="fix_bottom_btn">新增商品</View>
+        <View className="fix_bottom_btn" onClick={this.onHandleAdd}>新增商品</View>
       </View>
     )
   }

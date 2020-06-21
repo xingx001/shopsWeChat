@@ -8,13 +8,13 @@ interface IProps {
 }
 interface IState {
   isOpened: boolean,
-  radioType:Number
+  radioType: Number
 }
 
 class EditCoupons extends Component<IProps, IState> {
   state: IState = {
     isOpened: false,
-    radioType:1
+    radioType: 1
   }
   config: Config = {
     navigationBarTitleText: '创建优惠券',
@@ -46,17 +46,20 @@ class EditCoupons extends Component<IProps, IState> {
       isOpened: true
     })
   }
-  onChangeRadio = (e) =>{
+  onChangeRadio = (e) => {
     this.setState({
-      radioType:e
+      radioType: e
     })
   }
   onChangePicker = () => {
 
   }
   handleChange = () => { }
+  onHandleAdd = () => {
+
+  }
   render() {
-    const { isOpened,radioType } = this.state;
+    const { isOpened, radioType } = this.state;
     return (
       <View className='edit-coupons'>
         <View className="title">基本信息</View>
@@ -69,21 +72,20 @@ class EditCoupons extends Component<IProps, IState> {
             <View className="label">优惠券类型</View>
             <View className="allow">
               <Picker value={0} mode='selector' range={['上架', '下架']} onChange={this.onChangePicker}>
-               <Text className="">请选择</Text> <Text className="at-icon at-icon-chevron-right store_right" ></Text>
+                <Text className="">请选择</Text> <Text className="at-icon at-icon-chevron-right store_right" ></Text>
               </Picker>
             </View>
           </View>
           <View className="info_li_allow">
             <View className="label">使用条件</View>
             <View className="allow conditions_box">
-              <View className="conditions_li" onClick={()=>this.onChangeRadio(1)}>
-                <Image src={radioType==1?require('@/assets/images/icon/select.png'):require('@/assets/images/icon/noselect.png')} className="icon" />
+              <View className="conditions_li" onClick={() => this.onChangeRadio(1)}>
+                <Image src={radioType == 1 ? require('@/assets/images/icon/select.png') : require('@/assets/images/icon/noselect.png')} className="icon" />
                 <Text className="desc">无使用门槛</Text>
               </View>
-              <View className="conditions_li" onClick={()=>this.onChangeRadio(2)}>
-                <Image src={radioType==2?require('@/assets/images/icon/select.png'):require('@/assets/images/icon/noselect.png')} className="icon" />
-                <View className="desc desc_input">订单满<Input type='text' className="input_desc" placeholder='' placeholderClass="placeholderClass" maxLength={15} />
-元</View>
+              <View className="conditions_li" onClick={() => this.onChangeRadio(2)}>
+                <Image src={radioType == 2 ? require('@/assets/images/icon/select.png') : require('@/assets/images/icon/noselect.png')} className="icon" />
+                <View className="desc desc_input">订单满<Input type='text' className="input_desc" placeholder='' placeholderClass="placeholderClass" maxLength={15} />元</View>
               </View>
             </View>
           </View>
@@ -138,7 +140,7 @@ class EditCoupons extends Component<IProps, IState> {
           onConfirm={this.handleConfirm}
           content='确定删除该商品吗？'
         />
-        <View className="fix_bottom_btn">立即创建</View>
+        <View className="fix_bottom_btn" onClick={this.onHandleAdd}>立即创建</View>
       </View>
     )
   }

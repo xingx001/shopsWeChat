@@ -110,6 +110,11 @@ class Index extends Component {
             url: '/pages/activities/index/index'
           })
           break;
+          case 6:
+            Taro.navigateTo({
+              url: '/pages/memberDetail/index'
+            })
+            break;
       default:
         break;
     }
@@ -259,9 +264,9 @@ class Index extends Component {
         <View className="member-detail">
           <View className="member-top">
             <View className="detail-name">会员数据</View>
-            <View className="check-detail">
+            <View className="check-detail" onClick={() => this.onJump(6)}>
               <Text className="tit">会员明细</Text>
-              <Text className="at-icon at-icon-chevron-right icon_right" ></Text>
+              <Text className="at-icon at-icon-chevron-right icon_right"></Text>
             </View>
           </View>
           <View className="detail-ul">
