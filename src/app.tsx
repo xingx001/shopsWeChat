@@ -32,8 +32,10 @@ class App extends Component {
       'pages/users/membersInterests/index',
       'pages/users/coupons/index',
       'pages/storesInform/index',
-      'pages/shopDecoration/index'
-
+      'pages/shopDecoration/index',
+      'pages/memberDetail/index',
+      'pages/launchEvent/index'
+      
 
     ],
     window: {

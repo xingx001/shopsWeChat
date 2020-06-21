@@ -9433,6 +9433,11 @@ taro-ui@^2.3.4:
     lodash "^4.17.10"
     prop-types "^15.6.2"
 
+techarts@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/techarts/-/techarts-1.0.2.tgz#8fd878af527ad84c7563b6f474fea04ab50df786"
+  integrity sha512-cqlmV5KsLSKMNZj7p6g8Y8L7RXVV1QL2015hXGTELmzQuZQUujTcpY4Mx1VQARHNFggIH7XdJG7J2QyFZN9tRA==
+
 temp-dir@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/temp-dir/-/temp-dir-2.0.0.tgz#bde92b05bdfeb1516e804c9c00ad45177f31321e"
