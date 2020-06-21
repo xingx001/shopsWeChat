@@ -28,6 +28,7 @@ class App extends Component {
       'pages/shopManage/editShop/index',
       'pages/activities/index/index',
       'pages/coupons/index/index',
+      'pages/coupons/editCoupons/index',
       'pages/users/index/index',
       'pages/users/membersInterests/index',
       'pages/users/coupons/index',

@@ -1,7 +1,7 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Input,Text,Image } from '@tarojs/components';
-import { AtModal} from 'taro-ui';
+import { View, Input,Text,Image,Picker } from '@tarojs/components';
+import { AtModal } from 'taro-ui';
 import './style.scss'
 
 interface IProps {
@@ -63,6 +63,9 @@ class Index extends Component<IProps, IState> {
       isOpened:true
     })
   }
+  onChangePicker = () => {
+
+  }
   handleChange = () => {}
   render() {
     const { activeTabKey,isOpened } = this.state;
@@ -79,7 +82,9 @@ class Index extends Component<IProps, IState> {
           </View>
           <View className="info_li_allow">
             <View className="label">在架状态</View>
-            <View className="allow">上架<Text className="at-icon at-icon-chevron-right store_right" ></Text></View>
+            <Picker value={0} mode='selector' range={['上架', '下架']} onChange={this.onChangePicker}>
+                上架<Text className="at-icon at-icon-chevron-right store_right" ></Text>
+            </Picker>
           </View>
           <View className="info_li">
             <View className="label">商品类别</View>

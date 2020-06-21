@@ -83,6 +83,39 @@ class Index extends Component {
       }
     })
   }
+  onJump = (e) => {
+    switch (e) {
+      case 1:
+        Taro.navigateTo({
+          url: '/pages/shopDecoration/index'
+        })
+        break;
+      case 2:
+        Taro.navigateTo({
+          url: '/pages/shopManage/index/index'
+        })
+        break;
+      case 3:
+        Taro.navigateTo({
+          url: '/pages/coupons/index/index'
+        })
+        break;
+      case 4:
+        Taro.navigateTo({
+          url: '/pages/activities/index/index'
+        })
+        break;
+        case 5:
+          Taro.navigateTo({
+            url: '/pages/activities/index/index'
+          })
+          break;
+      default:
+        break;
+    }
+
+
+  }
   componentWillUnmount() { }
 
   componentDidShow() { }
@@ -91,102 +124,102 @@ class Index extends Component {
   render() {
     const { latitude, longitude } = this.state;
     const option = {
-      color:['#F5A623','#26BBF2'],
+      color: ['#F5A623', '#26BBF2'],
       tooltip: {
-          trigger: 'axis'
+        trigger: 'axis'
       },
       legend: {
-          right:0,
-          top:0,
-          textStyle:{
-            fontSize:10,
-            color:'#333333'
-          },
-          selectedMode:false,
-          data: ['领取量', '使用量']
+        right: 0,
+        top: 0,
+        textStyle: {
+          fontSize: 10,
+          color: '#333333'
+        },
+        selectedMode: false,
+        data: ['领取量', '使用量']
       },
       grid: {
-          left: 20,
-          right: 20,
-          bottom: 20,
-          top:30,
-          containLabel: true
+        left: 20,
+        right: 20,
+        bottom: 20,
+        top: 30,
+        containLabel: true
       },
       toolbox: {
-          feature: {
-              saveAsImage: {}
-          }
+        feature: {
+          saveAsImage: {}
+        }
       },
       xAxis: {
-          type: 'category',
-          splitLine: {
-            show: false
-          },
-          axisLine:{
-            lineStyle:{
-              color:'#E9E9E9'
-            }
-          },
-          axisLabel: {
-            rotate: 45,
-            color:'#B7B7B7',
-            fontSize:10
-          },
-          axisTick: {
-            show:false,
-            lineStyle: {
-                width: 1
-            }
-          },
-          boundaryGap: false,
-          data: ['07-17', '07-17', '07-17', '07-17', '07-17', '07-17', '07-17']
+        type: 'category',
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#E9E9E9'
+          }
+        },
+        axisLabel: {
+          rotate: 45,
+          color: '#B7B7B7',
+          fontSize: 10
+        },
+        axisTick: {
+          show: false,
+          lineStyle: {
+            width: 1
+          }
+        },
+        boundaryGap: false,
+        data: ['07-17', '07-17', '07-17', '07-17', '07-17', '07-17', '07-17']
       },
       yAxis: {
-          type: 'value',
-          splitLine: {
-            show: false
-          },
-          axisLine:{
-            lineStyle:{
-              color:'#E9E9E9'
-            }
-          },
-          axisLabel: {
-            color:'#B7B7B7',
-            fontSize:10
-          },
-          axisTick: {
-            show:false,
-            lineStyle: {
-                width: 1
-            }
-          },
+        type: 'value',
+        splitLine: {
+          show: false
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#E9E9E9'
+          }
+        },
+        axisLabel: {
+          color: '#B7B7B7',
+          fontSize: 10
+        },
+        axisTick: {
+          show: false,
+          lineStyle: {
+            width: 1
+          }
+        },
       },
       series: [
-          {
-              name: '领取量',
-              type: 'line',
-              symbol: 'circle',
-              symbolSize: 8,
-              smooth: true,
-              lineStyle:{
-                width:1
-              },
-              data: [120, 132, 101, 134, 90, 230, 210]
+        {
+          name: '领取量',
+          type: 'line',
+          symbol: 'circle',
+          symbolSize: 8,
+          smooth: true,
+          lineStyle: {
+            width: 1
           },
-          {
-              name: '使用量',
-              type: 'line',
-              symbol: 'circle',
-              symbolSize: 8,
-              smooth: true,
-              lineStyle:{
-                width:1
-              },
-              data: [220, 182, 191, 234, 290, 330, 310]
-          }
+          data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name: '使用量',
+          type: 'line',
+          symbol: 'circle',
+          symbolSize: 8,
+          smooth: true,
+          lineStyle: {
+            width: 1
+          },
+          data: [220, 182, 191, 234, 290, 330, 310]
+        }
       ]
-  };
+    };
     return (
       <View className='home_index'>
         <View className="stores-introd">
@@ -202,23 +235,23 @@ class Index extends Component {
           </View>
         </View>
         <View className="store-box">
-          <View className="store-li">
+          <View className="store-li" onClick={() => this.onJump(1)}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">店面装修</Text>
           </View>
-          <View className="store-li">
+          <View className="store-li" onClick={() => this.onJump(2)}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">商品管理</Text>
           </View>
-          <View className="store-li">
+          <View className="store-li" onClick={() => this.onJump(3)}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">优惠券</Text>
           </View>
-          <View className="store-li">
+          <View className="store-li" onClick={() => this.onJump(4)}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">活动管理</Text>
           </View>
-          <View className="store-li">
+          <View className="store-li" onClick={() => this.onJump(5)}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">会员权益</Text>
           </View>
@@ -248,8 +281,8 @@ class Index extends Component {
 
         </View>
         <View className="echart-wrap">
-            <View className="echart-title">优惠券近一周数据</View>
-            <EChart echarts={echarts} style={{width:'100%',height:Taro.pxTransform(400)}} option={option} />
+          <View className="echart-title">优惠券近一周数据</View>
+          <EChart echarts={echarts} style={{ width: '100%', height: Taro.pxTransform(400) }} option={option} />
         </View>
       </View>
     )
