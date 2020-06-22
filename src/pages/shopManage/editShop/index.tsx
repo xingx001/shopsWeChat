@@ -1,7 +1,7 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Input,Text,Image,Picker } from '@tarojs/components';
-import { AtModal } from 'taro-ui';
+import { AtModal,AtImagePicker } from 'taro-ui';
 import './style.scss'
 
 interface IProps {
@@ -9,7 +9,8 @@ interface IProps {
 interface IState {
   current: number,
   activeTabKey:string|number,
-  isOpened:boolean
+  isOpened:boolean,
+  files:any[]
 }
 
 const tabsData =[{text:'推荐',value:'1'},{text:'蛋糕',value:'2'},{text:'点心',value:'3'},{text:'其他甜点',value:'4'},{text:'其他甜点',value:'5'}]
@@ -18,7 +19,8 @@ class Index extends Component<IProps, IState> {
   state: IState = {
     current: 0,
     activeTabKey:'1',
-    isOpened:false
+    isOpened:false,
+    files:[]
   }
   config: Config = {
     navigationBarTitleText: '',
@@ -72,8 +74,13 @@ class Index extends Component<IProps, IState> {
 
   }
   handleChange = () => {}
+  onChangeAtImagePicker = (files) => {
+    this.setState({
+      files
+    })
+  }
   render() {
-    const { activeTabKey,isOpened } = this.state;
+    const { isOpened,files } = this.state;
     return (
       <View className='edit-shop'>
         <View className="goods_info">
@@ -104,19 +111,37 @@ class Index extends Component<IProps, IState> {
           </View>
           <View className="info_li">
             <View className="label">商品图片</View>
-            <View className="upload-image">
-              <Image src={require('@/assets/images/card/4.png')} className="img" />
-              <View className="img-foot">
-                <View className="title">点击修改</View>
+            {
+                files.length ? (<View className="upload-image">
+                <Image src={files[0].url} className="img" />
+                <View className="img-foot">
+                  <View className="title">点击修改</View>
+                </View>
+                <AtImagePicker
+                      className="image-Picker"
+                      multiple={false}
+                      length={1}
+                      mode='top'
+                      files={files}
+                      onChange={this.onChangeAtImagePicker}
+                    />
               </View>
-            </View>
-          </View>
-          <View className="info_li">
-            <View className="label">商品图片</View>
-            <View className="upload-image">
+                ):(
+                  <View className="upload-image">
                   <Image src={require('@/assets/images/icon/upload.png')} className="add-img" />
                   <View className="add-desc">上传照片</View>
+                  <AtImagePicker
+                    className="image-Picker"
+                    multiple={false}
+                    length={1}
+                    mode='top'
+                    files={files}
+                    onChange={this.onChangeAtImagePicker}
+                  />
             </View>
+
+                )
+            }
           </View>
           <AtModal
             isOpened={isOpened}
