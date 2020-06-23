@@ -1,7 +1,7 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import { AtTextarea, AtIcon } from 'taro-ui'
+import { AtIcon } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '@/actions/counter';
 

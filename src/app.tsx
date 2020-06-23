@@ -1,6 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
 import Index from './pages/home/index/index'
+import AuthsContainer from './pages/authsContainer/index/index'
 import configStore from './store'
 import './app.scss'
 
@@ -23,6 +24,7 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      'pages/authsContainer/index/index',
       'pages/home/index/index',
       'pages/shopManage/index/index',
       'pages/shopManage/editShop/index',
@@ -45,12 +47,12 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-    plugins: {
-      "chooseLocation": {
-      "version": "1.0.4",
-      "provider": "wx76a9a06e5b4e693e"
-      }
-   },
+  //   plugins: {
+  //     "chooseLocation": {
+  //     "version": "1.0.4",
+  //     "provider": "wx76a9a06e5b4e693e"
+  //     }
+  //  },
   networkTimeout: {
       "request": 10000,
       "downloadFile": 10000
@@ -75,7 +77,7 @@ class App extends Component {
   render () {
     return (
       <Provider store={store}>
-        <Index />
+         <AuthsContainer />
       </Provider>
     )
   }
