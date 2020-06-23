@@ -1,0 +1,11 @@
+.upload-picker{
+  position: relative;
+  .upload-image-picker{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    top: 0;
+    left: 0;
+  }
+}

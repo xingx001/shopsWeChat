@@ -4,7 +4,7 @@ import { View, Text, Image } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '@/actions/counter';
 import EChart from 'techarts';
-import * as echarts from '../echarts';
+import * as echarts from '@/lib/echarts';
 import { API } from '@/apis';
 
 import './style.scss'

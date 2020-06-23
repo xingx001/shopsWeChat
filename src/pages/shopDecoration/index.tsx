@@ -97,6 +97,19 @@ class Index extends Component {
   handleChangeTextarea = (value) => {
     this.setState({ text: value })
   }
+  onSelectMap = () => {
+      const key = ''; //使用在腾讯位置服务申请的key
+      const referer = ''; //调用插件的app的名称
+      const location = JSON.stringify({
+        latitude: 39.89631551,
+        longitude: 116.323459711
+      });
+      const category = '生活服务,娱乐休闲';
+
+      Taro.navigateTo({
+        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
+      });
+  }
   render() {
     const { text } = this.state;
     return (
@@ -142,7 +155,7 @@ class Index extends Component {
           </View>
           <View className="inform-tit">
             <View className="store-msg">门店地址</View>
-            <View className="store-msg">9:00-22:00</View>
+            <View className="store-msg" onClick={this.onSelectMap}>9:00-22:00</View>
           </View>
           <View className="inform-tit">
             <View className="store-msg">门牌号</View>

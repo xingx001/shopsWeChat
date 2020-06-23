@@ -36,7 +36,7 @@ class App extends Component {
       'pages/shopDecoration/index',
       'pages/memberDetail/index',
       'pages/launchEvent/index'
-      
+
 
     ],
     window: {
@@ -45,10 +45,21 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-    "networkTimeout": {
+    plugins: {
+      "chooseLocation": {
+      "version": "1.0.4",
+      "provider": "wx76a9a06e5b4e693e"
+      }
+   },
+  networkTimeout: {
       "request": 10000,
       "downloadFile": 10000
-    }
+    },
+  permission: {
+      "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序定位"
+      }
+  }
   }
 
   componentDidMount () {}

@@ -593,17 +593,7 @@ function filter(obj, cb, context) {
  * @return {*}
  */
 
-function find(obj, cb, context) {
-  if (!(obj && cb)) {
-    return;
-  }
 
-  for (var i = 0, len = obj.length; i < len; i++) {
-    if (cb.call(context, obj[i], i, obj)) {
-      return obj[i];
-    }
-  }
-}
 /**
  * @memberOf module:zrender/core/util
  * @param {Function} func
@@ -851,64 +841,8 @@ HashMap.prototype = {
 function createHashMap(obj) {
   return new HashMap(obj);
 }
-function concatArray(a, b) {
-  var newArray = new a.constructor(a.length + b.length);
 
-  for (var i = 0; i < a.length; i++) {
-    newArray[i] = a[i];
-  }
-
-  var offset = a.length;
-
-  for (i = 0; i < b.length; i++) {
-    newArray[i + offset] = b[i];
-  }
-
-  return newArray;
-}
 function noop() {}
-
-var zrUtil = (Object.freeze || Object)({
-	$override: $override,
-	clone: clone,
-	merge: merge,
-	mergeAll: mergeAll,
-	extend: extend,
-	defaults: defaults,
-	createCanvas: createCanvas,
-	getContext: getContext,
-	indexOf: indexOf,
-	inherits: inherits,
-	mixin: mixin,
-	isArrayLike: isArrayLike,
-	each: each$1,
-	map: map,
-	reduce: reduce,
-	filter: filter,
-	find: find,
-	bind: bind,
-	curry: curry,
-	isArray: isArray,
-	isFunction: isFunction$1,
-	isString: isString,
-	isObject: isObject$1,
-	isBuiltInObject: isBuiltInObject,
-	isTypedArray: isTypedArray,
-	isDom: isDom,
-	eqNaN: eqNaN,
-	retrieve: retrieve,
-	retrieve2: retrieve2,
-	retrieve3: retrieve3,
-	slice: slice,
-	normalizeCssArray: normalizeCssArray,
-	assert: assert$1,
-	trim: trim,
-	setAsPrimitive: setAsPrimitive,
-	isPrimitive: isPrimitive,
-	createHashMap: createHashMap,
-	concatArray: concatArray,
-	noop: noop
-});
 
 /* global Float32Array */
 var ArrayCtor = typeof Float32Array === 'undefined' ? Array : Float32Array;
@@ -966,11 +900,7 @@ function clone$1(v) {
  * @return {Vector2} 结果
  */
 
-function set(out, a, b) {
-  out[0] = a;
-  out[1] = b;
-  return out;
-}
+
 /**
  * 向量相加
  * @param {Vector2} out
@@ -1017,7 +947,7 @@ function sub(out, v1, v2) {
 function len(v) {
   return Math.sqrt(lenSquare(v));
 }
-var length = len; // jshint ignore:line
+ // jshint ignore:line
 
 /**
  * 向量长度平方
@@ -1028,7 +958,7 @@ var length = len; // jshint ignore:line
 function lenSquare(v) {
   return v[0] * v[0] + v[1] * v[1];
 }
-var lengthSquare = lenSquare;
+
 /**
  * 向量乘法
  * @param {Vector2} out
@@ -1036,11 +966,7 @@ var lengthSquare = lenSquare;
  * @param {Vector2} v2
  */
 
-function mul(out, v1, v2) {
-  out[0] = v1[0] * v2[0];
-  out[1] = v1[1] * v2[1];
-  return out;
-}
+
 /**
  * 向量除法
  * @param {Vector2} out
@@ -1048,11 +974,7 @@ function mul(out, v1, v2) {
  * @param {Vector2} v2
  */
 
-function div(out, v1, v2) {
-  out[0] = v1[0] / v2[0];
-  out[1] = v1[1] / v2[1];
-  return out;
-}
+
 /**
  * 向量点乘
  * @param {Vector2} v1
@@ -1060,9 +982,7 @@ function div(out, v1, v2) {
  * @return {number}
  */
 
-function dot(v1, v2) {
-  return v1[0] * v2[0] + v1[1] * v2[1];
-}
+
 /**
  * 向量缩放
  * @param {Vector2} out
@@ -1122,11 +1042,7 @@ var distSquare = distanceSquare;
  * @param {Vector2} v
  */
 
-function negate(out, v) {
-  out[0] = -v[0];
-  out[1] = -v[1];
-  return out;
-}
+
 /**
  * 插值两个点
  * @param {Vector2} out
@@ -1135,11 +1051,7 @@ function negate(out, v) {
  * @param {number} t
  */
 
-function lerp(out, v1, v2, t) {
-  out[0] = v1[0] + t * (v2[0] - v1[0]);
-  out[1] = v1[1] + t * (v2[1] - v1[1]);
-  return out;
-}
+
 /**
  * 矩阵左乘向量
  * @param {Vector2} out
@@ -1178,34 +1090,6 @@ function max(out, v1, v2) {
   out[1] = Math.max(v1[1], v2[1]);
   return out;
 }
-
-var vector = (Object.freeze || Object)({
-	create: create,
-	copy: copy,
-	clone: clone$1,
-	set: set,
-	add: add,
-	scaleAndAdd: scaleAndAdd,
-	sub: sub,
-	len: len,
-	length: length,
-	lenSquare: lenSquare,
-	lengthSquare: lengthSquare,
-	mul: mul,
-	div: div,
-	dot: dot,
-	scale: scale,
-	normalize: normalize,
-	distance: distance,
-	dist: dist,
-	distanceSquare: distanceSquare,
-	distSquare: distSquare,
-	negate: negate,
-	lerp: lerp,
-	applyTransform: applyTransform,
-	min: min,
-	max: max
-});
 
 // TODO Draggable for group
 // FIXME Draggable on element which has parent rotation or scale
@@ -2716,24 +2600,6 @@ function invert(out, a) {
  * @param {Float32Array|Array.<number>} a
  */
 
-function clone$2(a) {
-  var b = create$1();
-  copy$1(b, a);
-  return b;
-}
-
-var matrix = (Object.freeze || Object)({
-	create: create$1,
-	identity: identity,
-	copy: copy$1,
-	mul: mul$1,
-	translate: translate,
-	rotate: rotate,
-	scale: scale$1,
-	invert: invert,
-	clone: clone$2
-});
-
 /**
  * 提供变换扩展
  * @module zrender/mixin/Transformable
@@ -3885,13 +3751,6 @@ function clampCssByte(i) {
   return i < 0 ? 0 : i > 255 ? 255 : i;
 }
 
-function clampCssAngle(i) {
-  // Clamp to integer 0 .. 360.
-  i = Math.round(i); // Seems to be what Chrome does (vs truncation).
-
-  return i < 0 ? 0 : i > 360 ? 360 : i;
-}
-
 function clampCssFloat(f) {
   // Clamp to float 0.0 .. 1.0.
   return f < 0 ? 0 : f > 1 ? 1 : f;
@@ -3935,10 +3794,6 @@ function cssHueToRgb(m1, m2, h) {
   }
 
   return m1;
-}
-
-function lerpNumber(a, b, p) {
-  return a + (b - a) * p;
 }
 
 function setRgba(out, r, g, b, a) {
@@ -4111,70 +3966,6 @@ function hsla2rgba(hsla, rgba) {
   return rgba;
 }
 /**
- * @param {Array.<number>} rgba
- * @return {Array.<number>} hsla
- */
-
-
-function rgba2hsla(rgba) {
-  if (!rgba) {
-    return;
-  } // RGB from 0 to 255
-
-
-  var R = rgba[0] / 255;
-  var G = rgba[1] / 255;
-  var B = rgba[2] / 255;
-  var vMin = Math.min(R, G, B); // Min. value of RGB
-
-  var vMax = Math.max(R, G, B); // Max. value of RGB
-
-  var delta = vMax - vMin; // Delta RGB value
-
-  var L = (vMax + vMin) / 2;
-  var H;
-  var S; // HSL results from 0 to 1
-
-  if (delta === 0) {
-    H = 0;
-    S = 0;
-  } else {
-    if (L < 0.5) {
-      S = delta / (vMax + vMin);
-    } else {
-      S = delta / (2 - vMax - vMin);
-    }
-
-    var deltaR = ((vMax - R) / 6 + delta / 2) / delta;
-    var deltaG = ((vMax - G) / 6 + delta / 2) / delta;
-    var deltaB = ((vMax - B) / 6 + delta / 2) / delta;
-
-    if (R === vMax) {
-      H = deltaB - deltaG;
-    } else if (G === vMax) {
-      H = 1 / 3 + deltaR - deltaB;
-    } else if (B === vMax) {
-      H = 2 / 3 + deltaG - deltaR;
-    }
-
-    if (H < 0) {
-      H += 1;
-    }
-
-    if (H > 1) {
-      H -= 1;
-    }
-  }
-
-  var hsla = [H * 360, S, L];
-
-  if (rgba[3] != null) {
-    hsla.push(rgba[3]);
-  }
-
-  return hsla;
-}
-/**
  * @param {string} color
  * @param {number} level
  * @return {string}
@@ -4224,29 +4015,12 @@ function toHex(color) {
  * @return {Array.<number>} will be null/undefined if input illegal.
  */
 
-function fastLerp(normalizedValue, colors, out) {
-  if (!(colors && colors.length) || !(normalizedValue >= 0 && normalizedValue <= 1)) {
-    return;
-  }
 
-  out = out || [];
-  var value = normalizedValue * (colors.length - 1);
-  var leftIndex = Math.floor(value);
-  var rightIndex = Math.ceil(value);
-  var leftColor = colors[leftIndex];
-  var rightColor = colors[rightIndex];
-  var dv = value - leftIndex;
-  out[0] = clampCssByte(lerpNumber(leftColor[0], rightColor[0], dv));
-  out[1] = clampCssByte(lerpNumber(leftColor[1], rightColor[1], dv));
-  out[2] = clampCssByte(lerpNumber(leftColor[2], rightColor[2], dv));
-  out[3] = clampCssFloat(lerpNumber(leftColor[3], rightColor[3], dv));
-  return out;
-}
 /**
  * @deprecated
  */
 
-var fastMapToColor = fastLerp;
+
 /**
  * @param {number} normalizedValue A float between 0 and 1.
  * @param {Array.<string>} colors Color list.
@@ -4256,30 +4030,12 @@ var fastMapToColor = fastLerp;
  * @memberOf module:zrender/util/color
  */
 
-function lerp$1(normalizedValue, colors, fullOutput) {
-  if (!(colors && colors.length) || !(normalizedValue >= 0 && normalizedValue <= 1)) {
-    return;
-  }
 
-  var value = normalizedValue * (colors.length - 1);
-  var leftIndex = Math.floor(value);
-  var rightIndex = Math.ceil(value);
-  var leftColor = parse(colors[leftIndex]);
-  var rightColor = parse(colors[rightIndex]);
-  var dv = value - leftIndex;
-  var color = stringify([clampCssByte(lerpNumber(leftColor[0], rightColor[0], dv)), clampCssByte(lerpNumber(leftColor[1], rightColor[1], dv)), clampCssByte(lerpNumber(leftColor[2], rightColor[2], dv)), clampCssFloat(lerpNumber(leftColor[3], rightColor[3], dv))], 'rgba');
-  return fullOutput ? {
-    color: color,
-    leftIndex: leftIndex,
-    rightIndex: rightIndex,
-    value: value
-  } : color;
-}
 /**
  * @deprecated
  */
 
-var mapToColor = lerp$1;
+
 /**
  * @param {string} color
  * @param {number=} h 0 ~ 360, ignore when null.
@@ -4289,17 +4045,7 @@ var mapToColor = lerp$1;
  * @memberOf module:zrender/util/color
  */
 
-function modifyHSL(color, h, s, l) {
-  color = parse(color);
 
-  if (color) {
-    color = rgba2hsla(color);
-    h != null && (color[0] = clampCssAngle(h));
-    s != null && (color[1] = parseCssFloat(s));
-    l != null && (color[2] = parseCssFloat(l));
-    return stringify(hsla2rgba(color), 'rgba');
-  }
-}
 /**
  * @param {string} color
  * @param {number=} alpha 0 ~ 1
@@ -4307,14 +4053,7 @@ function modifyHSL(color, h, s, l) {
  * @memberOf module:zrender/util/color
  */
 
-function modifyAlpha(color, alpha) {
-  color = parse(color);
 
-  if (color && alpha != null) {
-    color[3] = clampCssFloat(alpha);
-    return stringify(color, 'rgba');
-  }
-}
 /**
  * @param {Array.<number>} arrColor like [12,33,44,0.4]
  * @param {string} type 'rgba', 'hsva', ...
@@ -4334,19 +4073,6 @@ function stringify(arrColor, type) {
 
   return type + '(' + colorStr + ')';
 }
-
-var color = (Object.freeze || Object)({
-	parse: parse,
-	lift: lift,
-	toHex: toHex,
-	fastLerp: fastLerp,
-	fastMapToColor: fastMapToColor,
-	lerp: lerp$1,
-	mapToColor: mapToColor,
-	modifyHSL: modifyHSL,
-	modifyAlpha: modifyAlpha,
-	stringify: stringify
-});
 
 /**
  * @module echarts/animation/Animator
@@ -11153,13 +10879,11 @@ var useVML = !env$1.canvasSupported;
 var painterCtors = {
   canvas: Painter
 };
-var instances$1 = {}; // ZRender实例map索引
-
 /**
  * @type {string}
  */
 
-var version$1 = '4.3.1';
+
 /**
  * Initializing a zrender instance
  * @param {HTMLElement} dom
@@ -11173,7 +10897,6 @@ var version$1 = '4.3.1';
 
 function init$1(dom, opts) {
   var zr = new ZRender(guid(), dom, opts);
-  instances$1[zr.id] = zr;
   return zr;
 }
 /**
@@ -11181,37 +10904,16 @@ function init$1(dom, opts) {
  * @param {module:zrender/ZRender} zr
  */
 
-function dispose$1(zr) {
-  if (zr) {
-    zr.dispose();
-  } else {
-    for (var key in instances$1) {
-      if (instances$1.hasOwnProperty(key)) {
-        instances$1[key].dispose();
-      }
-    }
 
-    instances$1 = {};
-  }
-
-  return this;
-}
 /**
  * Get zrender instance by id
  * @param {string} id zrender instance id
  * @return {module:zrender/ZRender}
  */
 
-function getInstance(id) {
-  return instances$1[id];
-}
-function registerPainter(name, Ctor) {
-  painterCtors[name] = Ctor;
-}
 
-function delInstance(id) {
-  delete instances$1[id];
-}
+
+
 /**
  * @module zrender/ZRender
  */
@@ -11565,17 +11267,9 @@ ZRender.prototype = {
     this.painter.dispose();
     this.handler.dispose();
     this.animation = this.storage = this.painter = this.handler = null;
-    delInstance(this.id);
+    
   }
 };
-
-var zrender = (Object.freeze || Object)({
-	version: version$1,
-	init: init$1,
-	dispose: dispose$1,
-	getInstance: getInstance,
-	registerPainter: registerPainter
-});
 
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -18362,38 +18056,13 @@ function round$1(x, precision, returnStr) {
  * @return {Array} The input arr.
  */
 
-function asc(arr) {
-  arr.sort(function (a, b) {
-    return a - b;
-  });
-  return arr;
-}
+
 /**
  * Get precision
  * @param {number} val
  */
 
-function getPrecision(val) {
-  val = +val;
 
-  if (isNaN(val)) {
-    return 0;
-  } // It is much faster than methods converting number to string as follows
-  //      var tmp = val.toString();
-  //      return tmp.length - 1 - tmp.indexOf('.');
-  // especially when precision is low
-
-
-  var e = 1;
-  var count = 0;
-
-  while (Math.round(val * e) / e !== val) {
-    e *= 10;
-    count++;
-  }
-
-  return count;
-}
 /**
  * @param {string|number} val
  * @return {number}
@@ -18441,57 +18110,9 @@ function getPixelPrecision(dataExtent, pixelExtent) {
  * @return {number} percent ranging from 0 to 100
  */
 
-function getPercentWithPrecision(valueList, idx, precision) {
-  if (!valueList[idx]) {
-    return 0;
-  }
-
-  var sum = reduce(valueList, function (acc, val) {
-    return acc + (isNaN(val) ? 0 : val);
-  }, 0);
-
-  if (sum === 0) {
-    return 0;
-  }
-
-  var digits = Math.pow(10, precision);
-  var votesPerQuota = map(valueList, function (val) {
-    return (isNaN(val) ? 0 : val) / sum * digits * 100;
-  });
-  var targetSeats = digits * 100;
-  var seats = map(votesPerQuota, function (votes) {
-    // Assign automatic seats.
-    return Math.floor(votes);
-  });
-  var currentSum = reduce(seats, function (acc, val) {
-    return acc + val;
-  }, 0);
-  var remainder = map(votesPerQuota, function (votes, idx) {
-    return votes - seats[idx];
-  }); // Has remainding votes.
-
-  while (currentSum < targetSeats) {
-    // Find next largest remainder.
-    var max = Number.NEGATIVE_INFINITY;
-    var maxId = null;
-
-    for (var i = 0, len = remainder.length; i < len; ++i) {
-      if (remainder[i] > max) {
-        max = remainder[i];
-        maxId = i;
-      }
-    } // Add a vote to max remainder.
+ // Number.MAX_SAFE_INTEGER, ie do not support.
 
 
-    ++seats[maxId];
-    remainder[maxId] = 0;
-    ++currentSum;
-  }
-
-  return seats[idx] / digits;
-} // Number.MAX_SAFE_INTEGER, ie do not support.
-
-var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * To 0 - 2 * PI, considering negative radian.
  * @param {number} radian
@@ -18668,13 +18289,7 @@ function nice(val, round) {
  * @param {Array.<number>} ascArr
  */
 
-function quantile(ascArr, p) {
-  var H = (ascArr.length - 1) * p + 1;
-  var h = Math.floor(H);
-  var v = +ascArr[h - 1];
-  var e = H - h;
-  return e ? v + e * (ascArr[h] - v) : v;
-}
+
 /**
  * Order intervals asc, and split them when overlap.
  * expect(numberUtil.reformIntervals([
@@ -18698,40 +18313,7 @@ function quantile(ascArr, p) {
  * @return {Array.<Object>} The origin list, which has been reformed.
  */
 
-function reformIntervals(list) {
-  list.sort(function (a, b) {
-    return littleThan(a, b, 0) ? -1 : 1;
-  });
-  var curr = -Infinity;
-  var currClose = 1;
 
-  for (var i = 0; i < list.length;) {
-    var interval = list[i].interval;
-    var close = list[i].close;
-
-    for (var lg = 0; lg < 2; lg++) {
-      if (interval[lg] <= curr) {
-        interval[lg] = curr;
-        close[lg] = !lg ? 1 - currClose : 1;
-      }
-
-      curr = interval[lg];
-      currClose = close[lg];
-    }
-
-    if (interval[0] === interval[1] && close[0] * close[1] !== 1) {
-      list.splice(i, 1);
-    } else {
-      i++;
-    }
-  }
-
-  return list;
-
-  function littleThan(a, b, lg) {
-    return a.interval[lg] < b.interval[lg] || a.interval[lg] === b.interval[lg] && (a.close[lg] - b.close[lg] === (!lg ? 1 : -1) || !lg && littleThan(a, b, 1));
-  }
-}
 /**
  * parseFloat NaNs numeric-cast false positives (null|true|false|"")
  * ...but misinterprets leading-number strings, particularly hex literals ("0x...")
@@ -18740,31 +18322,6 @@ function reformIntervals(list) {
  * @param {*} v
  * @return {boolean}
  */
-
-function isNumeric(v) {
-  return v - parseFloat(v) >= 0;
-}
-
-var number = (Object.freeze || Object)({
-	linearMap: linearMap,
-	parsePercent: parsePercent$1,
-	round: round$1,
-	asc: asc,
-	getPrecision: getPrecision,
-	getPrecisionSafe: getPrecisionSafe,
-	getPixelPrecision: getPixelPrecision,
-	getPercentWithPrecision: getPercentWithPrecision,
-	MAX_SAFE_INTEGER: MAX_SAFE_INTEGER,
-	remRadian: remRadian,
-	isRadianAroundZero: isRadianAroundZero,
-	parseDate: parseDate,
-	quantity: quantity,
-	quantityExponent: quantityExponent,
-	nice: nice,
-	quantile: quantile,
-	reformIntervals: reformIntervals,
-	isNumeric: isNumeric
-});
 
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -18879,12 +18436,7 @@ function formatTpl(tpl, paramsList, encode) {
  * @return {string}
  */
 
-function formatTplSimple(tpl, param, encode) {
-  each$1(param, function (value, key) {
-    tpl = tpl.replace('{' + key + '}', encode ? encodeHTML(value) : value);
-  });
-  return tpl;
-}
+
 /**
  * @param {Object|string} [opt] If string, means color.
  * @param {string} [opt.color]
@@ -18962,9 +18514,7 @@ function formatTime(tpl, value, isUTC) {
  * @return {string}
  */
 
-function capitalFirst(str) {
-  return str ? str.charAt(0).toUpperCase() + str.substr(1) : str;
-}
+
 var truncateText$1 = truncateText;
 /**
  * @public
@@ -18980,9 +18530,7 @@ var truncateText$1 = truncateText;
  * @return {Object} {x, y, width, height, lineHeight}
  */
 
-function getTextBoundingRect(opt) {
-  return getBoundingRect(opt.text, opt.font, opt.textAlign, opt.textVerticalAlign, opt.textPadding, opt.textLineHeight, opt.rich, opt.truncate);
-}
+
 /**
  * @deprecated
  * the `textLineHeight` was added later.
@@ -18990,40 +18538,12 @@ function getTextBoundingRect(opt) {
  * But deprecated this interface. Please use `getTextBoundingRect` instead.
  */
 
-function getTextRect(text, font, textAlign, textVerticalAlign, textPadding, rich, truncate, textLineHeight) {
-  return getBoundingRect(text, font, textAlign, textVerticalAlign, textPadding, textLineHeight, rich, truncate);
-}
+
 /**
  * open new tab
  * @param {string} link url
  * @param {string} target blank or self
  */
-
-function windowOpen(link, target) {
-  if (target === '_blank' || target === 'blank') {
-    var blank = window.open();
-    blank.opener = null;
-    blank.location = link;
-  } else {
-    window.open(link, target);
-  }
-}
-
-var format = (Object.freeze || Object)({
-	addCommas: addCommas,
-	toCamelCase: toCamelCase,
-	normalizeCssArray: normalizeCssArray$1,
-	encodeHTML: encodeHTML,
-	formatTpl: formatTpl,
-	formatTplSimple: formatTplSimple,
-	getTooltipMarker: getTooltipMarker,
-	formatTime: formatTime,
-	capitalFirst: capitalFirst,
-	truncateText: truncateText$1,
-	getTextBoundingRect: getTextBoundingRect,
-	getTextRect: getTextRect,
-	windowOpen: windowOpen
-});
 
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -31360,6 +30880,2667 @@ function firstDataNotNull(data) {
 * specific language governing permissions and limitations
 * under the License.
 */
+SeriesModel.extend({
+  type: 'series.line',
+  dependencies: ['grid', 'polar'],
+  getInitialData: function (option, ecModel) {
+    return createListFromArray(this.getSource(), this, {
+      useEncodeDefaulter: true
+    });
+  },
+  defaultOption: {
+    zlevel: 0,
+    z: 2,
+    coordinateSystem: 'cartesian2d',
+    legendHoverLink: true,
+    hoverAnimation: true,
+    // stack: null
+    // xAxisIndex: 0,
+    // yAxisIndex: 0,
+    // polarIndex: 0,
+    // If clip the overflow value
+    clip: true,
+    // cursor: null,
+    label: {
+      position: 'top'
+    },
+    // itemStyle: {
+    // },
+    lineStyle: {
+      width: 2,
+      type: 'solid'
+    },
+    // areaStyle: {
+    // origin of areaStyle. Valid values:
+    // `'auto'/null/undefined`: from axisLine to data
+    // `'start'`: from min to data
+    // `'end'`: from data to max
+    // origin: 'auto'
+    // },
+    // false, 'start', 'end', 'middle'
+    step: false,
+    // Disabled if step is true
+    smooth: false,
+    smoothMonotone: null,
+    symbol: 'emptyCircle',
+    symbolSize: 4,
+    symbolRotate: null,
+    showSymbol: true,
+    // `false`: follow the label interval strategy.
+    // `true`: show all symbols.
+    // `'auto'`: If possible, show all symbols, otherwise
+    //           follow the label interval strategy.
+    showAllSymbol: 'auto',
+    // Whether to connect break point.
+    connectNulls: false,
+    // Sampling for large data. Can be: 'average', 'max', 'min', 'sum'.
+    sampling: 'none',
+    animationEasing: 'linear',
+    // Disable progressive
+    progressive: 0,
+    hoverLayerThreshold: Infinity
+  }
+});
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+// Symbol factory
+/**
+ * Triangle shape
+ * @inner
+ */
+
+var Triangle = extendShape({
+  type: 'triangle',
+  shape: {
+    cx: 0,
+    cy: 0,
+    width: 0,
+    height: 0
+  },
+  buildPath: function (path, shape) {
+    var cx = shape.cx;
+    var cy = shape.cy;
+    var width = shape.width / 2;
+    var height = shape.height / 2;
+    path.moveTo(cx, cy - height);
+    path.lineTo(cx + width, cy + height);
+    path.lineTo(cx - width, cy + height);
+    path.closePath();
+  }
+});
+/**
+ * Diamond shape
+ * @inner
+ */
+
+var Diamond = extendShape({
+  type: 'diamond',
+  shape: {
+    cx: 0,
+    cy: 0,
+    width: 0,
+    height: 0
+  },
+  buildPath: function (path, shape) {
+    var cx = shape.cx;
+    var cy = shape.cy;
+    var width = shape.width / 2;
+    var height = shape.height / 2;
+    path.moveTo(cx, cy - height);
+    path.lineTo(cx + width, cy);
+    path.lineTo(cx, cy + height);
+    path.lineTo(cx - width, cy);
+    path.closePath();
+  }
+});
+/**
+ * Pin shape
+ * @inner
+ */
+
+var Pin = extendShape({
+  type: 'pin',
+  shape: {
+    // x, y on the cusp
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0
+  },
+  buildPath: function (path, shape) {
+    var x = shape.x;
+    var y = shape.y;
+    var w = shape.width / 5 * 3; // Height must be larger than width
+
+    var h = Math.max(w, shape.height);
+    var r = w / 2; // Dist on y with tangent point and circle center
+
+    var dy = r * r / (h - r);
+    var cy = y - h + r + dy;
+    var angle = Math.asin(dy / r); // Dist on x with tangent point and circle center
+
+    var dx = Math.cos(angle) * r;
+    var tanX = Math.sin(angle);
+    var tanY = Math.cos(angle);
+    var cpLen = r * 0.6;
+    var cpLen2 = r * 0.7;
+    path.moveTo(x - dx, cy + dy);
+    path.arc(x, cy, r, Math.PI - angle, Math.PI * 2 + angle);
+    path.bezierCurveTo(x + dx - tanX * cpLen, cy + dy + tanY * cpLen, x, y - cpLen2, x, y);
+    path.bezierCurveTo(x, y - cpLen2, x - dx + tanX * cpLen, cy + dy + tanY * cpLen, x - dx, cy + dy);
+    path.closePath();
+  }
+});
+/**
+ * Arrow shape
+ * @inner
+ */
+
+var Arrow = extendShape({
+  type: 'arrow',
+  shape: {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0
+  },
+  buildPath: function (ctx, shape) {
+    var height = shape.height;
+    var width = shape.width;
+    var x = shape.x;
+    var y = shape.y;
+    var dx = width / 3 * 2;
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + dx, y + height);
+    ctx.lineTo(x, y + height / 4 * 3);
+    ctx.lineTo(x - dx, y + height);
+    ctx.lineTo(x, y);
+    ctx.closePath();
+  }
+});
+/**
+ * Map of path contructors
+ * @type {Object.<string, module:zrender/graphic/Path>}
+ */
+
+var symbolCtors = {
+  line: Line,
+  rect: Rect,
+  roundRect: Rect,
+  square: Rect,
+  circle: Circle,
+  diamond: Diamond,
+  pin: Pin,
+  arrow: Arrow,
+  triangle: Triangle
+};
+var symbolShapeMakers = {
+  line: function (x, y, w, h, shape) {
+    // FIXME
+    shape.x1 = x;
+    shape.y1 = y + h / 2;
+    shape.x2 = x + w;
+    shape.y2 = y + h / 2;
+  },
+  rect: function (x, y, w, h, shape) {
+    shape.x = x;
+    shape.y = y;
+    shape.width = w;
+    shape.height = h;
+  },
+  roundRect: function (x, y, w, h, shape) {
+    shape.x = x;
+    shape.y = y;
+    shape.width = w;
+    shape.height = h;
+    shape.r = Math.min(w, h) / 4;
+  },
+  square: function (x, y, w, h, shape) {
+    var size = Math.min(w, h);
+    shape.x = x;
+    shape.y = y;
+    shape.width = size;
+    shape.height = size;
+  },
+  circle: function (x, y, w, h, shape) {
+    // Put circle in the center of square
+    shape.cx = x + w / 2;
+    shape.cy = y + h / 2;
+    shape.r = Math.min(w, h) / 2;
+  },
+  diamond: function (x, y, w, h, shape) {
+    shape.cx = x + w / 2;
+    shape.cy = y + h / 2;
+    shape.width = w;
+    shape.height = h;
+  },
+  pin: function (x, y, w, h, shape) {
+    shape.x = x + w / 2;
+    shape.y = y + h / 2;
+    shape.width = w;
+    shape.height = h;
+  },
+  arrow: function (x, y, w, h, shape) {
+    shape.x = x + w / 2;
+    shape.y = y + h / 2;
+    shape.width = w;
+    shape.height = h;
+  },
+  triangle: function (x, y, w, h, shape) {
+    shape.cx = x + w / 2;
+    shape.cy = y + h / 2;
+    shape.width = w;
+    shape.height = h;
+  }
+};
+var symbolBuildProxies = {};
+each$1(symbolCtors, function (Ctor, name) {
+  symbolBuildProxies[name] = new Ctor();
+});
+var SymbolClz$2 = extendShape({
+  type: 'symbol',
+  shape: {
+    symbolType: '',
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0
+  },
+  calculateTextPosition: function (out, style, rect) {
+    var res = calculateTextPosition(out, style, rect);
+    var shape = this.shape;
+
+    if (shape && shape.symbolType === 'pin' && style.textPosition === 'inside') {
+      res.y = rect.y + rect.height * 0.4;
+    }
+
+    return res;
+  },
+  buildPath: function (ctx, shape, inBundle) {
+    var symbolType = shape.symbolType;
+
+    if (symbolType !== 'none') {
+      var proxySymbol = symbolBuildProxies[symbolType];
+
+      if (!proxySymbol) {
+        // Default rect
+        symbolType = 'rect';
+        proxySymbol = symbolBuildProxies[symbolType];
+      }
+
+      symbolShapeMakers[symbolType](shape.x, shape.y, shape.width, shape.height, proxySymbol.shape);
+      proxySymbol.buildPath(ctx, proxySymbol.shape, inBundle);
+    }
+  }
+}); // Provide setColor helper method to avoid determine if set the fill or stroke outside
+
+function symbolPathSetColor(color, innerColor) {
+  if (this.type !== 'image') {
+    var symbolStyle = this.style;
+    var symbolShape = this.shape;
+
+    if (symbolShape && symbolShape.symbolType === 'line') {
+      symbolStyle.stroke = color;
+    } else if (this.__isEmptyBrush) {
+      symbolStyle.stroke = color;
+      symbolStyle.fill = innerColor || '#fff';
+    } else {
+      // FIXME 判断图形默认是填充还是描边，使用 onlyStroke ?
+      symbolStyle.fill && (symbolStyle.fill = color);
+      symbolStyle.stroke && (symbolStyle.stroke = color);
+    }
+
+    this.dirty(false);
+  }
+}
+/**
+ * Create a symbol element with given symbol configuration: shape, x, y, width, height, color
+ * @param {string} symbolType
+ * @param {number} x
+ * @param {number} y
+ * @param {number} w
+ * @param {number} h
+ * @param {string} color
+ * @param {boolean} [keepAspect=false] whether to keep the ratio of w/h,
+ *                            for path and image only.
+ */
+
+
+function createSymbol(symbolType, x, y, w, h, color, keepAspect) {
+  // TODO Support image object, DynamicImage.
+  var isEmpty = symbolType.indexOf('empty') === 0;
+
+  if (isEmpty) {
+    symbolType = symbolType.substr(5, 1).toLowerCase() + symbolType.substr(6);
+  }
+
+  var symbolPath;
+
+  if (symbolType.indexOf('image://') === 0) {
+    symbolPath = makeImage(symbolType.slice(8), new BoundingRect(x, y, w, h), keepAspect ? 'center' : 'cover');
+  } else if (symbolType.indexOf('path://') === 0) {
+    symbolPath = makePath(symbolType.slice(7), {}, new BoundingRect(x, y, w, h), keepAspect ? 'center' : 'cover');
+  } else {
+    symbolPath = new SymbolClz$2({
+      shape: {
+        symbolType: symbolType,
+        x: x,
+        y: y,
+        width: w,
+        height: h
+      }
+    });
+  }
+
+  symbolPath.__isEmptyBrush = isEmpty;
+  symbolPath.setColor = symbolPathSetColor;
+  symbolPath.setColor(color);
+  return symbolPath;
+}
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+/**
+ * @param {module:echarts/data/List} data
+ * @param {number} dataIndex
+ * @return {string} label string. Not null/undefined
+ */
+
+function getDefaultLabel(data, dataIndex) {
+  var labelDims = data.mapDimension('defaultedLabel', true);
+  var len = labelDims.length; // Simple optimization (in lots of cases, label dims length is 1)
+
+  if (len === 1) {
+    return retrieveRawValue(data, dataIndex, labelDims[0]);
+  } else if (len) {
+    var vals = [];
+
+    for (var i = 0; i < labelDims.length; i++) {
+      var val = retrieveRawValue(data, dataIndex, labelDims[i]);
+      vals.push(val);
+    }
+
+    return vals.join(' ');
+  }
+}
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+
+/**
+ * @module echarts/chart/helper/Symbol
+ */
+/**
+ * @constructor
+ * @alias {module:echarts/chart/helper/Symbol}
+ * @param {module:echarts/data/List} data
+ * @param {number} idx
+ * @extends {module:zrender/graphic/Group}
+ */
+
+function SymbolClz(data, idx, seriesScope) {
+  Group.call(this);
+  this.updateData(data, idx, seriesScope);
+}
+
+var symbolProto = SymbolClz.prototype;
+/**
+ * @public
+ * @static
+ * @param {module:echarts/data/List} data
+ * @param {number} dataIndex
+ * @return {Array.<number>} [width, height]
+ */
+
+var getSymbolSize = SymbolClz.getSymbolSize = function (data, idx) {
+  var symbolSize = data.getItemVisual(idx, 'symbolSize');
+  return symbolSize instanceof Array ? symbolSize.slice() : [+symbolSize, +symbolSize];
+};
+
+function getScale(symbolSize) {
+  return [symbolSize[0] / 2, symbolSize[1] / 2];
+}
+
+function driftSymbol(dx, dy) {
+  this.parent.drift(dx, dy);
+}
+
+symbolProto._createSymbol = function (symbolType, data, idx, symbolSize, keepAspect) {
+  // Remove paths created before
+  this.removeAll();
+  var color = data.getItemVisual(idx, 'color'); // var symbolPath = createSymbol(
+  //     symbolType, -0.5, -0.5, 1, 1, color
+  // );
+  // If width/height are set too small (e.g., set to 1) on ios10
+  // and macOS Sierra, a circle stroke become a rect, no matter what
+  // the scale is set. So we set width/height as 2. See #4150.
+
+  var symbolPath = createSymbol(symbolType, -1, -1, 2, 2, color, keepAspect);
+  symbolPath.attr({
+    z2: 100,
+    culling: true,
+    scale: getScale(symbolSize)
+  }); // Rewrite drift method
+
+  symbolPath.drift = driftSymbol;
+  this._symbolType = symbolType;
+  this.add(symbolPath);
+};
+/**
+ * Stop animation
+ * @param {boolean} toLastFrame
+ */
+
+
+symbolProto.stopSymbolAnimation = function (toLastFrame) {
+  this.childAt(0).stopAnimation(toLastFrame);
+};
+/**
+ * FIXME:
+ * Caution: This method breaks the encapsulation of this module,
+ * but it indeed brings convenience. So do not use the method
+ * unless you detailedly know all the implements of `Symbol`,
+ * especially animation.
+ *
+ * Get symbol path element.
+ */
+
+
+symbolProto.getSymbolPath = function () {
+  return this.childAt(0);
+};
+/**
+ * Get scale(aka, current symbol size).
+ * Including the change caused by animation
+ */
+
+
+symbolProto.getScale = function () {
+  return this.childAt(0).scale;
+};
+/**
+ * Highlight symbol
+ */
+
+
+symbolProto.highlight = function () {
+  this.childAt(0).trigger('emphasis');
+};
+/**
+ * Downplay symbol
+ */
+
+
+symbolProto.downplay = function () {
+  this.childAt(0).trigger('normal');
+};
+/**
+ * @param {number} zlevel
+ * @param {number} z
+ */
+
+
+symbolProto.setZ = function (zlevel, z) {
+  var symbolPath = this.childAt(0);
+  symbolPath.zlevel = zlevel;
+  symbolPath.z = z;
+};
+
+symbolProto.setDraggable = function (draggable) {
+  var symbolPath = this.childAt(0);
+  symbolPath.draggable = draggable;
+  symbolPath.cursor = draggable ? 'move' : symbolPath.cursor;
+};
+/**
+ * Update symbol properties
+ * @param {module:echarts/data/List} data
+ * @param {number} idx
+ * @param {Object} [seriesScope]
+ * @param {Object} [seriesScope.itemStyle]
+ * @param {Object} [seriesScope.hoverItemStyle]
+ * @param {Object} [seriesScope.symbolRotate]
+ * @param {Object} [seriesScope.symbolOffset]
+ * @param {module:echarts/model/Model} [seriesScope.labelModel]
+ * @param {module:echarts/model/Model} [seriesScope.hoverLabelModel]
+ * @param {boolean} [seriesScope.hoverAnimation]
+ * @param {Object} [seriesScope.cursorStyle]
+ * @param {module:echarts/model/Model} [seriesScope.itemModel]
+ * @param {string} [seriesScope.symbolInnerColor]
+ * @param {Object} [seriesScope.fadeIn=false]
+ */
+
+
+symbolProto.updateData = function (data, idx, seriesScope) {
+  this.silent = false;
+  var symbolType = data.getItemVisual(idx, 'symbol') || 'circle';
+  var seriesModel = data.hostModel;
+  var symbolSize = getSymbolSize(data, idx);
+  var isInit = symbolType !== this._symbolType;
+
+  if (isInit) {
+    var keepAspect = data.getItemVisual(idx, 'symbolKeepAspect');
+
+    this._createSymbol(symbolType, data, idx, symbolSize, keepAspect);
+  } else {
+    var symbolPath = this.childAt(0);
+    symbolPath.silent = false;
+    updateProps(symbolPath, {
+      scale: getScale(symbolSize)
+    }, seriesModel, idx);
+  }
+
+  this._updateCommon(data, idx, symbolSize, seriesScope);
+
+  if (isInit) {
+    var symbolPath = this.childAt(0);
+    var fadeIn = seriesScope && seriesScope.fadeIn;
+    var target = {
+      scale: symbolPath.scale.slice()
+    };
+    fadeIn && (target.style = {
+      opacity: symbolPath.style.opacity
+    });
+    symbolPath.scale = [0, 0];
+    fadeIn && (symbolPath.style.opacity = 0);
+    initProps(symbolPath, target, seriesModel, idx);
+  }
+
+  this._seriesModel = seriesModel;
+}; // Update common properties
+
+
+var normalStyleAccessPath = ['itemStyle'];
+var emphasisStyleAccessPath = ['emphasis', 'itemStyle'];
+var normalLabelAccessPath = ['label'];
+var emphasisLabelAccessPath = ['emphasis', 'label'];
+/**
+ * @param {module:echarts/data/List} data
+ * @param {number} idx
+ * @param {Array.<number>} symbolSize
+ * @param {Object} [seriesScope]
+ */
+
+symbolProto._updateCommon = function (data, idx, symbolSize, seriesScope) {
+  var symbolPath = this.childAt(0);
+  var seriesModel = data.hostModel;
+  var color = data.getItemVisual(idx, 'color'); // Reset style
+
+  if (symbolPath.type !== 'image') {
+    symbolPath.useStyle({
+      strokeNoScale: true
+    });
+  } else {
+    symbolPath.setStyle({
+      opacity: null,
+      shadowBlur: null,
+      shadowOffsetX: null,
+      shadowOffsetY: null,
+      shadowColor: null
+    });
+  }
+
+  var itemStyle = seriesScope && seriesScope.itemStyle;
+  var hoverItemStyle = seriesScope && seriesScope.hoverItemStyle;
+  var symbolOffset = seriesScope && seriesScope.symbolOffset;
+  var labelModel = seriesScope && seriesScope.labelModel;
+  var hoverLabelModel = seriesScope && seriesScope.hoverLabelModel;
+  var hoverAnimation = seriesScope && seriesScope.hoverAnimation;
+  var cursorStyle = seriesScope && seriesScope.cursorStyle;
+
+  if (!seriesScope || data.hasItemOption) {
+    var itemModel = seriesScope && seriesScope.itemModel ? seriesScope.itemModel : data.getItemModel(idx); // Color must be excluded.
+    // Because symbol provide setColor individually to set fill and stroke
+
+    itemStyle = itemModel.getModel(normalStyleAccessPath).getItemStyle(['color']);
+    hoverItemStyle = itemModel.getModel(emphasisStyleAccessPath).getItemStyle();
+    symbolOffset = itemModel.getShallow('symbolOffset');
+    labelModel = itemModel.getModel(normalLabelAccessPath);
+    hoverLabelModel = itemModel.getModel(emphasisLabelAccessPath);
+    hoverAnimation = itemModel.getShallow('hoverAnimation');
+    cursorStyle = itemModel.getShallow('cursor');
+  } else {
+    hoverItemStyle = extend({}, hoverItemStyle);
+  }
+
+  var elStyle = symbolPath.style;
+  var symbolRotate = data.getItemVisual(idx, 'symbolRotate');
+  symbolPath.attr('rotation', (symbolRotate || 0) * Math.PI / 180 || 0);
+
+  if (symbolOffset) {
+    symbolPath.attr('position', [parsePercent$1(symbolOffset[0], symbolSize[0]), parsePercent$1(symbolOffset[1], symbolSize[1])]);
+  }
+
+  cursorStyle && symbolPath.attr('cursor', cursorStyle); // PENDING setColor before setStyle!!!
+
+  symbolPath.setColor(color, seriesScope && seriesScope.symbolInnerColor);
+  symbolPath.setStyle(itemStyle);
+  var opacity = data.getItemVisual(idx, 'opacity');
+
+  if (opacity != null) {
+    elStyle.opacity = opacity;
+  }
+
+  var liftZ = data.getItemVisual(idx, 'liftZ');
+  var z2Origin = symbolPath.__z2Origin;
+
+  if (liftZ != null) {
+    if (z2Origin == null) {
+      symbolPath.__z2Origin = symbolPath.z2;
+      symbolPath.z2 += liftZ;
+    }
+  } else if (z2Origin != null) {
+    symbolPath.z2 = z2Origin;
+    symbolPath.__z2Origin = null;
+  }
+
+  var useNameLabel = seriesScope && seriesScope.useNameLabel;
+  setLabelStyle(elStyle, hoverItemStyle, labelModel, hoverLabelModel, {
+    labelFetcher: seriesModel,
+    labelDataIndex: idx,
+    defaultText: getLabelDefaultText,
+    isRectText: true,
+    autoColor: color
+  }); // Do not execute util needed.
+
+  function getLabelDefaultText(idx, opt) {
+    return useNameLabel ? data.getName(idx) : getDefaultLabel(data, idx);
+  }
+
+  symbolPath.__symbolOriginalScale = getScale(symbolSize);
+  symbolPath.hoverStyle = hoverItemStyle;
+  symbolPath.highDownOnUpdate = hoverAnimation && seriesModel.isAnimationEnabled() ? highDownOnUpdate : null;
+  setHoverStyle(symbolPath);
+};
+
+function highDownOnUpdate(fromState, toState) {
+  // Do not support this hover animation util some scenario required.
+  // Animation can only be supported in hover layer when using `el.incremetal`.
+  if (this.incremental || this.useHoverLayer) {
+    return;
+  }
+
+  if (toState === 'emphasis') {
+    var scale = this.__symbolOriginalScale;
+    var ratio = scale[1] / scale[0];
+    var emphasisOpt = {
+      scale: [Math.max(scale[0] * 1.1, scale[0] + 3), Math.max(scale[1] * 1.1, scale[1] + 3 * ratio)]
+    }; // FIXME
+    // modify it after support stop specified animation.
+    // toState === fromState
+    //     ? (this.stopAnimation(), this.attr(emphasisOpt))
+
+    this.animateTo(emphasisOpt, 400, 'elasticOut');
+  } else if (toState === 'normal') {
+    this.animateTo({
+      scale: this.__symbolOriginalScale
+    }, 400, 'elasticOut');
+  }
+}
+/**
+ * @param {Function} cb
+ * @param {Object} [opt]
+ * @param {Object} [opt.keepLabel=true]
+ */
+
+
+symbolProto.fadeOut = function (cb, opt) {
+  var symbolPath = this.childAt(0); // Avoid mistaken hover when fading out
+
+  this.silent = symbolPath.silent = true; // Not show text when animating
+
+  !(opt && opt.keepLabel) && (symbolPath.style.text = null);
+  updateProps(symbolPath, {
+    style: {
+      opacity: 0
+    },
+    scale: [0, 0]
+  }, this._seriesModel, this.dataIndex, cb);
+};
+
+inherits(SymbolClz, Group);
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+
+/**
+ * @module echarts/chart/helper/SymbolDraw
+ */
+/**
+ * @constructor
+ * @alias module:echarts/chart/helper/SymbolDraw
+ * @param {module:zrender/graphic/Group} [symbolCtor]
+ */
+
+function SymbolDraw(symbolCtor) {
+  this.group = new Group();
+  this._symbolCtor = symbolCtor || SymbolClz;
+}
+
+var symbolDrawProto = SymbolDraw.prototype;
+
+function symbolNeedsDraw(data, point, idx, opt) {
+  return point && !isNaN(point[0]) && !isNaN(point[1]) && !(opt.isIgnore && opt.isIgnore(idx)) // We do not set clipShape on group, because it will cut part of
+  // the symbol element shape. We use the same clip shape here as
+  // the line clip.
+  && !(opt.clipShape && !opt.clipShape.contain(point[0], point[1])) && data.getItemVisual(idx, 'symbol') !== 'none';
+}
+/**
+ * Update symbols draw by new data
+ * @param {module:echarts/data/List} data
+ * @param {Object} [opt] Or isIgnore
+ * @param {Function} [opt.isIgnore]
+ * @param {Object} [opt.clipShape]
+ */
+
+
+symbolDrawProto.updateData = function (data, opt) {
+  opt = normalizeUpdateOpt(opt);
+  var group = this.group;
+  var seriesModel = data.hostModel;
+  var oldData = this._data;
+  var SymbolCtor = this._symbolCtor;
+  var seriesScope = makeSeriesScope(data); // There is no oldLineData only when first rendering or switching from
+  // stream mode to normal mode, where previous elements should be removed.
+
+  if (!oldData) {
+    group.removeAll();
+  }
+
+  data.diff(oldData).add(function (newIdx) {
+    var point = data.getItemLayout(newIdx);
+
+    if (symbolNeedsDraw(data, point, newIdx, opt)) {
+      var symbolEl = new SymbolCtor(data, newIdx, seriesScope);
+      symbolEl.attr('position', point);
+      data.setItemGraphicEl(newIdx, symbolEl);
+      group.add(symbolEl);
+    }
+  }).update(function (newIdx, oldIdx) {
+    var symbolEl = oldData.getItemGraphicEl(oldIdx);
+    var point = data.getItemLayout(newIdx);
+
+    if (!symbolNeedsDraw(data, point, newIdx, opt)) {
+      group.remove(symbolEl);
+      return;
+    }
+
+    if (!symbolEl) {
+      symbolEl = new SymbolCtor(data, newIdx);
+      symbolEl.attr('position', point);
+    } else {
+      symbolEl.updateData(data, newIdx, seriesScope);
+      updateProps(symbolEl, {
+        position: point
+      }, seriesModel);
+    } // Add back
+
+
+    group.add(symbolEl);
+    data.setItemGraphicEl(newIdx, symbolEl);
+  }).remove(function (oldIdx) {
+    var el = oldData.getItemGraphicEl(oldIdx);
+    el && el.fadeOut(function () {
+      group.remove(el);
+    });
+  }).execute();
+  this._data = data;
+};
+
+symbolDrawProto.isPersistent = function () {
+  return true;
+};
+
+symbolDrawProto.updateLayout = function () {
+  var data = this._data;
+
+  if (data) {
+    // Not use animation
+    data.eachItemGraphicEl(function (el, idx) {
+      var point = data.getItemLayout(idx);
+      el.attr('position', point);
+    });
+  }
+};
+
+symbolDrawProto.incrementalPrepareUpdate = function (data) {
+  this._seriesScope = makeSeriesScope(data);
+  this._data = null;
+  this.group.removeAll();
+};
+/**
+ * Update symbols draw by new data
+ * @param {module:echarts/data/List} data
+ * @param {Object} [opt] Or isIgnore
+ * @param {Function} [opt.isIgnore]
+ * @param {Object} [opt.clipShape]
+ */
+
+
+symbolDrawProto.incrementalUpdate = function (taskParams, data, opt) {
+  opt = normalizeUpdateOpt(opt);
+
+  function updateIncrementalAndHover(el) {
+    if (!el.isGroup) {
+      el.incremental = el.useHoverLayer = true;
+    }
+  }
+
+  for (var idx = taskParams.start; idx < taskParams.end; idx++) {
+    var point = data.getItemLayout(idx);
+
+    if (symbolNeedsDraw(data, point, idx, opt)) {
+      var el = new this._symbolCtor(data, idx, this._seriesScope);
+      el.traverse(updateIncrementalAndHover);
+      el.attr('position', point);
+      this.group.add(el);
+      data.setItemGraphicEl(idx, el);
+    }
+  }
+};
+
+function normalizeUpdateOpt(opt) {
+  if (opt != null && !isObject$1(opt)) {
+    opt = {
+      isIgnore: opt
+    };
+  }
+
+  return opt || {};
+}
+
+symbolDrawProto.remove = function (enableAnimation) {
+  var group = this.group;
+  var data = this._data; // Incremental model do not have this._data.
+
+  if (data && enableAnimation) {
+    data.eachItemGraphicEl(function (el) {
+      el.fadeOut(function () {
+        group.remove(el);
+      });
+    });
+  } else {
+    group.removeAll();
+  }
+};
+
+function makeSeriesScope(data) {
+  var seriesModel = data.hostModel;
+  return {
+    itemStyle: seriesModel.getModel('itemStyle').getItemStyle(['color']),
+    hoverItemStyle: seriesModel.getModel('emphasis.itemStyle').getItemStyle(),
+    symbolRotate: seriesModel.get('symbolRotate'),
+    symbolOffset: seriesModel.get('symbolOffset'),
+    hoverAnimation: seriesModel.get('hoverAnimation'),
+    labelModel: seriesModel.getModel('label'),
+    hoverLabelModel: seriesModel.getModel('emphasis.label'),
+    cursorStyle: seriesModel.get('cursor')
+  };
+}
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+/**
+ * @param {Object} coordSys
+ * @param {module:echarts/data/List} data
+ * @param {string} valueOrigin lineSeries.option.areaStyle.origin
+ */
+
+function prepareDataCoordInfo(coordSys, data, valueOrigin) {
+  var baseAxis = coordSys.getBaseAxis();
+  var valueAxis = coordSys.getOtherAxis(baseAxis);
+  var valueStart = getValueStart(valueAxis, valueOrigin);
+  var baseAxisDim = baseAxis.dim;
+  var valueAxisDim = valueAxis.dim;
+  var valueDim = data.mapDimension(valueAxisDim);
+  var baseDim = data.mapDimension(baseAxisDim);
+  var baseDataOffset = valueAxisDim === 'x' || valueAxisDim === 'radius' ? 1 : 0;
+  var dims = map(coordSys.dimensions, function (coordDim) {
+    return data.mapDimension(coordDim);
+  });
+  var stacked;
+  var stackResultDim = data.getCalculationInfo('stackResultDimension');
+
+  if (stacked |= isDimensionStacked(data, dims[0]
+  /*, dims[1]*/
+  )) {
+    // jshint ignore:line
+    dims[0] = stackResultDim;
+  }
+
+  if (stacked |= isDimensionStacked(data, dims[1]
+  /*, dims[0]*/
+  )) {
+    // jshint ignore:line
+    dims[1] = stackResultDim;
+  }
+
+  return {
+    dataDimsForPoint: dims,
+    valueStart: valueStart,
+    valueAxisDim: valueAxisDim,
+    baseAxisDim: baseAxisDim,
+    stacked: !!stacked,
+    valueDim: valueDim,
+    baseDim: baseDim,
+    baseDataOffset: baseDataOffset,
+    stackedOverDimension: data.getCalculationInfo('stackedOverDimension')
+  };
+}
+
+function getValueStart(valueAxis, valueOrigin) {
+  var valueStart = 0;
+  var extent = valueAxis.scale.getExtent();
+
+  if (valueOrigin === 'start') {
+    valueStart = extent[0];
+  } else if (valueOrigin === 'end') {
+    valueStart = extent[1];
+  } // auto
+  else {
+      // Both positive
+      if (extent[0] > 0) {
+        valueStart = extent[0];
+      } // Both negative
+      else if (extent[1] < 0) {
+          valueStart = extent[1];
+        } // If is one positive, and one negative, onZero shall be true
+
+    }
+
+  return valueStart;
+}
+
+function getStackedOnPoint(dataCoordInfo, coordSys, data, idx) {
+  var value = NaN;
+
+  if (dataCoordInfo.stacked) {
+    value = data.get(data.getCalculationInfo('stackedOverDimension'), idx);
+  }
+
+  if (isNaN(value)) {
+    value = dataCoordInfo.valueStart;
+  }
+
+  var baseDataOffset = dataCoordInfo.baseDataOffset;
+  var stackedData = [];
+  stackedData[baseDataOffset] = data.get(dataCoordInfo.baseDim, idx);
+  stackedData[1 - baseDataOffset] = value;
+  return coordSys.dataToPoint(stackedData);
+}
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+// 'zrender/src/core/arrayDiff' has been used before, but it did
+// not do well in performance when roam with fixed dataZoom window.
+// function convertToIntId(newIdList, oldIdList) {
+//     // Generate int id instead of string id.
+//     // Compare string maybe slow in score function of arrDiff
+//     // Assume id in idList are all unique
+//     var idIndicesMap = {};
+//     var idx = 0;
+//     for (var i = 0; i < newIdList.length; i++) {
+//         idIndicesMap[newIdList[i]] = idx;
+//         newIdList[i] = idx++;
+//     }
+//     for (var i = 0; i < oldIdList.length; i++) {
+//         var oldId = oldIdList[i];
+//         // Same with newIdList
+//         if (idIndicesMap[oldId]) {
+//             oldIdList[i] = idIndicesMap[oldId];
+//         }
+//         else {
+//             oldIdList[i] = idx++;
+//         }
+//     }
+// }
+
+function diffData(oldData, newData) {
+  var diffResult = [];
+  newData.diff(oldData).add(function (idx) {
+    diffResult.push({
+      cmd: '+',
+      idx: idx
+    });
+  }).update(function (newIdx, oldIdx) {
+    diffResult.push({
+      cmd: '=',
+      idx: oldIdx,
+      idx1: newIdx
+    });
+  }).remove(function (idx) {
+    diffResult.push({
+      cmd: '-',
+      idx: idx
+    });
+  }).execute();
+  return diffResult;
+}
+
+var lineAnimationDiff = function (oldData, newData, oldStackedOnPoints, newStackedOnPoints, oldCoordSys, newCoordSys, oldValueOrigin, newValueOrigin) {
+  var diff = diffData(oldData, newData); // var newIdList = newData.mapArray(newData.getId);
+  // var oldIdList = oldData.mapArray(oldData.getId);
+  // convertToIntId(newIdList, oldIdList);
+  // // FIXME One data ?
+  // diff = arrayDiff(oldIdList, newIdList);
+
+  var currPoints = [];
+  var nextPoints = []; // Points for stacking base line
+
+  var currStackedPoints = [];
+  var nextStackedPoints = [];
+  var status = [];
+  var sortedIndices = [];
+  var rawIndices = [];
+  var newDataOldCoordInfo = prepareDataCoordInfo(oldCoordSys, newData, oldValueOrigin);
+  var oldDataNewCoordInfo = prepareDataCoordInfo(newCoordSys, oldData, newValueOrigin);
+
+  for (var i = 0; i < diff.length; i++) {
+    var diffItem = diff[i];
+    var pointAdded = true; // FIXME, animation is not so perfect when dataZoom window moves fast
+    // Which is in case remvoing or add more than one data in the tail or head
+
+    switch (diffItem.cmd) {
+      case '=':
+        var currentPt = oldData.getItemLayout(diffItem.idx);
+        var nextPt = newData.getItemLayout(diffItem.idx1); // If previous data is NaN, use next point directly
+
+        if (isNaN(currentPt[0]) || isNaN(currentPt[1])) {
+          currentPt = nextPt.slice();
+        }
+
+        currPoints.push(currentPt);
+        nextPoints.push(nextPt);
+        currStackedPoints.push(oldStackedOnPoints[diffItem.idx]);
+        nextStackedPoints.push(newStackedOnPoints[diffItem.idx1]);
+        rawIndices.push(newData.getRawIndex(diffItem.idx1));
+        break;
+
+      case '+':
+        var idx = diffItem.idx;
+        currPoints.push(oldCoordSys.dataToPoint([newData.get(newDataOldCoordInfo.dataDimsForPoint[0], idx), newData.get(newDataOldCoordInfo.dataDimsForPoint[1], idx)]));
+        nextPoints.push(newData.getItemLayout(idx).slice());
+        currStackedPoints.push(getStackedOnPoint(newDataOldCoordInfo, oldCoordSys, newData, idx));
+        nextStackedPoints.push(newStackedOnPoints[idx]);
+        rawIndices.push(newData.getRawIndex(idx));
+        break;
+
+      case '-':
+        var idx = diffItem.idx;
+        var rawIndex = oldData.getRawIndex(idx); // Data is replaced. In the case of dynamic data queue
+        // FIXME FIXME FIXME
+
+        if (rawIndex !== idx) {
+          currPoints.push(oldData.getItemLayout(idx));
+          nextPoints.push(newCoordSys.dataToPoint([oldData.get(oldDataNewCoordInfo.dataDimsForPoint[0], idx), oldData.get(oldDataNewCoordInfo.dataDimsForPoint[1], idx)]));
+          currStackedPoints.push(oldStackedOnPoints[idx]);
+          nextStackedPoints.push(getStackedOnPoint(oldDataNewCoordInfo, newCoordSys, oldData, idx));
+          rawIndices.push(rawIndex);
+        } else {
+          pointAdded = false;
+        }
+
+    } // Original indices
+
+
+    if (pointAdded) {
+      status.push(diffItem);
+      sortedIndices.push(sortedIndices.length);
+    }
+  } // Diff result may be crossed if all items are changed
+  // Sort by data index
+
+
+  sortedIndices.sort(function (a, b) {
+    return rawIndices[a] - rawIndices[b];
+  });
+  var sortedCurrPoints = [];
+  var sortedNextPoints = [];
+  var sortedCurrStackedPoints = [];
+  var sortedNextStackedPoints = [];
+  var sortedStatus = [];
+
+  for (var i = 0; i < sortedIndices.length; i++) {
+    var idx = sortedIndices[i];
+    sortedCurrPoints[i] = currPoints[idx];
+    sortedNextPoints[i] = nextPoints[idx];
+    sortedCurrStackedPoints[i] = currStackedPoints[idx];
+    sortedNextStackedPoints[i] = nextStackedPoints[idx];
+    sortedStatus[i] = status[idx];
+  }
+
+  return {
+    current: sortedCurrPoints,
+    next: sortedNextPoints,
+    stackedOnCurrent: sortedCurrStackedPoints,
+    stackedOnNext: sortedNextStackedPoints,
+    status: sortedStatus
+  };
+};
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+// Poly path support NaN point
+var vec2Min = min;
+var vec2Max = max;
+var scaleAndAdd$1 = scaleAndAdd;
+var v2Copy = copy; // Temporary variable
+
+var v = [];
+var cp0 = [];
+var cp1 = [];
+
+function isPointNull(p) {
+  return isNaN(p[0]) || isNaN(p[1]);
+}
+
+function drawSegment(ctx, points, start, segLen, allLen, dir, smoothMin, smoothMax, smooth, smoothMonotone, connectNulls) {
+  // if (smoothMonotone == null) {
+  //     if (isMono(points, 'x')) {
+  //         return drawMono(ctx, points, start, segLen, allLen,
+  //             dir, smoothMin, smoothMax, smooth, 'x', connectNulls);
+  //     }
+  //     else if (isMono(points, 'y')) {
+  //         return drawMono(ctx, points, start, segLen, allLen,
+  //             dir, smoothMin, smoothMax, smooth, 'y', connectNulls);
+  //     }
+  //     else {
+  //         return drawNonMono.apply(this, arguments);
+  //     }
+  // }
+  // else if (smoothMonotone !== 'none' && isMono(points, smoothMonotone)) {
+  //     return drawMono.apply(this, arguments);
+  // }
+  // else {
+  //     return drawNonMono.apply(this, arguments);
+  // }
+  if (smoothMonotone === 'none' || !smoothMonotone) {
+    return drawNonMono.apply(this, arguments);
+  } else {
+    return drawMono.apply(this, arguments);
+  }
+}
+/**
+ * Check if points is in monotone.
+ *
+ * @param {number[][]} points         Array of points which is in [x, y] form
+ * @param {string}     smoothMonotone 'x', 'y', or 'none', stating for which
+ *                                    dimension that is checking.
+ *                                    If is 'none', `drawNonMono` should be
+ *                                    called.
+ *                                    If is undefined, either being monotone
+ *                                    in 'x' or 'y' will call `drawMono`.
+ */
+// function isMono(points, smoothMonotone) {
+//     if (points.length <= 1) {
+//         return true;
+//     }
+//     var dim = smoothMonotone === 'x' ? 0 : 1;
+//     var last = points[0][dim];
+//     var lastDiff = 0;
+//     for (var i = 1; i < points.length; ++i) {
+//         var diff = points[i][dim] - last;
+//         if (!isNaN(diff) && !isNaN(lastDiff)
+//             && diff !== 0 && lastDiff !== 0
+//             && ((diff >= 0) !== (lastDiff >= 0))
+//         ) {
+//             return false;
+//         }
+//         if (!isNaN(diff) && diff !== 0) {
+//             lastDiff = diff;
+//             last = points[i][dim];
+//         }
+//     }
+//     return true;
+// }
+
+/**
+ * Draw smoothed line in monotone, in which only vertical or horizontal bezier
+ * control points will be used. This should be used when points are monotone
+ * either in x or y dimension.
+ */
+
+
+function drawMono(ctx, points, start, segLen, allLen, dir, smoothMin, smoothMax, smooth, smoothMonotone, connectNulls) {
+  var prevIdx = 0;
+  var idx = start;
+
+  for (var k = 0; k < segLen; k++) {
+    var p = points[idx];
+
+    if (idx >= allLen || idx < 0) {
+      break;
+    }
+
+    if (isPointNull(p)) {
+      if (connectNulls) {
+        idx += dir;
+        continue;
+      }
+
+      break;
+    }
+
+    if (idx === start) {
+      ctx[dir > 0 ? 'moveTo' : 'lineTo'](p[0], p[1]);
+    } else {
+      if (smooth > 0) {
+        var prevP = points[prevIdx];
+        var dim = smoothMonotone === 'y' ? 1 : 0; // Length of control point to p, either in x or y, but not both
+
+        var ctrlLen = (p[dim] - prevP[dim]) * smooth;
+        v2Copy(cp0, prevP);
+        cp0[dim] = prevP[dim] + ctrlLen;
+        v2Copy(cp1, p);
+        cp1[dim] = p[dim] - ctrlLen;
+        ctx.bezierCurveTo(cp0[0], cp0[1], cp1[0], cp1[1], p[0], p[1]);
+      } else {
+        ctx.lineTo(p[0], p[1]);
+      }
+    }
+
+    prevIdx = idx;
+    idx += dir;
+  }
+
+  return k;
+}
+/**
+ * Draw smoothed line in non-monotone, in may cause undesired curve in extreme
+ * situations. This should be used when points are non-monotone neither in x or
+ * y dimension.
+ */
+
+
+function drawNonMono(ctx, points, start, segLen, allLen, dir, smoothMin, smoothMax, smooth, smoothMonotone, connectNulls) {
+  var prevIdx = 0;
+  var idx = start;
+
+  for (var k = 0; k < segLen; k++) {
+    var p = points[idx];
+
+    if (idx >= allLen || idx < 0) {
+      break;
+    }
+
+    if (isPointNull(p)) {
+      if (connectNulls) {
+        idx += dir;
+        continue;
+      }
+
+      break;
+    }
+
+    if (idx === start) {
+      ctx[dir > 0 ? 'moveTo' : 'lineTo'](p[0], p[1]);
+      v2Copy(cp0, p);
+    } else {
+      if (smooth > 0) {
+        var nextIdx = idx + dir;
+        var nextP = points[nextIdx];
+
+        if (connectNulls) {
+          // Find next point not null
+          while (nextP && isPointNull(points[nextIdx])) {
+            nextIdx += dir;
+            nextP = points[nextIdx];
+          }
+        }
+
+        var ratioNextSeg = 0.5;
+        var prevP = points[prevIdx];
+        var nextP = points[nextIdx]; // Last point
+
+        if (!nextP || isPointNull(nextP)) {
+          v2Copy(cp1, p);
+        } else {
+          // If next data is null in not connect case
+          if (isPointNull(nextP) && !connectNulls) {
+            nextP = p;
+          }
+
+          sub(v, nextP, prevP);
+          var lenPrevSeg;
+          var lenNextSeg;
+
+          if (smoothMonotone === 'x' || smoothMonotone === 'y') {
+            var dim = smoothMonotone === 'x' ? 0 : 1;
+            lenPrevSeg = Math.abs(p[dim] - prevP[dim]);
+            lenNextSeg = Math.abs(p[dim] - nextP[dim]);
+          } else {
+            lenPrevSeg = dist(p, prevP);
+            lenNextSeg = dist(p, nextP);
+          } // Use ratio of seg length
+
+
+          ratioNextSeg = lenNextSeg / (lenNextSeg + lenPrevSeg);
+          scaleAndAdd$1(cp1, p, v, -smooth * (1 - ratioNextSeg));
+        } // Smooth constraint
+
+
+        vec2Min(cp0, cp0, smoothMax);
+        vec2Max(cp0, cp0, smoothMin);
+        vec2Min(cp1, cp1, smoothMax);
+        vec2Max(cp1, cp1, smoothMin);
+        ctx.bezierCurveTo(cp0[0], cp0[1], cp1[0], cp1[1], p[0], p[1]); // cp0 of next segment
+
+        scaleAndAdd$1(cp0, p, v, smooth * ratioNextSeg);
+      } else {
+        ctx.lineTo(p[0], p[1]);
+      }
+    }
+
+    prevIdx = idx;
+    idx += dir;
+  }
+
+  return k;
+}
+
+function getBoundingBox(points, smoothConstraint) {
+  var ptMin = [Infinity, Infinity];
+  var ptMax = [-Infinity, -Infinity];
+
+  if (smoothConstraint) {
+    for (var i = 0; i < points.length; i++) {
+      var pt = points[i];
+
+      if (pt[0] < ptMin[0]) {
+        ptMin[0] = pt[0];
+      }
+
+      if (pt[1] < ptMin[1]) {
+        ptMin[1] = pt[1];
+      }
+
+      if (pt[0] > ptMax[0]) {
+        ptMax[0] = pt[0];
+      }
+
+      if (pt[1] > ptMax[1]) {
+        ptMax[1] = pt[1];
+      }
+    }
+  }
+
+  return {
+    min: smoothConstraint ? ptMin : ptMax,
+    max: smoothConstraint ? ptMax : ptMin
+  };
+}
+
+var Polyline$1 = Path.extend({
+  type: 'ec-polyline',
+  shape: {
+    points: [],
+    smooth: 0,
+    smoothConstraint: true,
+    smoothMonotone: null,
+    connectNulls: false
+  },
+  style: {
+    fill: null,
+    stroke: '#000'
+  },
+  brush: fixClipWithShadow(Path.prototype.brush),
+  buildPath: function (ctx, shape) {
+    var points = shape.points;
+    var i = 0;
+    var len$$1 = points.length;
+    var result = getBoundingBox(points, shape.smoothConstraint);
+
+    if (shape.connectNulls) {
+      // Must remove first and last null values avoid draw error in polygon
+      for (; len$$1 > 0; len$$1--) {
+        if (!isPointNull(points[len$$1 - 1])) {
+          break;
+        }
+      }
+
+      for (; i < len$$1; i++) {
+        if (!isPointNull(points[i])) {
+          break;
+        }
+      }
+    }
+
+    while (i < len$$1) {
+      i += drawSegment(ctx, points, i, len$$1, len$$1, 1, result.min, result.max, shape.smooth, shape.smoothMonotone, shape.connectNulls) + 1;
+    }
+  }
+});
+var Polygon$1 = Path.extend({
+  type: 'ec-polygon',
+  shape: {
+    points: [],
+    // Offset between stacked base points and points
+    stackedOnPoints: [],
+    smooth: 0,
+    stackedOnSmooth: 0,
+    smoothConstraint: true,
+    smoothMonotone: null,
+    connectNulls: false
+  },
+  brush: fixClipWithShadow(Path.prototype.brush),
+  buildPath: function (ctx, shape) {
+    var points = shape.points;
+    var stackedOnPoints = shape.stackedOnPoints;
+    var i = 0;
+    var len$$1 = points.length;
+    var smoothMonotone = shape.smoothMonotone;
+    var bbox = getBoundingBox(points, shape.smoothConstraint);
+    var stackedOnBBox = getBoundingBox(stackedOnPoints, shape.smoothConstraint);
+
+    if (shape.connectNulls) {
+      // Must remove first and last null values avoid draw error in polygon
+      for (; len$$1 > 0; len$$1--) {
+        if (!isPointNull(points[len$$1 - 1])) {
+          break;
+        }
+      }
+
+      for (; i < len$$1; i++) {
+        if (!isPointNull(points[i])) {
+          break;
+        }
+      }
+    }
+
+    while (i < len$$1) {
+      var k = drawSegment(ctx, points, i, len$$1, len$$1, 1, bbox.min, bbox.max, shape.smooth, smoothMonotone, shape.connectNulls);
+      drawSegment(ctx, stackedOnPoints, i + k - 1, k, len$$1, -1, stackedOnBBox.min, stackedOnBBox.max, shape.stackedOnSmooth, smoothMonotone, shape.connectNulls);
+      i += k + 1;
+      ctx.closePath();
+    }
+  }
+});
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+function createGridClipPath(cartesian, hasAnimation, seriesModel) {
+  var rect = cartesian.getArea();
+  var isHorizontal = cartesian.getBaseAxis().isHorizontal();
+  var x = rect.x;
+  var y = rect.y;
+  var width = rect.width;
+  var height = rect.height;
+  var lineWidth = seriesModel.get('lineStyle.width') || 2; // Expand the clip path a bit to avoid the border is clipped and looks thinner
+
+  x -= lineWidth / 2;
+  y -= lineWidth / 2;
+  width += lineWidth;
+  height += lineWidth; // fix: https://github.com/apache/incubator-echarts/issues/11369
+
+  x = Math.floor(x);
+  width = Math.round(width);
+  var clipPath = new Rect({
+    shape: {
+      x: x,
+      y: y,
+      width: width,
+      height: height
+    }
+  });
+
+  if (hasAnimation) {
+    clipPath.shape[isHorizontal ? 'width' : 'height'] = 0;
+    initProps(clipPath, {
+      shape: {
+        width: width,
+        height: height
+      }
+    }, seriesModel);
+  }
+
+  return clipPath;
+}
+
+function createPolarClipPath(polar, hasAnimation, seriesModel) {
+  var sectorArea = polar.getArea(); // Avoid float number rounding error for symbol on the edge of axis extent.
+
+  var clipPath = new Sector({
+    shape: {
+      cx: round$1(polar.cx, 1),
+      cy: round$1(polar.cy, 1),
+      r0: round$1(sectorArea.r0, 1),
+      r: round$1(sectorArea.r, 1),
+      startAngle: sectorArea.startAngle,
+      endAngle: sectorArea.endAngle,
+      clockwise: sectorArea.clockwise
+    }
+  });
+
+  if (hasAnimation) {
+    clipPath.shape.endAngle = sectorArea.startAngle;
+    initProps(clipPath, {
+      shape: {
+        endAngle: sectorArea.endAngle
+      }
+    }, seriesModel);
+  }
+
+  return clipPath;
+}
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+// FIXME step not support polar
+function isPointsSame(points1, points2) {
+  if (points1.length !== points2.length) {
+    return;
+  }
+
+  for (var i = 0; i < points1.length; i++) {
+    var p1 = points1[i];
+    var p2 = points2[i];
+
+    if (p1[0] !== p2[0] || p1[1] !== p2[1]) {
+      return;
+    }
+  }
+
+  return true;
+}
+
+function getBoundingDiff(points1, points2) {
+  var min1 = [];
+  var max1 = [];
+  var min2 = [];
+  var max2 = [];
+  fromPoints(points1, min1, max1);
+  fromPoints(points2, min2, max2); // Get a max value from each corner of two boundings.
+
+  return Math.max(Math.abs(min1[0] - min2[0]), Math.abs(min1[1] - min2[1]), Math.abs(max1[0] - max2[0]), Math.abs(max1[1] - max2[1]));
+}
+
+function getSmooth(smooth) {
+  return typeof smooth === 'number' ? smooth : smooth ? 0.5 : 0;
+}
+/**
+ * @param {module:echarts/coord/cartesian/Cartesian2D|module:echarts/coord/polar/Polar} coordSys
+ * @param {module:echarts/data/List} data
+ * @param {Object} dataCoordInfo
+ * @param {Array.<Array.<number>>} points
+ */
+
+
+function getStackedOnPoints(coordSys, data, dataCoordInfo) {
+  if (!dataCoordInfo.valueDim) {
+    return [];
+  }
+
+  var points = [];
+
+  for (var idx = 0, len = data.count(); idx < len; idx++) {
+    points.push(getStackedOnPoint(dataCoordInfo, coordSys, data, idx));
+  }
+
+  return points;
+}
+
+function turnPointsIntoStep(points, coordSys, stepTurnAt) {
+  var baseAxis = coordSys.getBaseAxis();
+  var baseIndex = baseAxis.dim === 'x' || baseAxis.dim === 'radius' ? 0 : 1;
+  var stepPoints = [];
+
+  for (var i = 0; i < points.length - 1; i++) {
+    var nextPt = points[i + 1];
+    var pt = points[i];
+    stepPoints.push(pt);
+    var stepPt = [];
+
+    switch (stepTurnAt) {
+      case 'end':
+        stepPt[baseIndex] = nextPt[baseIndex];
+        stepPt[1 - baseIndex] = pt[1 - baseIndex]; // default is start
+
+        stepPoints.push(stepPt);
+        break;
+
+      case 'middle':
+        // default is start
+        var middle = (pt[baseIndex] + nextPt[baseIndex]) / 2;
+        var stepPt2 = [];
+        stepPt[baseIndex] = stepPt2[baseIndex] = middle;
+        stepPt[1 - baseIndex] = pt[1 - baseIndex];
+        stepPt2[1 - baseIndex] = nextPt[1 - baseIndex];
+        stepPoints.push(stepPt);
+        stepPoints.push(stepPt2);
+        break;
+
+      default:
+        stepPt[baseIndex] = pt[baseIndex];
+        stepPt[1 - baseIndex] = nextPt[1 - baseIndex]; // default is start
+
+        stepPoints.push(stepPt);
+    }
+  } // Last points
+
+
+  points[i] && stepPoints.push(points[i]);
+  return stepPoints;
+}
+
+function getVisualGradient(data, coordSys) {
+  var visualMetaList = data.getVisual('visualMeta');
+
+  if (!visualMetaList || !visualMetaList.length || !data.count()) {
+    // When data.count() is 0, gradient range can not be calculated.
+    return;
+  }
+
+  if (coordSys.type !== 'cartesian2d') {
+    return;
+  }
+
+  var coordDim;
+  var visualMeta;
+
+  for (var i = visualMetaList.length - 1; i >= 0; i--) {
+    var dimIndex = visualMetaList[i].dimension;
+    var dimName = data.dimensions[dimIndex];
+    var dimInfo = data.getDimensionInfo(dimName);
+    coordDim = dimInfo && dimInfo.coordDim; // Can only be x or y
+
+    if (coordDim === 'x' || coordDim === 'y') {
+      visualMeta = visualMetaList[i];
+      break;
+    }
+  }
+
+  if (!visualMeta) {
+    return;
+  } // If the area to be rendered is bigger than area defined by LinearGradient,
+  // the canvas spec prescribes that the color of the first stop and the last
+  // stop should be used. But if two stops are added at offset 0, in effect
+  // browsers use the color of the second stop to render area outside
+  // LinearGradient. So we can only infinitesimally extend area defined in
+  // LinearGradient to render `outerColors`.
+
+
+  var axis = coordSys.getAxis(coordDim); // dataToCoor mapping may not be linear, but must be monotonic.
+
+  var colorStops = map(visualMeta.stops, function (stop) {
+    return {
+      coord: axis.toGlobalCoord(axis.dataToCoord(stop.value)),
+      color: stop.color
+    };
+  });
+  var stopLen = colorStops.length;
+  var outerColors = visualMeta.outerColors.slice();
+
+  if (stopLen && colorStops[0].coord > colorStops[stopLen - 1].coord) {
+    colorStops.reverse();
+    outerColors.reverse();
+  }
+
+  var tinyExtent = 10; // Arbitrary value: 10px
+
+  var minCoord = colorStops[0].coord - tinyExtent;
+  var maxCoord = colorStops[stopLen - 1].coord + tinyExtent;
+  var coordSpan = maxCoord - minCoord;
+
+  if (coordSpan < 1e-3) {
+    return 'transparent';
+  }
+
+  each$1(colorStops, function (stop) {
+    stop.offset = (stop.coord - minCoord) / coordSpan;
+  });
+  colorStops.push({
+    offset: stopLen ? colorStops[stopLen - 1].offset : 0.5,
+    color: outerColors[1] || 'transparent'
+  });
+  colorStops.unshift({
+    // notice colorStops.length have been changed.
+    offset: stopLen ? colorStops[0].offset : 0.5,
+    color: outerColors[0] || 'transparent'
+  }); // zrUtil.each(colorStops, function (colorStop) {
+  //     // Make sure each offset has rounded px to avoid not sharp edge
+  //     colorStop.offset = (Math.round(colorStop.offset * (end - start) + start) - start) / (end - start);
+  // });
+
+  var gradient = new LinearGradient(0, 0, 0, 0, colorStops, true);
+  gradient[coordDim] = minCoord;
+  gradient[coordDim + '2'] = maxCoord;
+  return gradient;
+}
+
+function getIsIgnoreFunc(seriesModel, data, coordSys) {
+  var showAllSymbol = seriesModel.get('showAllSymbol');
+  var isAuto = showAllSymbol === 'auto';
+
+  if (showAllSymbol && !isAuto) {
+    return;
+  }
+
+  var categoryAxis = coordSys.getAxesByScale('ordinal')[0];
+
+  if (!categoryAxis) {
+    return;
+  } // Note that category label interval strategy might bring some weird effect
+  // in some scenario: users may wonder why some of the symbols are not
+  // displayed. So we show all symbols as possible as we can.
+
+
+  if (isAuto // Simplify the logic, do not determine label overlap here.
+  && canShowAllSymbolForCategory(categoryAxis, data)) {
+    return;
+  } // Otherwise follow the label interval strategy on category axis.
+
+
+  var categoryDataDim = data.mapDimension(categoryAxis.dim);
+  var labelMap = {};
+  each$1(categoryAxis.getViewLabels(), function (labelItem) {
+    labelMap[labelItem.tickValue] = 1;
+  });
+  return function (dataIndex) {
+    return !labelMap.hasOwnProperty(data.get(categoryDataDim, dataIndex));
+  };
+}
+
+function canShowAllSymbolForCategory(categoryAxis, data) {
+  // In mose cases, line is monotonous on category axis, and the label size
+  // is close with each other. So we check the symbol size and some of the
+  // label size alone with the category axis to estimate whether all symbol
+  // can be shown without overlap.
+  var axisExtent = categoryAxis.getExtent();
+  var availSize = Math.abs(axisExtent[1] - axisExtent[0]) / categoryAxis.scale.count();
+  isNaN(availSize) && (availSize = 0); // 0/0 is NaN.
+  // Sampling some points, max 5.
+
+  var dataLen = data.count();
+  var step = Math.max(1, Math.round(dataLen / 5));
+
+  for (var dataIndex = 0; dataIndex < dataLen; dataIndex += step) {
+    if (SymbolClz.getSymbolSize(data, dataIndex // Only for cartesian, where `isHorizontal` exists.
+    )[categoryAxis.isHorizontal() ? 1 : 0] // Empirical number
+    * 1.5 > availSize) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+function createLineClipPath(coordSys, hasAnimation, seriesModel) {
+  if (coordSys.type === 'cartesian2d') {
+    var isHorizontal = coordSys.getBaseAxis().isHorizontal();
+    var clipPath = createGridClipPath(coordSys, hasAnimation, seriesModel); // Expand clip shape to avoid clipping when line value exceeds axis
+
+    if (!seriesModel.get('clip', true)) {
+      var rectShape = clipPath.shape;
+      var expandSize = Math.max(rectShape.width, rectShape.height);
+
+      if (isHorizontal) {
+        rectShape.y -= expandSize;
+        rectShape.height += expandSize * 2;
+      } else {
+        rectShape.x -= expandSize;
+        rectShape.width += expandSize * 2;
+      }
+    }
+
+    return clipPath;
+  } else {
+    return createPolarClipPath(coordSys, hasAnimation, seriesModel);
+  }
+}
+
+Chart.extend({
+  type: 'line',
+  init: function () {
+    var lineGroup = new Group();
+    var symbolDraw = new SymbolDraw();
+    this.group.add(symbolDraw.group);
+    this._symbolDraw = symbolDraw;
+    this._lineGroup = lineGroup;
+  },
+  render: function (seriesModel, ecModel, api) {
+    var coordSys = seriesModel.coordinateSystem;
+    var group = this.group;
+    var data = seriesModel.getData();
+    var lineStyleModel = seriesModel.getModel('lineStyle');
+    var areaStyleModel = seriesModel.getModel('areaStyle');
+    var points = data.mapArray(data.getItemLayout);
+    var isCoordSysPolar = coordSys.type === 'polar';
+    var prevCoordSys = this._coordSys;
+    var symbolDraw = this._symbolDraw;
+    var polyline = this._polyline;
+    var polygon = this._polygon;
+    var lineGroup = this._lineGroup;
+    var hasAnimation = seriesModel.get('animation');
+    var isAreaChart = !areaStyleModel.isEmpty();
+    var valueOrigin = areaStyleModel.get('origin');
+    var dataCoordInfo = prepareDataCoordInfo(coordSys, data, valueOrigin);
+    var stackedOnPoints = getStackedOnPoints(coordSys, data, dataCoordInfo);
+    var showSymbol = seriesModel.get('showSymbol');
+    var isIgnoreFunc = showSymbol && !isCoordSysPolar && getIsIgnoreFunc(seriesModel, data, coordSys); // Remove temporary symbols
+
+    var oldData = this._data;
+    oldData && oldData.eachItemGraphicEl(function (el, idx) {
+      if (el.__temp) {
+        group.remove(el);
+        oldData.setItemGraphicEl(idx, null);
+      }
+    }); // Remove previous created symbols if showSymbol changed to false
+
+    if (!showSymbol) {
+      symbolDraw.remove();
+    }
+
+    group.add(lineGroup); // FIXME step not support polar
+
+    var step = !isCoordSysPolar && seriesModel.get('step');
+    var clipShapeForSymbol;
+
+    if (coordSys && coordSys.getArea && seriesModel.get('clip', true)) {
+      clipShapeForSymbol = coordSys.getArea(); // Avoid float number rounding error for symbol on the edge of axis extent.
+      // See #7913 and `test/dataZoom-clip.html`.
+
+      if (clipShapeForSymbol.width != null) {
+        clipShapeForSymbol.x -= 0.1;
+        clipShapeForSymbol.y -= 0.1;
+        clipShapeForSymbol.width += 0.2;
+        clipShapeForSymbol.height += 0.2;
+      } else if (clipShapeForSymbol.r0) {
+        clipShapeForSymbol.r0 -= 0.5;
+        clipShapeForSymbol.r1 += 0.5;
+      }
+    }
+
+    this._clipShapeForSymbol = clipShapeForSymbol; // Initialization animation or coordinate system changed
+
+    if (!(polyline && prevCoordSys.type === coordSys.type && step === this._step)) {
+      showSymbol && symbolDraw.updateData(data, {
+        isIgnore: isIgnoreFunc,
+        clipShape: clipShapeForSymbol
+      });
+
+      if (step) {
+        // TODO If stacked series is not step
+        points = turnPointsIntoStep(points, coordSys, step);
+        stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step);
+      }
+
+      polyline = this._newPolyline(points, coordSys, hasAnimation);
+
+      if (isAreaChart) {
+        polygon = this._newPolygon(points, stackedOnPoints, coordSys, hasAnimation);
+      }
+
+      lineGroup.setClipPath(createLineClipPath(coordSys, true, seriesModel));
+    } else {
+      if (isAreaChart && !polygon) {
+        // If areaStyle is added
+        polygon = this._newPolygon(points, stackedOnPoints, coordSys, hasAnimation);
+      } else if (polygon && !isAreaChart) {
+        // If areaStyle is removed
+        lineGroup.remove(polygon);
+        polygon = this._polygon = null;
+      } // Update clipPath
+
+
+      lineGroup.setClipPath(createLineClipPath(coordSys, false, seriesModel)); // Always update, or it is wrong in the case turning on legend
+      // because points are not changed
+
+      showSymbol && symbolDraw.updateData(data, {
+        isIgnore: isIgnoreFunc,
+        clipShape: clipShapeForSymbol
+      }); // Stop symbol animation and sync with line points
+      // FIXME performance?
+
+      data.eachItemGraphicEl(function (el) {
+        el.stopAnimation(true);
+      }); // In the case data zoom triggerred refreshing frequently
+      // Data may not change if line has a category axis. So it should animate nothing
+
+      if (!isPointsSame(this._stackedOnPoints, stackedOnPoints) || !isPointsSame(this._points, points)) {
+        if (hasAnimation) {
+          this._updateAnimation(data, stackedOnPoints, coordSys, api, step, valueOrigin);
+        } else {
+          // Not do it in update with animation
+          if (step) {
+            // TODO If stacked series is not step
+            points = turnPointsIntoStep(points, coordSys, step);
+            stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step);
+          }
+
+          polyline.setShape({
+            points: points
+          });
+          polygon && polygon.setShape({
+            points: points,
+            stackedOnPoints: stackedOnPoints
+          });
+        }
+      }
+    }
+
+    var visualColor = getVisualGradient(data, coordSys) || data.getVisual('color');
+    polyline.useStyle(defaults( // Use color in lineStyle first
+    lineStyleModel.getLineStyle(), {
+      fill: 'none',
+      stroke: visualColor,
+      lineJoin: 'bevel'
+    }));
+    var smooth = seriesModel.get('smooth');
+    smooth = getSmooth(seriesModel.get('smooth'));
+    polyline.setShape({
+      smooth: smooth,
+      smoothMonotone: seriesModel.get('smoothMonotone'),
+      connectNulls: seriesModel.get('connectNulls')
+    });
+
+    if (polygon) {
+      var stackedOnSeries = data.getCalculationInfo('stackedOnSeries');
+      var stackedOnSmooth = 0;
+      polygon.useStyle(defaults(areaStyleModel.getAreaStyle(), {
+        fill: visualColor,
+        opacity: 0.7,
+        lineJoin: 'bevel'
+      }));
+
+      if (stackedOnSeries) {
+        stackedOnSmooth = getSmooth(stackedOnSeries.get('smooth'));
+      }
+
+      polygon.setShape({
+        smooth: smooth,
+        stackedOnSmooth: stackedOnSmooth,
+        smoothMonotone: seriesModel.get('smoothMonotone'),
+        connectNulls: seriesModel.get('connectNulls')
+      });
+    }
+
+    this._data = data; // Save the coordinate system for transition animation when data changed
+
+    this._coordSys = coordSys;
+    this._stackedOnPoints = stackedOnPoints;
+    this._points = points;
+    this._step = step;
+    this._valueOrigin = valueOrigin;
+  },
+  dispose: function () {},
+  highlight: function (seriesModel, ecModel, api, payload) {
+    var data = seriesModel.getData();
+    var dataIndex = queryDataIndex(data, payload);
+
+    if (!(dataIndex instanceof Array) && dataIndex != null && dataIndex >= 0) {
+      var symbol = data.getItemGraphicEl(dataIndex);
+
+      if (!symbol) {
+        // Create a temporary symbol if it is not exists
+        var pt = data.getItemLayout(dataIndex);
+
+        if (!pt) {
+          // Null data
+          return;
+        } // fix #11360: should't draw symbol outside clipShapeForSymbol
+
+
+        if (this._clipShapeForSymbol && !this._clipShapeForSymbol.contain(pt[0], pt[1])) {
+          return;
+        }
+
+        symbol = new SymbolClz(data, dataIndex);
+        symbol.position = pt;
+        symbol.setZ(seriesModel.get('zlevel'), seriesModel.get('z'));
+        symbol.ignore = isNaN(pt[0]) || isNaN(pt[1]);
+        symbol.__temp = true;
+        data.setItemGraphicEl(dataIndex, symbol); // Stop scale animation
+
+        symbol.stopSymbolAnimation(true);
+        this.group.add(symbol);
+      }
+
+      symbol.highlight();
+    } else {
+      // Highlight whole series
+      Chart.prototype.highlight.call(this, seriesModel, ecModel, api, payload);
+    }
+  },
+  downplay: function (seriesModel, ecModel, api, payload) {
+    var data = seriesModel.getData();
+    var dataIndex = queryDataIndex(data, payload);
+
+    if (dataIndex != null && dataIndex >= 0) {
+      var symbol = data.getItemGraphicEl(dataIndex);
+
+      if (symbol) {
+        if (symbol.__temp) {
+          data.setItemGraphicEl(dataIndex, null);
+          this.group.remove(symbol);
+        } else {
+          symbol.downplay();
+        }
+      }
+    } else {
+      // FIXME
+      // can not downplay completely.
+      // Downplay whole series
+      Chart.prototype.downplay.call(this, seriesModel, ecModel, api, payload);
+    }
+  },
+
+  /**
+   * @param {module:zrender/container/Group} group
+   * @param {Array.<Array.<number>>} points
+   * @private
+   */
+  _newPolyline: function (points) {
+    var polyline = this._polyline; // Remove previous created polyline
+
+    if (polyline) {
+      this._lineGroup.remove(polyline);
+    }
+
+    polyline = new Polyline$1({
+      shape: {
+        points: points
+      },
+      silent: true,
+      z2: 10
+    });
+
+    this._lineGroup.add(polyline);
+
+    this._polyline = polyline;
+    return polyline;
+  },
+
+  /**
+   * @param {module:zrender/container/Group} group
+   * @param {Array.<Array.<number>>} stackedOnPoints
+   * @param {Array.<Array.<number>>} points
+   * @private
+   */
+  _newPolygon: function (points, stackedOnPoints) {
+    var polygon = this._polygon; // Remove previous created polygon
+
+    if (polygon) {
+      this._lineGroup.remove(polygon);
+    }
+
+    polygon = new Polygon$1({
+      shape: {
+        points: points,
+        stackedOnPoints: stackedOnPoints
+      },
+      silent: true
+    });
+
+    this._lineGroup.add(polygon);
+
+    this._polygon = polygon;
+    return polygon;
+  },
+
+  /**
+   * @private
+   */
+  // FIXME Two value axis
+  _updateAnimation: function (data, stackedOnPoints, coordSys, api, step, valueOrigin) {
+    var polyline = this._polyline;
+    var polygon = this._polygon;
+    var seriesModel = data.hostModel;
+    var diff = lineAnimationDiff(this._data, data, this._stackedOnPoints, stackedOnPoints, this._coordSys, coordSys, this._valueOrigin, valueOrigin);
+    var current = diff.current;
+    var stackedOnCurrent = diff.stackedOnCurrent;
+    var next = diff.next;
+    var stackedOnNext = diff.stackedOnNext;
+
+    if (step) {
+      // TODO If stacked series is not step
+      current = turnPointsIntoStep(diff.current, coordSys, step);
+      stackedOnCurrent = turnPointsIntoStep(diff.stackedOnCurrent, coordSys, step);
+      next = turnPointsIntoStep(diff.next, coordSys, step);
+      stackedOnNext = turnPointsIntoStep(diff.stackedOnNext, coordSys, step);
+    } // Don't apply animation if diff is large.
+    // For better result and avoid memory explosion problems like
+    // https://github.com/apache/incubator-echarts/issues/12229
+
+
+    if (getBoundingDiff(current, next) > 3000 || polygon && getBoundingDiff(stackedOnCurrent, stackedOnNext) > 3000) {
+      polyline.setShape({
+        points: next
+      });
+
+      if (polygon) {
+        polygon.setShape({
+          points: next,
+          stackedOnPoints: stackedOnNext
+        });
+      }
+
+      return;
+    } // `diff.current` is subset of `current` (which should be ensured by
+    // turnPointsIntoStep), so points in `__points` can be updated when
+    // points in `current` are update during animation.
+
+
+    polyline.shape.__points = diff.current;
+    polyline.shape.points = current;
+    updateProps(polyline, {
+      shape: {
+        points: next
+      }
+    }, seriesModel);
+
+    if (polygon) {
+      polygon.setShape({
+        points: current,
+        stackedOnPoints: stackedOnCurrent
+      });
+      updateProps(polygon, {
+        shape: {
+          points: next,
+          stackedOnPoints: stackedOnNext
+        }
+      }, seriesModel);
+    }
+
+    var updatedDataInfo = [];
+    var diffStatus = diff.status;
+
+    for (var i = 0; i < diffStatus.length; i++) {
+      var cmd = diffStatus[i].cmd;
+
+      if (cmd === '=') {
+        var el = data.getItemGraphicEl(diffStatus[i].idx1);
+
+        if (el) {
+          updatedDataInfo.push({
+            el: el,
+            ptIdx: i // Index of points
+
+          });
+        }
+      }
+    }
+
+    if (polyline.animators && polyline.animators.length) {
+      polyline.animators[0].during(function () {
+        for (var i = 0; i < updatedDataInfo.length; i++) {
+          var el = updatedDataInfo[i].el;
+          el.attr('position', polyline.shape.__points[updatedDataInfo[i].ptIdx]);
+        }
+      });
+    }
+  },
+  remove: function (ecModel) {
+    var group = this.group;
+    var oldData = this._data;
+
+    this._lineGroup.removeAll();
+
+    this._symbolDraw.remove(true); // Remove temporary created elements when highlighting
+
+
+    oldData && oldData.eachItemGraphicEl(function (el, idx) {
+      if (el.__temp) {
+        group.remove(el);
+        oldData.setItemGraphicEl(idx, null);
+      }
+    });
+    this._polyline = this._polygon = this._coordSys = this._points = this._stackedOnPoints = this._data = null;
+  }
+});
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+var visualSymbol = function (seriesType, defaultSymbolType, legendSymbol) {
+  // Encoding visual for all series include which is filtered for legend drawing
+  return {
+    seriesType: seriesType,
+    // For legend.
+    performRawSeries: true,
+    reset: function (seriesModel, ecModel, api) {
+      var data = seriesModel.getData();
+      var symbolType = seriesModel.get('symbol');
+      var symbolSize = seriesModel.get('symbolSize');
+      var keepAspect = seriesModel.get('symbolKeepAspect');
+      var symbolRotate = seriesModel.get('symbolRotate');
+      var hasSymbolTypeCallback = isFunction$1(symbolType);
+      var hasSymbolSizeCallback = isFunction$1(symbolSize);
+      var hasSymbolRotateCallback = isFunction$1(symbolRotate);
+      var hasCallback = hasSymbolTypeCallback || hasSymbolSizeCallback || hasSymbolRotateCallback;
+      var seriesSymbol = !hasSymbolTypeCallback && symbolType ? symbolType : defaultSymbolType;
+      var seriesSymbolSize = !hasSymbolSizeCallback ? symbolSize : null;
+      data.setVisual({
+        legendSymbol: legendSymbol || seriesSymbol,
+        // If seting callback functions on `symbol` or `symbolSize`, for simplicity and avoiding
+        // to bring trouble, we do not pick a reuslt from one of its calling on data item here,
+        // but just use the default value. Callback on `symbol` or `symbolSize` is convenient in
+        // some cases but generally it is not recommanded.
+        symbol: seriesSymbol,
+        symbolSize: seriesSymbolSize,
+        symbolKeepAspect: keepAspect,
+        symbolRotate: symbolRotate
+      }); // Only visible series has each data be visual encoded
+
+      if (ecModel.isSeriesFiltered(seriesModel)) {
+        return;
+      }
+
+      function dataEach(data, idx) {
+        if (hasCallback) {
+          var rawValue = seriesModel.getRawValue(idx);
+          var params = seriesModel.getDataParams(idx);
+          hasSymbolTypeCallback && data.setItemVisual(idx, 'symbol', symbolType(rawValue, params));
+          hasSymbolSizeCallback && data.setItemVisual(idx, 'symbolSize', symbolSize(rawValue, params));
+          hasSymbolRotateCallback && data.setItemVisual(idx, 'symbolRotate', symbolRotate(rawValue, params));
+        }
+
+        if (data.hasItemOption) {
+          var itemModel = data.getItemModel(idx);
+          var itemSymbolType = itemModel.getShallow('symbol', true);
+          var itemSymbolSize = itemModel.getShallow('symbolSize', true);
+          var itemSymbolRotate = itemModel.getShallow('symbolRotate', true);
+          var itemSymbolKeepAspect = itemModel.getShallow('symbolKeepAspect', true); // If has item symbol
+
+          if (itemSymbolType != null) {
+            data.setItemVisual(idx, 'symbol', itemSymbolType);
+          }
+
+          if (itemSymbolSize != null) {
+            // PENDING Transform symbolSize ?
+            data.setItemVisual(idx, 'symbolSize', itemSymbolSize);
+          }
+
+          if (itemSymbolRotate != null) {
+            data.setItemVisual(idx, 'symbolRotate', itemSymbolRotate);
+          }
+
+          if (itemSymbolKeepAspect != null) {
+            data.setItemVisual(idx, 'symbolKeepAspect', itemSymbolKeepAspect);
+          }
+        }
+      }
+
+      return {
+        dataEach: data.hasItemOption || hasCallback ? dataEach : null
+      };
+    }
+  };
+};
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+
+/* global Float32Array */
+var layoutPoints = function (seriesType) {
+  return {
+    seriesType: seriesType,
+    plan: createRenderPlanner(),
+    reset: function (seriesModel) {
+      var data = seriesModel.getData();
+      var coordSys = seriesModel.coordinateSystem;
+      var pipelineContext = seriesModel.pipelineContext;
+      var isLargeRender = pipelineContext.large;
+
+      if (!coordSys) {
+        return;
+      }
+
+      var dims = map(coordSys.dimensions, function (dim) {
+        return data.mapDimension(dim);
+      }).slice(0, 2);
+      var dimLen = dims.length;
+      var stackResultDim = data.getCalculationInfo('stackResultDimension');
+
+      if (isDimensionStacked(data, dims[0]
+      /*, dims[1]*/
+      )) {
+        dims[0] = stackResultDim;
+      }
+
+      if (isDimensionStacked(data, dims[1]
+      /*, dims[0]*/
+      )) {
+        dims[1] = stackResultDim;
+      }
+
+      function progress(params, data) {
+        var segCount = params.end - params.start;
+        var points = isLargeRender && new Float32Array(segCount * dimLen);
+
+        for (var i = params.start, offset = 0, tmpIn = [], tmpOut = []; i < params.end; i++) {
+          var point;
+
+          if (dimLen === 1) {
+            var x = data.get(dims[0], i);
+            point = !isNaN(x) && coordSys.dataToPoint(x, null, tmpOut);
+          } else {
+            var x = tmpIn[0] = data.get(dims[0], i);
+            var y = tmpIn[1] = data.get(dims[1], i); // Also {Array.<number>}, not undefined to avoid if...else... statement
+
+            point = !isNaN(x) && !isNaN(y) && coordSys.dataToPoint(tmpIn, null, tmpOut);
+          }
+
+          if (isLargeRender) {
+            points[offset++] = point ? point[0] : NaN;
+            points[offset++] = point ? point[1] : NaN;
+          } else {
+            data.setItemLayout(i, point && point.slice() || [NaN, NaN]);
+          }
+        }
+
+        isLargeRender && data.setLayout('symbolPoints', points);
+      }
+
+      return dimLen && {
+        progress: progress
+      };
+    }
+  };
+};
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+var samplers = {
+  average: function (frame) {
+    var sum = 0;
+    var count = 0;
+
+    for (var i = 0; i < frame.length; i++) {
+      if (!isNaN(frame[i])) {
+        sum += frame[i];
+        count++;
+      }
+    } // Return NaN if count is 0
+
+
+    return count === 0 ? NaN : sum / count;
+  },
+  sum: function (frame) {
+    var sum = 0;
+
+    for (var i = 0; i < frame.length; i++) {
+      // Ignore NaN
+      sum += frame[i] || 0;
+    }
+
+    return sum;
+  },
+  max: function (frame) {
+    var max = -Infinity;
+
+    for (var i = 0; i < frame.length; i++) {
+      frame[i] > max && (max = frame[i]);
+    } // NaN will cause illegal axis extent.
+
+
+    return isFinite(max) ? max : NaN;
+  },
+  min: function (frame) {
+    var min = Infinity;
+
+    for (var i = 0; i < frame.length; i++) {
+      frame[i] < min && (min = frame[i]);
+    } // NaN will cause illegal axis extent.
+
+
+    return isFinite(min) ? min : NaN;
+  },
+  // TODO
+  // Median
+  nearest: function (frame) {
+    return frame[0];
+  }
+};
+
+var indexSampler = function (frame, value) {
+  return Math.round(frame.length / 2);
+};
+
+var dataSample = function (seriesType) {
+  return {
+    seriesType: seriesType,
+    modifyOutputEnd: true,
+    reset: function (seriesModel, ecModel, api) {
+      var data = seriesModel.getData();
+      var sampling = seriesModel.get('sampling');
+      var coordSys = seriesModel.coordinateSystem; // Only cartesian2d support down sampling
+
+      if (coordSys.type === 'cartesian2d' && sampling) {
+        var baseAxis = coordSys.getBaseAxis();
+        var valueAxis = coordSys.getOtherAxis(baseAxis);
+        var extent = baseAxis.getExtent(); // Coordinste system has been resized
+
+        var size = extent[1] - extent[0];
+        var rate = Math.round(data.count() / size);
+
+        if (rate > 1) {
+          var sampler;
+
+          if (typeof sampling === 'string') {
+            sampler = samplers[sampling];
+          } else if (typeof sampling === 'function') {
+            sampler = sampling;
+          }
+
+          if (sampler) {
+            // Only support sample the first dim mapped from value axis.
+            seriesModel.setData(data.downSample(data.mapDimension(valueAxis.dim), 1 / rate, sampler, indexSampler));
+          }
+        }
+      }
+    }
+  };
+};
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
 
 /**
  * // Scale class management
@@ -33325,669 +35506,101 @@ function shouldShowAllLabels(axis) {
 * specific language governing permissions and limitations
 * under the License.
 */
-var axisModelCommonMixin = {
-  /**
-   * @param {boolean} origin
-   * @return {number|string} min value or 'dataMin' or null/undefined (means auto) or NaN
-   */
-  getMin: function (origin) {
-    var option = this.option;
-    var min = !origin && option.rangeStart != null ? option.rangeStart : option.min;
 
-    if (this.axis && min != null && min !== 'dataMin' && typeof min !== 'function' && !eqNaN(min)) {
-      min = this.axis.scale.parse(min);
-    }
-
-    return min;
-  },
-
-  /**
-   * @param {boolean} origin
-   * @return {number|string} max value or 'dataMax' or null/undefined (means auto) or NaN
-   */
-  getMax: function (origin) {
-    var option = this.option;
-    var max = !origin && option.rangeEnd != null ? option.rangeEnd : option.max;
-
-    if (this.axis && max != null && max !== 'dataMax' && typeof max !== 'function' && !eqNaN(max)) {
-      max = this.axis.scale.parse(max);
-    }
-
-    return max;
-  },
-
-  /**
-   * @return {boolean}
-   */
-  getNeedCrossZero: function () {
-    var option = this.option;
-    return option.rangeStart != null || option.rangeEnd != null ? false : !option.scale;
-  },
-
-  /**
-   * Should be implemented by each axis model if necessary.
-   * @return {module:echarts/model/Component} coordinate system model
-   */
-  getCoordSysModel: noop,
-
-  /**
-   * @param {number} rangeStart Can only be finite number or null/undefined or NaN.
-   * @param {number} rangeEnd Can only be finite number or null/undefined or NaN.
-   */
-  setRange: function (rangeStart, rangeEnd) {
-    this.option.rangeStart = rangeStart;
-    this.option.rangeEnd = rangeEnd;
-  },
-
-  /**
-   * Reset range
-   */
-  resetRange: function () {
-    // rangeStart and rangeEnd is readonly.
-    this.option.rangeStart = this.option.rangeEnd = null;
-  }
-};
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-// Symbol factory
 /**
- * Triangle shape
- * @inner
- */
-
-var Triangle = extendShape({
-  type: 'triangle',
-  shape: {
-    cx: 0,
-    cy: 0,
-    width: 0,
-    height: 0
-  },
-  buildPath: function (path, shape) {
-    var cx = shape.cx;
-    var cy = shape.cy;
-    var width = shape.width / 2;
-    var height = shape.height / 2;
-    path.moveTo(cx, cy - height);
-    path.lineTo(cx + width, cy + height);
-    path.lineTo(cx - width, cy + height);
-    path.closePath();
-  }
-});
-/**
- * Diamond shape
- * @inner
- */
-
-var Diamond = extendShape({
-  type: 'diamond',
-  shape: {
-    cx: 0,
-    cy: 0,
-    width: 0,
-    height: 0
-  },
-  buildPath: function (path, shape) {
-    var cx = shape.cx;
-    var cy = shape.cy;
-    var width = shape.width / 2;
-    var height = shape.height / 2;
-    path.moveTo(cx, cy - height);
-    path.lineTo(cx + width, cy);
-    path.lineTo(cx, cy + height);
-    path.lineTo(cx - width, cy);
-    path.closePath();
-  }
-});
-/**
- * Pin shape
- * @inner
- */
-
-var Pin = extendShape({
-  type: 'pin',
-  shape: {
-    // x, y on the cusp
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0
-  },
-  buildPath: function (path, shape) {
-    var x = shape.x;
-    var y = shape.y;
-    var w = shape.width / 5 * 3; // Height must be larger than width
-
-    var h = Math.max(w, shape.height);
-    var r = w / 2; // Dist on y with tangent point and circle center
-
-    var dy = r * r / (h - r);
-    var cy = y - h + r + dy;
-    var angle = Math.asin(dy / r); // Dist on x with tangent point and circle center
-
-    var dx = Math.cos(angle) * r;
-    var tanX = Math.sin(angle);
-    var tanY = Math.cos(angle);
-    var cpLen = r * 0.6;
-    var cpLen2 = r * 0.7;
-    path.moveTo(x - dx, cy + dy);
-    path.arc(x, cy, r, Math.PI - angle, Math.PI * 2 + angle);
-    path.bezierCurveTo(x + dx - tanX * cpLen, cy + dy + tanY * cpLen, x, y - cpLen2, x, y);
-    path.bezierCurveTo(x, y - cpLen2, x - dx + tanX * cpLen, cy + dy + tanY * cpLen, x - dx, cy + dy);
-    path.closePath();
-  }
-});
-/**
- * Arrow shape
- * @inner
- */
-
-var Arrow = extendShape({
-  type: 'arrow',
-  shape: {
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0
-  },
-  buildPath: function (ctx, shape) {
-    var height = shape.height;
-    var width = shape.width;
-    var x = shape.x;
-    var y = shape.y;
-    var dx = width / 3 * 2;
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + dx, y + height);
-    ctx.lineTo(x, y + height / 4 * 3);
-    ctx.lineTo(x - dx, y + height);
-    ctx.lineTo(x, y);
-    ctx.closePath();
-  }
-});
-/**
- * Map of path contructors
- * @type {Object.<string, module:zrender/graphic/Path>}
- */
-
-var symbolCtors = {
-  line: Line,
-  rect: Rect,
-  roundRect: Rect,
-  square: Rect,
-  circle: Circle,
-  diamond: Diamond,
-  pin: Pin,
-  arrow: Arrow,
-  triangle: Triangle
-};
-var symbolShapeMakers = {
-  line: function (x, y, w, h, shape) {
-    // FIXME
-    shape.x1 = x;
-    shape.y1 = y + h / 2;
-    shape.x2 = x + w;
-    shape.y2 = y + h / 2;
-  },
-  rect: function (x, y, w, h, shape) {
-    shape.x = x;
-    shape.y = y;
-    shape.width = w;
-    shape.height = h;
-  },
-  roundRect: function (x, y, w, h, shape) {
-    shape.x = x;
-    shape.y = y;
-    shape.width = w;
-    shape.height = h;
-    shape.r = Math.min(w, h) / 4;
-  },
-  square: function (x, y, w, h, shape) {
-    var size = Math.min(w, h);
-    shape.x = x;
-    shape.y = y;
-    shape.width = size;
-    shape.height = size;
-  },
-  circle: function (x, y, w, h, shape) {
-    // Put circle in the center of square
-    shape.cx = x + w / 2;
-    shape.cy = y + h / 2;
-    shape.r = Math.min(w, h) / 2;
-  },
-  diamond: function (x, y, w, h, shape) {
-    shape.cx = x + w / 2;
-    shape.cy = y + h / 2;
-    shape.width = w;
-    shape.height = h;
-  },
-  pin: function (x, y, w, h, shape) {
-    shape.x = x + w / 2;
-    shape.y = y + h / 2;
-    shape.width = w;
-    shape.height = h;
-  },
-  arrow: function (x, y, w, h, shape) {
-    shape.x = x + w / 2;
-    shape.y = y + h / 2;
-    shape.width = w;
-    shape.height = h;
-  },
-  triangle: function (x, y, w, h, shape) {
-    shape.cx = x + w / 2;
-    shape.cy = y + h / 2;
-    shape.width = w;
-    shape.height = h;
-  }
-};
-var symbolBuildProxies = {};
-each$1(symbolCtors, function (Ctor, name) {
-  symbolBuildProxies[name] = new Ctor();
-});
-var SymbolClz = extendShape({
-  type: 'symbol',
-  shape: {
-    symbolType: '',
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0
-  },
-  calculateTextPosition: function (out, style, rect) {
-    var res = calculateTextPosition(out, style, rect);
-    var shape = this.shape;
-
-    if (shape && shape.symbolType === 'pin' && style.textPosition === 'inside') {
-      res.y = rect.y + rect.height * 0.4;
-    }
-
-    return res;
-  },
-  buildPath: function (ctx, shape, inBundle) {
-    var symbolType = shape.symbolType;
-
-    if (symbolType !== 'none') {
-      var proxySymbol = symbolBuildProxies[symbolType];
-
-      if (!proxySymbol) {
-        // Default rect
-        symbolType = 'rect';
-        proxySymbol = symbolBuildProxies[symbolType];
-      }
-
-      symbolShapeMakers[symbolType](shape.x, shape.y, shape.width, shape.height, proxySymbol.shape);
-      proxySymbol.buildPath(ctx, proxySymbol.shape, inBundle);
-    }
-  }
-}); // Provide setColor helper method to avoid determine if set the fill or stroke outside
-
-function symbolPathSetColor(color, innerColor) {
-  if (this.type !== 'image') {
-    var symbolStyle = this.style;
-    var symbolShape = this.shape;
-
-    if (symbolShape && symbolShape.symbolType === 'line') {
-      symbolStyle.stroke = color;
-    } else if (this.__isEmptyBrush) {
-      symbolStyle.stroke = color;
-      symbolStyle.fill = innerColor || '#fff';
-    } else {
-      // FIXME 判断图形默认是填充还是描边，使用 onlyStroke ?
-      symbolStyle.fill && (symbolStyle.fill = color);
-      symbolStyle.stroke && (symbolStyle.stroke = color);
-    }
-
-    this.dirty(false);
-  }
-}
-/**
- * Create a symbol element with given symbol configuration: shape, x, y, width, height, color
- * @param {string} symbolType
- * @param {number} x
- * @param {number} y
- * @param {number} w
- * @param {number} h
- * @param {string} color
- * @param {boolean} [keepAspect=false] whether to keep the ratio of w/h,
- *                            for path and image only.
- */
-
-
-function createSymbol(symbolType, x, y, w, h, color, keepAspect) {
-  // TODO Support image object, DynamicImage.
-  var isEmpty = symbolType.indexOf('empty') === 0;
-
-  if (isEmpty) {
-    symbolType = symbolType.substr(5, 1).toLowerCase() + symbolType.substr(6);
-  }
-
-  var symbolPath;
-
-  if (symbolType.indexOf('image://') === 0) {
-    symbolPath = makeImage(symbolType.slice(8), new BoundingRect(x, y, w, h), keepAspect ? 'center' : 'cover');
-  } else if (symbolType.indexOf('path://') === 0) {
-    symbolPath = makePath(symbolType.slice(7), {}, new BoundingRect(x, y, w, h), keepAspect ? 'center' : 'cover');
-  } else {
-    symbolPath = new SymbolClz({
-      shape: {
-        symbolType: symbolType,
-        x: x,
-        y: y,
-        width: w,
-        height: h
-      }
-    });
-  }
-
-  symbolPath.__isEmptyBrush = isEmpty;
-  symbolPath.setColor = symbolPathSetColor;
-  symbolPath.setColor(color);
-  return symbolPath;
-}
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-/**
- * Create a muti dimension List structure from seriesModel.
- * @param  {module:echarts/model/Model} seriesModel
- * @return {module:echarts/data/List} list
- */
-
-function createList(seriesModel) {
-  return createListFromArray(seriesModel.getSource(), seriesModel);
-} // export function createGraph(seriesModel) {
-var dataStack$1 = {
-  isDimensionStacked: isDimensionStacked,
-  enableDataStack: enableDataStack,
-  getStackedDimension: getStackedDimension
-};
-/**
- * Create scale
- * @param {Array.<number>} dataExtent
- * @param {Object|module:echarts/Model} option
- */
-
-function createScale(dataExtent, option) {
-  var axisModel = option;
-
-  if (!Model.isInstance(option)) {
-    axisModel = new Model(option);
-    mixin(axisModel, axisModelCommonMixin);
-  }
-
-  var scale = createScaleByModel(axisModel);
-  scale.setExtent(dataExtent[0], dataExtent[1]);
-  niceScaleExtent(scale, axisModel);
-  return scale;
-}
-/**
- * Mixin common methods to axis model,
+ * Cartesian coordinate system
+ * @module  echarts/coord/Cartesian
  *
- * Inlcude methods
- * `getFormattedLabels() => Array.<string>`
- * `getCategories() => Array.<string>`
- * `getMin(origin: boolean) => number`
- * `getMax(origin: boolean) => number`
- * `getNeedCrossZero() => boolean`
- * `setRange(start: number, end: number)`
- * `resetRange()`
  */
-
-function mixinAxisModelCommonMethods(Model$$1) {
-  mixin(Model$$1, axisModelCommonMixin);
+function dimAxisMapper(dim) {
+  return this._axes[dim];
 }
-
-var helper = (Object.freeze || Object)({
-	createList: createList,
-	getLayoutRect: getLayoutRect,
-	dataStack: dataStack$1,
-	createScale: createScale,
-	mixinAxisModelCommonMethods: mixinAxisModelCommonMethods,
-	completeDimensions: completeDimensions,
-	createDimensions: createDimensions,
-	createSymbol: createSymbol
-});
-
-var EPSILON$3 = 1e-8;
-
-function isAroundEqual$1(a, b) {
-  return Math.abs(a - b) < EPSILON$3;
-}
-
-function contain$1(points, x, y) {
-  var w = 0;
-  var p = points[0];
-
-  if (!p) {
-    return false;
-  }
-
-  for (var i = 1; i < points.length; i++) {
-    var p2 = points[i];
-    w += windingLine(p[0], p[1], p2[0], p2[1], x, y);
-    p = p2;
-  } // Close polygon
-
-
-  var p0 = points[0];
-
-  if (!isAroundEqual$1(p[0], p0[0]) || !isAroundEqual$1(p[1], p0[1])) {
-    w += windingLine(p[0], p[1], p0[0], p0[1], x, y);
-  }
-
-  return w !== 0;
-}
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
 /**
- * @module echarts/coord/geo/Region
- */
-/**
- * @param {string|Region} name
- * @param {Array} geometries
- * @param {Array.<number>} cp
+ * @alias module:echarts/coord/Cartesian
+ * @constructor
  */
 
-function Region(name, geometries, cp) {
+
+var Cartesian = function (name) {
+  this._axes = {};
+  this._dimList = [];
   /**
    * @type {string}
-   * @readOnly
-   */
-  this.name = name;
-  /**
-   * @type {Array.<Array>}
-   * @readOnly
    */
 
-  this.geometries = geometries;
+  this.name = name || '';
+};
 
-  if (!cp) {
-    var rect = this.getBoundingRect();
-    cp = [rect.x + rect.width / 2, rect.y + rect.height / 2];
-  } else {
-    cp = [cp[0], cp[1]];
-  }
-  /**
-   * @type {Array.<number>}
-   */
-
-
-  this.center = cp;
-}
-
-Region.prototype = {
-  constructor: Region,
-  properties: null,
+Cartesian.prototype = {
+  constructor: Cartesian,
+  type: 'cartesian',
 
   /**
-   * @return {module:zrender/core/BoundingRect}
+   * Get axis
+   * @param  {number|string} dim
+   * @return {module:echarts/coord/Cartesian~Axis}
    */
-  getBoundingRect: function () {
-    var rect = this._rect;
-
-    if (rect) {
-      return rect;
-    }
-
-    var MAX_NUMBER = Number.MAX_VALUE;
-    var min$$1 = [MAX_NUMBER, MAX_NUMBER];
-    var max$$1 = [-MAX_NUMBER, -MAX_NUMBER];
-    var min2 = [];
-    var max2 = [];
-    var geometries = this.geometries;
-
-    for (var i = 0; i < geometries.length; i++) {
-      // Only support polygon
-      if (geometries[i].type !== 'polygon') {
-        continue;
-      } // Doesn't consider hole
-
-
-      var exterior = geometries[i].exterior;
-      fromPoints(exterior, min2, max2);
-      min(min$$1, min$$1, min2);
-      max(max$$1, max$$1, max2);
-    } // No data
-
-
-    if (i === 0) {
-      min$$1[0] = min$$1[1] = max$$1[0] = max$$1[1] = 0;
-    }
-
-    return this._rect = new BoundingRect(min$$1[0], min$$1[1], max$$1[0] - min$$1[0], max$$1[1] - min$$1[1]);
+  getAxis: function (dim) {
+    return this._axes[dim];
   },
 
   /**
-   * @param {<Array.<number>} coord
-   * @return {boolean}
+   * Get axes list
+   * @return {Array.<module:echarts/coord/Cartesian~Axis>}
    */
-  contain: function (coord) {
-    var rect = this.getBoundingRect();
-    var geometries = this.geometries;
-
-    if (!rect.contain(coord[0], coord[1])) {
-      return false;
-    }
-
-    loopGeo: for (var i = 0, len$$1 = geometries.length; i < len$$1; i++) {
-      // Only support polygon.
-      if (geometries[i].type !== 'polygon') {
-        continue;
-      }
-
-      var exterior = geometries[i].exterior;
-      var interiors = geometries[i].interiors;
-
-      if (contain$1(exterior, coord[0], coord[1])) {
-        // Not in the region if point is in the hole.
-        for (var k = 0; k < (interiors ? interiors.length : 0); k++) {
-          if (contain$1(interiors[k])) {
-            continue loopGeo;
-          }
-        }
-
-        return true;
-      }
-    }
-
-    return false;
+  getAxes: function () {
+    return map(this._dimList, dimAxisMapper, this);
   },
-  transformTo: function (x, y, width, height) {
-    var rect = this.getBoundingRect();
-    var aspect = rect.width / rect.height;
 
-    if (!width) {
-      width = aspect * height;
-    } else if (!height) {
-      height = width / aspect;
-    }
-
-    var target = new BoundingRect(x, y, width, height);
-    var transform = rect.calculateTransform(target);
-    var geometries = this.geometries;
-
-    for (var i = 0; i < geometries.length; i++) {
-      // Only support polygon.
-      if (geometries[i].type !== 'polygon') {
-        continue;
-      }
-
-      var exterior = geometries[i].exterior;
-      var interiors = geometries[i].interiors;
-
-      for (var p = 0; p < exterior.length; p++) {
-        applyTransform(exterior[p], exterior[p], transform);
-      }
-
-      for (var h = 0; h < (interiors ? interiors.length : 0); h++) {
-        for (var p = 0; p < interiors[h].length; p++) {
-          applyTransform(interiors[h][p], interiors[h][p], transform);
-        }
-      }
-    }
-
-    rect = this._rect;
-    rect.copy(target); // Update center
-
-    this.center = [rect.x + rect.width / 2, rect.y + rect.height / 2];
+  /**
+   * Get axes list by given scale type
+   */
+  getAxesByScale: function (scaleType) {
+    scaleType = scaleType.toLowerCase();
+    return filter(this.getAxes(), function (axis) {
+      return axis.scale.type === scaleType;
+    });
   },
-  cloneShallow: function (name) {
-    name == null && (name = this.name);
-    var newRegion = new Region(name, this.geometries, this.center);
-    newRegion._rect = this._rect;
-    newRegion.transformTo = null; // Simply avoid to be called.
 
-    return newRegion;
+  /**
+   * Add axis
+   * @param {module:echarts/coord/Cartesian.Axis}
+   */
+  addAxis: function (axis) {
+    var dim = axis.dim;
+    this._axes[dim] = axis;
+
+    this._dimList.push(dim);
+  },
+
+  /**
+   * Convert data to coord in nd space
+   * @param {Array.<number>|Object.<string, number>} val
+   * @return {Array.<number>|Object.<string, number>}
+   */
+  dataToCoord: function (val) {
+    return this._dataCoordConvert(val, 'dataToCoord');
+  },
+
+  /**
+   * Convert coord in nd space to data
+   * @param  {Array.<number>|Object.<string, number>} val
+   * @return {Array.<number>|Object.<string, number>}
+   */
+  coordToData: function (val) {
+    return this._dataCoordConvert(val, 'coordToData');
+  },
+  _dataCoordConvert: function (input, method) {
+    var dimList = this._dimList;
+    var output = input instanceof Array ? [] : {};
+
+    for (var i = 0; i < dimList.length; i++) {
+      var dim = dimList[i];
+      var axis = this._axes[dim];
+      output[dim] = axis[method](input[dim]);
+    }
+
+    return output;
   }
 };
 
@@ -34009,117 +35622,120 @@ Region.prototype = {
 * specific language governing permissions and limitations
 * under the License.
 */
-
-/**
- * Parse and decode geo json
- * @module echarts/coord/geo/parseGeoJson
- */
-function decode(json) {
-  if (!json.UTF8Encoding) {
-    return json;
-  }
-
-  var encodeScale = json.UTF8Scale;
-
-  if (encodeScale == null) {
-    encodeScale = 1024;
-  }
-
-  var features = json.features;
-
-  for (var f = 0; f < features.length; f++) {
-    var feature = features[f];
-    var geometry = feature.geometry;
-    var coordinates = geometry.coordinates;
-    var encodeOffsets = geometry.encodeOffsets;
-
-    for (var c = 0; c < coordinates.length; c++) {
-      var coordinate = coordinates[c];
-
-      if (geometry.type === 'Polygon') {
-        coordinates[c] = decodePolygon(coordinate, encodeOffsets[c], encodeScale);
-      } else if (geometry.type === 'MultiPolygon') {
-        for (var c2 = 0; c2 < coordinate.length; c2++) {
-          var polygon = coordinate[c2];
-          coordinate[c2] = decodePolygon(polygon, encodeOffsets[c][c2], encodeScale);
-        }
-      }
-    }
-  } // Has been decoded
-
-
-  json.UTF8Encoding = false;
-  return json;
+function Cartesian2D(name) {
+  Cartesian.call(this, name);
 }
 
-function decodePolygon(coordinate, encodeOffsets, encodeScale) {
-  var result = [];
-  var prevX = encodeOffsets[0];
-  var prevY = encodeOffsets[1];
+Cartesian2D.prototype = {
+  constructor: Cartesian2D,
+  type: 'cartesian2d',
 
-  for (var i = 0; i < coordinate.length; i += 2) {
-    var x = coordinate.charCodeAt(i) - 64;
-    var y = coordinate.charCodeAt(i + 1) - 64; // ZigZag decoding
+  /**
+   * @type {Array.<string>}
+   * @readOnly
+   */
+  dimensions: ['x', 'y'],
 
-    x = x >> 1 ^ -(x & 1);
-    y = y >> 1 ^ -(y & 1); // Delta deocding
+  /**
+   * Base axis will be used on stacking.
+   *
+   * @return {module:echarts/coord/cartesian/Axis2D}
+   */
+  getBaseAxis: function () {
+    return this.getAxesByScale('ordinal')[0] || this.getAxesByScale('time')[0] || this.getAxis('x');
+  },
 
-    x += prevX;
-    y += prevY;
-    prevX = x;
-    prevY = y; // Dequantize
+  /**
+   * If contain point
+   * @param {Array.<number>} point
+   * @return {boolean}
+   */
+  containPoint: function (point) {
+    var axisX = this.getAxis('x');
+    var axisY = this.getAxis('y');
+    return axisX.contain(axisX.toLocalCoord(point[0])) && axisY.contain(axisY.toLocalCoord(point[1]));
+  },
 
-    result.push([x / encodeScale, y / encodeScale]);
+  /**
+   * If contain data
+   * @param {Array.<number>} data
+   * @return {boolean}
+   */
+  containData: function (data) {
+    return this.getAxis('x').containData(data[0]) && this.getAxis('y').containData(data[1]);
+  },
+
+  /**
+   * @param {Array.<number>} data
+   * @param {Array.<number>} out
+   * @return {Array.<number>}
+   */
+  dataToPoint: function (data, reserved, out) {
+    var xAxis = this.getAxis('x');
+    var yAxis = this.getAxis('y');
+    out = out || [];
+    out[0] = xAxis.toGlobalCoord(xAxis.dataToCoord(data[0]));
+    out[1] = yAxis.toGlobalCoord(yAxis.dataToCoord(data[1]));
+    return out;
+  },
+
+  /**
+   * @param {Array.<number>} data
+   * @param {Array.<number>} out
+   * @return {Array.<number>}
+   */
+  clampData: function (data, out) {
+    var xScale = this.getAxis('x').scale;
+    var yScale = this.getAxis('y').scale;
+    var xAxisExtent = xScale.getExtent();
+    var yAxisExtent = yScale.getExtent();
+    var x = xScale.parse(data[0]);
+    var y = yScale.parse(data[1]);
+    out = out || [];
+    out[0] = Math.min(Math.max(Math.min(xAxisExtent[0], xAxisExtent[1]), x), Math.max(xAxisExtent[0], xAxisExtent[1]));
+    out[1] = Math.min(Math.max(Math.min(yAxisExtent[0], yAxisExtent[1]), y), Math.max(yAxisExtent[0], yAxisExtent[1]));
+    return out;
+  },
+
+  /**
+   * @param {Array.<number>} point
+   * @param {Array.<number>} out
+   * @return {Array.<number>}
+   */
+  pointToData: function (point, out) {
+    var xAxis = this.getAxis('x');
+    var yAxis = this.getAxis('y');
+    out = out || [];
+    out[0] = xAxis.coordToData(xAxis.toLocalCoord(point[0]));
+    out[1] = yAxis.coordToData(yAxis.toLocalCoord(point[1]));
+    return out;
+  },
+
+  /**
+   * Get other axis
+   * @param {module:echarts/coord/cartesian/Axis2D} axis
+   */
+  getOtherAxis: function (axis) {
+    return this.getAxis(axis.dim === 'x' ? 'y' : 'x');
+  },
+
+  /**
+   * Get rect area of cartesian.
+   * Area will have a contain function to determine if a point is in the coordinate system.
+   * @return {BoundingRect}
+   */
+  getArea: function () {
+    var xExtent = this.getAxis('x').getGlobalExtent();
+    var yExtent = this.getAxis('y').getGlobalExtent();
+    var x = Math.min(xExtent[0], xExtent[1]);
+    var y = Math.min(yExtent[0], yExtent[1]);
+    var width = Math.max(xExtent[0], xExtent[1]) - x;
+    var height = Math.max(yExtent[0], yExtent[1]) - y;
+    var rect = new BoundingRect(x, y, width, height);
+    return rect;
   }
-
-  return result;
-}
-/**
- * @alias module:echarts/coord/geo/parseGeoJson
- * @param {Object} geoJson
- * @param {string} nameProperty
- * @return {module:zrender/container/Group}
- */
-
-
-var parseGeoJSON = function (geoJson, nameProperty) {
-  decode(geoJson);
-  return map(filter(geoJson.features, function (featureObj) {
-    // Output of mapshaper may have geometry null
-    return featureObj.geometry && featureObj.properties && featureObj.geometry.coordinates.length > 0;
-  }), function (featureObj) {
-    var properties = featureObj.properties;
-    var geo = featureObj.geometry;
-    var coordinates = geo.coordinates;
-    var geometries = [];
-
-    if (geo.type === 'Polygon') {
-      geometries.push({
-        type: 'polygon',
-        // According to the GeoJSON specification.
-        // First must be exterior, and the rest are all interior(holes).
-        exterior: coordinates[0],
-        interiors: coordinates.slice(1)
-      });
-    }
-
-    if (geo.type === 'MultiPolygon') {
-      each$1(coordinates, function (item) {
-        if (item[0]) {
-          geometries.push({
-            type: 'polygon',
-            exterior: item[0],
-            interiors: item.slice(1)
-          });
-        }
-      });
-    }
-
-    var region = new Region(properties[nameProperty || 'name'], geometries, properties.cp);
-    region.properties = properties;
-    return region;
-  });
 };
+inherits(Cartesian2D, Cartesian);
 
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -34829,2635 +36445,6 @@ function fixOnBandTicksCoords(axis, ticksCoords, alignWithLabel, clamp) {
 * specific language governing permissions and limitations
 * under the License.
 */
-
-/**
- * Do not mount those modules on 'src/echarts' for better tree shaking.
- */
-var parseGeoJson = parseGeoJSON;
-var ecUtil = {};
-each$1(['map', 'each', 'filter', 'indexOf', 'inherits', 'reduce', 'filter', 'bind', 'curry', 'isArray', 'isString', 'isObject', 'isFunction', 'extend', 'defaults', 'clone', 'merge'], function (name) {
-  ecUtil[name] = zrUtil[name];
-});
-var graphic$1 = {};
-each$1(['extendShape', 'extendPath', 'makePath', 'makeImage', 'mergePath', 'resizePath', 'createIcon', 'setHoverStyle', 'setLabelStyle', 'setTextStyle', 'setText', 'getFont', 'updateProps', 'initProps', 'getTransform', 'clipPointsByRect', 'clipRectByRect', 'registerShape', 'getShapeClass', 'Group', 'Image', 'Text', 'Circle', 'Sector', 'Ring', 'Polygon', 'Polyline', 'Rect', 'Line', 'BezierCurve', 'Arc', 'IncrementalDisplayable', 'CompoundPath', 'LinearGradient', 'RadialGradient', 'BoundingRect'], function (name) {
-  graphic$1[name] = graphic[name];
-});
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-SeriesModel.extend({
-  type: 'series.line',
-  dependencies: ['grid', 'polar'],
-  getInitialData: function (option, ecModel) {
-    return createListFromArray(this.getSource(), this, {
-      useEncodeDefaulter: true
-    });
-  },
-  defaultOption: {
-    zlevel: 0,
-    z: 2,
-    coordinateSystem: 'cartesian2d',
-    legendHoverLink: true,
-    hoverAnimation: true,
-    // stack: null
-    // xAxisIndex: 0,
-    // yAxisIndex: 0,
-    // polarIndex: 0,
-    // If clip the overflow value
-    clip: true,
-    // cursor: null,
-    label: {
-      position: 'top'
-    },
-    // itemStyle: {
-    // },
-    lineStyle: {
-      width: 2,
-      type: 'solid'
-    },
-    // areaStyle: {
-    // origin of areaStyle. Valid values:
-    // `'auto'/null/undefined`: from axisLine to data
-    // `'start'`: from min to data
-    // `'end'`: from data to max
-    // origin: 'auto'
-    // },
-    // false, 'start', 'end', 'middle'
-    step: false,
-    // Disabled if step is true
-    smooth: false,
-    smoothMonotone: null,
-    symbol: 'emptyCircle',
-    symbolSize: 4,
-    symbolRotate: null,
-    showSymbol: true,
-    // `false`: follow the label interval strategy.
-    // `true`: show all symbols.
-    // `'auto'`: If possible, show all symbols, otherwise
-    //           follow the label interval strategy.
-    showAllSymbol: 'auto',
-    // Whether to connect break point.
-    connectNulls: false,
-    // Sampling for large data. Can be: 'average', 'max', 'min', 'sum'.
-    sampling: 'none',
-    animationEasing: 'linear',
-    // Disable progressive
-    progressive: 0,
-    hoverLayerThreshold: Infinity
-  }
-});
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-/**
- * @param {module:echarts/data/List} data
- * @param {number} dataIndex
- * @return {string} label string. Not null/undefined
- */
-
-function getDefaultLabel(data, dataIndex) {
-  var labelDims = data.mapDimension('defaultedLabel', true);
-  var len = labelDims.length; // Simple optimization (in lots of cases, label dims length is 1)
-
-  if (len === 1) {
-    return retrieveRawValue(data, dataIndex, labelDims[0]);
-  } else if (len) {
-    var vals = [];
-
-    for (var i = 0; i < labelDims.length; i++) {
-      var val = retrieveRawValue(data, dataIndex, labelDims[i]);
-      vals.push(val);
-    }
-
-    return vals.join(' ');
-  }
-}
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
-/**
- * @module echarts/chart/helper/Symbol
- */
-/**
- * @constructor
- * @alias {module:echarts/chart/helper/Symbol}
- * @param {module:echarts/data/List} data
- * @param {number} idx
- * @extends {module:zrender/graphic/Group}
- */
-
-function SymbolClz$1(data, idx, seriesScope) {
-  Group.call(this);
-  this.updateData(data, idx, seriesScope);
-}
-
-var symbolProto = SymbolClz$1.prototype;
-/**
- * @public
- * @static
- * @param {module:echarts/data/List} data
- * @param {number} dataIndex
- * @return {Array.<number>} [width, height]
- */
-
-var getSymbolSize = SymbolClz$1.getSymbolSize = function (data, idx) {
-  var symbolSize = data.getItemVisual(idx, 'symbolSize');
-  return symbolSize instanceof Array ? symbolSize.slice() : [+symbolSize, +symbolSize];
-};
-
-function getScale(symbolSize) {
-  return [symbolSize[0] / 2, symbolSize[1] / 2];
-}
-
-function driftSymbol(dx, dy) {
-  this.parent.drift(dx, dy);
-}
-
-symbolProto._createSymbol = function (symbolType, data, idx, symbolSize, keepAspect) {
-  // Remove paths created before
-  this.removeAll();
-  var color = data.getItemVisual(idx, 'color'); // var symbolPath = createSymbol(
-  //     symbolType, -0.5, -0.5, 1, 1, color
-  // );
-  // If width/height are set too small (e.g., set to 1) on ios10
-  // and macOS Sierra, a circle stroke become a rect, no matter what
-  // the scale is set. So we set width/height as 2. See #4150.
-
-  var symbolPath = createSymbol(symbolType, -1, -1, 2, 2, color, keepAspect);
-  symbolPath.attr({
-    z2: 100,
-    culling: true,
-    scale: getScale(symbolSize)
-  }); // Rewrite drift method
-
-  symbolPath.drift = driftSymbol;
-  this._symbolType = symbolType;
-  this.add(symbolPath);
-};
-/**
- * Stop animation
- * @param {boolean} toLastFrame
- */
-
-
-symbolProto.stopSymbolAnimation = function (toLastFrame) {
-  this.childAt(0).stopAnimation(toLastFrame);
-};
-/**
- * FIXME:
- * Caution: This method breaks the encapsulation of this module,
- * but it indeed brings convenience. So do not use the method
- * unless you detailedly know all the implements of `Symbol`,
- * especially animation.
- *
- * Get symbol path element.
- */
-
-
-symbolProto.getSymbolPath = function () {
-  return this.childAt(0);
-};
-/**
- * Get scale(aka, current symbol size).
- * Including the change caused by animation
- */
-
-
-symbolProto.getScale = function () {
-  return this.childAt(0).scale;
-};
-/**
- * Highlight symbol
- */
-
-
-symbolProto.highlight = function () {
-  this.childAt(0).trigger('emphasis');
-};
-/**
- * Downplay symbol
- */
-
-
-symbolProto.downplay = function () {
-  this.childAt(0).trigger('normal');
-};
-/**
- * @param {number} zlevel
- * @param {number} z
- */
-
-
-symbolProto.setZ = function (zlevel, z) {
-  var symbolPath = this.childAt(0);
-  symbolPath.zlevel = zlevel;
-  symbolPath.z = z;
-};
-
-symbolProto.setDraggable = function (draggable) {
-  var symbolPath = this.childAt(0);
-  symbolPath.draggable = draggable;
-  symbolPath.cursor = draggable ? 'move' : symbolPath.cursor;
-};
-/**
- * Update symbol properties
- * @param {module:echarts/data/List} data
- * @param {number} idx
- * @param {Object} [seriesScope]
- * @param {Object} [seriesScope.itemStyle]
- * @param {Object} [seriesScope.hoverItemStyle]
- * @param {Object} [seriesScope.symbolRotate]
- * @param {Object} [seriesScope.symbolOffset]
- * @param {module:echarts/model/Model} [seriesScope.labelModel]
- * @param {module:echarts/model/Model} [seriesScope.hoverLabelModel]
- * @param {boolean} [seriesScope.hoverAnimation]
- * @param {Object} [seriesScope.cursorStyle]
- * @param {module:echarts/model/Model} [seriesScope.itemModel]
- * @param {string} [seriesScope.symbolInnerColor]
- * @param {Object} [seriesScope.fadeIn=false]
- */
-
-
-symbolProto.updateData = function (data, idx, seriesScope) {
-  this.silent = false;
-  var symbolType = data.getItemVisual(idx, 'symbol') || 'circle';
-  var seriesModel = data.hostModel;
-  var symbolSize = getSymbolSize(data, idx);
-  var isInit = symbolType !== this._symbolType;
-
-  if (isInit) {
-    var keepAspect = data.getItemVisual(idx, 'symbolKeepAspect');
-
-    this._createSymbol(symbolType, data, idx, symbolSize, keepAspect);
-  } else {
-    var symbolPath = this.childAt(0);
-    symbolPath.silent = false;
-    updateProps(symbolPath, {
-      scale: getScale(symbolSize)
-    }, seriesModel, idx);
-  }
-
-  this._updateCommon(data, idx, symbolSize, seriesScope);
-
-  if (isInit) {
-    var symbolPath = this.childAt(0);
-    var fadeIn = seriesScope && seriesScope.fadeIn;
-    var target = {
-      scale: symbolPath.scale.slice()
-    };
-    fadeIn && (target.style = {
-      opacity: symbolPath.style.opacity
-    });
-    symbolPath.scale = [0, 0];
-    fadeIn && (symbolPath.style.opacity = 0);
-    initProps(symbolPath, target, seriesModel, idx);
-  }
-
-  this._seriesModel = seriesModel;
-}; // Update common properties
-
-
-var normalStyleAccessPath = ['itemStyle'];
-var emphasisStyleAccessPath = ['emphasis', 'itemStyle'];
-var normalLabelAccessPath = ['label'];
-var emphasisLabelAccessPath = ['emphasis', 'label'];
-/**
- * @param {module:echarts/data/List} data
- * @param {number} idx
- * @param {Array.<number>} symbolSize
- * @param {Object} [seriesScope]
- */
-
-symbolProto._updateCommon = function (data, idx, symbolSize, seriesScope) {
-  var symbolPath = this.childAt(0);
-  var seriesModel = data.hostModel;
-  var color = data.getItemVisual(idx, 'color'); // Reset style
-
-  if (symbolPath.type !== 'image') {
-    symbolPath.useStyle({
-      strokeNoScale: true
-    });
-  } else {
-    symbolPath.setStyle({
-      opacity: null,
-      shadowBlur: null,
-      shadowOffsetX: null,
-      shadowOffsetY: null,
-      shadowColor: null
-    });
-  }
-
-  var itemStyle = seriesScope && seriesScope.itemStyle;
-  var hoverItemStyle = seriesScope && seriesScope.hoverItemStyle;
-  var symbolOffset = seriesScope && seriesScope.symbolOffset;
-  var labelModel = seriesScope && seriesScope.labelModel;
-  var hoverLabelModel = seriesScope && seriesScope.hoverLabelModel;
-  var hoverAnimation = seriesScope && seriesScope.hoverAnimation;
-  var cursorStyle = seriesScope && seriesScope.cursorStyle;
-
-  if (!seriesScope || data.hasItemOption) {
-    var itemModel = seriesScope && seriesScope.itemModel ? seriesScope.itemModel : data.getItemModel(idx); // Color must be excluded.
-    // Because symbol provide setColor individually to set fill and stroke
-
-    itemStyle = itemModel.getModel(normalStyleAccessPath).getItemStyle(['color']);
-    hoverItemStyle = itemModel.getModel(emphasisStyleAccessPath).getItemStyle();
-    symbolOffset = itemModel.getShallow('symbolOffset');
-    labelModel = itemModel.getModel(normalLabelAccessPath);
-    hoverLabelModel = itemModel.getModel(emphasisLabelAccessPath);
-    hoverAnimation = itemModel.getShallow('hoverAnimation');
-    cursorStyle = itemModel.getShallow('cursor');
-  } else {
-    hoverItemStyle = extend({}, hoverItemStyle);
-  }
-
-  var elStyle = symbolPath.style;
-  var symbolRotate = data.getItemVisual(idx, 'symbolRotate');
-  symbolPath.attr('rotation', (symbolRotate || 0) * Math.PI / 180 || 0);
-
-  if (symbolOffset) {
-    symbolPath.attr('position', [parsePercent$1(symbolOffset[0], symbolSize[0]), parsePercent$1(symbolOffset[1], symbolSize[1])]);
-  }
-
-  cursorStyle && symbolPath.attr('cursor', cursorStyle); // PENDING setColor before setStyle!!!
-
-  symbolPath.setColor(color, seriesScope && seriesScope.symbolInnerColor);
-  symbolPath.setStyle(itemStyle);
-  var opacity = data.getItemVisual(idx, 'opacity');
-
-  if (opacity != null) {
-    elStyle.opacity = opacity;
-  }
-
-  var liftZ = data.getItemVisual(idx, 'liftZ');
-  var z2Origin = symbolPath.__z2Origin;
-
-  if (liftZ != null) {
-    if (z2Origin == null) {
-      symbolPath.__z2Origin = symbolPath.z2;
-      symbolPath.z2 += liftZ;
-    }
-  } else if (z2Origin != null) {
-    symbolPath.z2 = z2Origin;
-    symbolPath.__z2Origin = null;
-  }
-
-  var useNameLabel = seriesScope && seriesScope.useNameLabel;
-  setLabelStyle(elStyle, hoverItemStyle, labelModel, hoverLabelModel, {
-    labelFetcher: seriesModel,
-    labelDataIndex: idx,
-    defaultText: getLabelDefaultText,
-    isRectText: true,
-    autoColor: color
-  }); // Do not execute util needed.
-
-  function getLabelDefaultText(idx, opt) {
-    return useNameLabel ? data.getName(idx) : getDefaultLabel(data, idx);
-  }
-
-  symbolPath.__symbolOriginalScale = getScale(symbolSize);
-  symbolPath.hoverStyle = hoverItemStyle;
-  symbolPath.highDownOnUpdate = hoverAnimation && seriesModel.isAnimationEnabled() ? highDownOnUpdate : null;
-  setHoverStyle(symbolPath);
-};
-
-function highDownOnUpdate(fromState, toState) {
-  // Do not support this hover animation util some scenario required.
-  // Animation can only be supported in hover layer when using `el.incremetal`.
-  if (this.incremental || this.useHoverLayer) {
-    return;
-  }
-
-  if (toState === 'emphasis') {
-    var scale = this.__symbolOriginalScale;
-    var ratio = scale[1] / scale[0];
-    var emphasisOpt = {
-      scale: [Math.max(scale[0] * 1.1, scale[0] + 3), Math.max(scale[1] * 1.1, scale[1] + 3 * ratio)]
-    }; // FIXME
-    // modify it after support stop specified animation.
-    // toState === fromState
-    //     ? (this.stopAnimation(), this.attr(emphasisOpt))
-
-    this.animateTo(emphasisOpt, 400, 'elasticOut');
-  } else if (toState === 'normal') {
-    this.animateTo({
-      scale: this.__symbolOriginalScale
-    }, 400, 'elasticOut');
-  }
-}
-/**
- * @param {Function} cb
- * @param {Object} [opt]
- * @param {Object} [opt.keepLabel=true]
- */
-
-
-symbolProto.fadeOut = function (cb, opt) {
-  var symbolPath = this.childAt(0); // Avoid mistaken hover when fading out
-
-  this.silent = symbolPath.silent = true; // Not show text when animating
-
-  !(opt && opt.keepLabel) && (symbolPath.style.text = null);
-  updateProps(symbolPath, {
-    style: {
-      opacity: 0
-    },
-    scale: [0, 0]
-  }, this._seriesModel, this.dataIndex, cb);
-};
-
-inherits(SymbolClz$1, Group);
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
-/**
- * @module echarts/chart/helper/SymbolDraw
- */
-/**
- * @constructor
- * @alias module:echarts/chart/helper/SymbolDraw
- * @param {module:zrender/graphic/Group} [symbolCtor]
- */
-
-function SymbolDraw(symbolCtor) {
-  this.group = new Group();
-  this._symbolCtor = symbolCtor || SymbolClz$1;
-}
-
-var symbolDrawProto = SymbolDraw.prototype;
-
-function symbolNeedsDraw(data, point, idx, opt) {
-  return point && !isNaN(point[0]) && !isNaN(point[1]) && !(opt.isIgnore && opt.isIgnore(idx)) // We do not set clipShape on group, because it will cut part of
-  // the symbol element shape. We use the same clip shape here as
-  // the line clip.
-  && !(opt.clipShape && !opt.clipShape.contain(point[0], point[1])) && data.getItemVisual(idx, 'symbol') !== 'none';
-}
-/**
- * Update symbols draw by new data
- * @param {module:echarts/data/List} data
- * @param {Object} [opt] Or isIgnore
- * @param {Function} [opt.isIgnore]
- * @param {Object} [opt.clipShape]
- */
-
-
-symbolDrawProto.updateData = function (data, opt) {
-  opt = normalizeUpdateOpt(opt);
-  var group = this.group;
-  var seriesModel = data.hostModel;
-  var oldData = this._data;
-  var SymbolCtor = this._symbolCtor;
-  var seriesScope = makeSeriesScope(data); // There is no oldLineData only when first rendering or switching from
-  // stream mode to normal mode, where previous elements should be removed.
-
-  if (!oldData) {
-    group.removeAll();
-  }
-
-  data.diff(oldData).add(function (newIdx) {
-    var point = data.getItemLayout(newIdx);
-
-    if (symbolNeedsDraw(data, point, newIdx, opt)) {
-      var symbolEl = new SymbolCtor(data, newIdx, seriesScope);
-      symbolEl.attr('position', point);
-      data.setItemGraphicEl(newIdx, symbolEl);
-      group.add(symbolEl);
-    }
-  }).update(function (newIdx, oldIdx) {
-    var symbolEl = oldData.getItemGraphicEl(oldIdx);
-    var point = data.getItemLayout(newIdx);
-
-    if (!symbolNeedsDraw(data, point, newIdx, opt)) {
-      group.remove(symbolEl);
-      return;
-    }
-
-    if (!symbolEl) {
-      symbolEl = new SymbolCtor(data, newIdx);
-      symbolEl.attr('position', point);
-    } else {
-      symbolEl.updateData(data, newIdx, seriesScope);
-      updateProps(symbolEl, {
-        position: point
-      }, seriesModel);
-    } // Add back
-
-
-    group.add(symbolEl);
-    data.setItemGraphicEl(newIdx, symbolEl);
-  }).remove(function (oldIdx) {
-    var el = oldData.getItemGraphicEl(oldIdx);
-    el && el.fadeOut(function () {
-      group.remove(el);
-    });
-  }).execute();
-  this._data = data;
-};
-
-symbolDrawProto.isPersistent = function () {
-  return true;
-};
-
-symbolDrawProto.updateLayout = function () {
-  var data = this._data;
-
-  if (data) {
-    // Not use animation
-    data.eachItemGraphicEl(function (el, idx) {
-      var point = data.getItemLayout(idx);
-      el.attr('position', point);
-    });
-  }
-};
-
-symbolDrawProto.incrementalPrepareUpdate = function (data) {
-  this._seriesScope = makeSeriesScope(data);
-  this._data = null;
-  this.group.removeAll();
-};
-/**
- * Update symbols draw by new data
- * @param {module:echarts/data/List} data
- * @param {Object} [opt] Or isIgnore
- * @param {Function} [opt.isIgnore]
- * @param {Object} [opt.clipShape]
- */
-
-
-symbolDrawProto.incrementalUpdate = function (taskParams, data, opt) {
-  opt = normalizeUpdateOpt(opt);
-
-  function updateIncrementalAndHover(el) {
-    if (!el.isGroup) {
-      el.incremental = el.useHoverLayer = true;
-    }
-  }
-
-  for (var idx = taskParams.start; idx < taskParams.end; idx++) {
-    var point = data.getItemLayout(idx);
-
-    if (symbolNeedsDraw(data, point, idx, opt)) {
-      var el = new this._symbolCtor(data, idx, this._seriesScope);
-      el.traverse(updateIncrementalAndHover);
-      el.attr('position', point);
-      this.group.add(el);
-      data.setItemGraphicEl(idx, el);
-    }
-  }
-};
-
-function normalizeUpdateOpt(opt) {
-  if (opt != null && !isObject$1(opt)) {
-    opt = {
-      isIgnore: opt
-    };
-  }
-
-  return opt || {};
-}
-
-symbolDrawProto.remove = function (enableAnimation) {
-  var group = this.group;
-  var data = this._data; // Incremental model do not have this._data.
-
-  if (data && enableAnimation) {
-    data.eachItemGraphicEl(function (el) {
-      el.fadeOut(function () {
-        group.remove(el);
-      });
-    });
-  } else {
-    group.removeAll();
-  }
-};
-
-function makeSeriesScope(data) {
-  var seriesModel = data.hostModel;
-  return {
-    itemStyle: seriesModel.getModel('itemStyle').getItemStyle(['color']),
-    hoverItemStyle: seriesModel.getModel('emphasis.itemStyle').getItemStyle(),
-    symbolRotate: seriesModel.get('symbolRotate'),
-    symbolOffset: seriesModel.get('symbolOffset'),
-    hoverAnimation: seriesModel.get('hoverAnimation'),
-    labelModel: seriesModel.getModel('label'),
-    hoverLabelModel: seriesModel.getModel('emphasis.label'),
-    cursorStyle: seriesModel.get('cursor')
-  };
-}
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-/**
- * @param {Object} coordSys
- * @param {module:echarts/data/List} data
- * @param {string} valueOrigin lineSeries.option.areaStyle.origin
- */
-
-function prepareDataCoordInfo(coordSys, data, valueOrigin) {
-  var baseAxis = coordSys.getBaseAxis();
-  var valueAxis = coordSys.getOtherAxis(baseAxis);
-  var valueStart = getValueStart(valueAxis, valueOrigin);
-  var baseAxisDim = baseAxis.dim;
-  var valueAxisDim = valueAxis.dim;
-  var valueDim = data.mapDimension(valueAxisDim);
-  var baseDim = data.mapDimension(baseAxisDim);
-  var baseDataOffset = valueAxisDim === 'x' || valueAxisDim === 'radius' ? 1 : 0;
-  var dims = map(coordSys.dimensions, function (coordDim) {
-    return data.mapDimension(coordDim);
-  });
-  var stacked;
-  var stackResultDim = data.getCalculationInfo('stackResultDimension');
-
-  if (stacked |= isDimensionStacked(data, dims[0]
-  /*, dims[1]*/
-  )) {
-    // jshint ignore:line
-    dims[0] = stackResultDim;
-  }
-
-  if (stacked |= isDimensionStacked(data, dims[1]
-  /*, dims[0]*/
-  )) {
-    // jshint ignore:line
-    dims[1] = stackResultDim;
-  }
-
-  return {
-    dataDimsForPoint: dims,
-    valueStart: valueStart,
-    valueAxisDim: valueAxisDim,
-    baseAxisDim: baseAxisDim,
-    stacked: !!stacked,
-    valueDim: valueDim,
-    baseDim: baseDim,
-    baseDataOffset: baseDataOffset,
-    stackedOverDimension: data.getCalculationInfo('stackedOverDimension')
-  };
-}
-
-function getValueStart(valueAxis, valueOrigin) {
-  var valueStart = 0;
-  var extent = valueAxis.scale.getExtent();
-
-  if (valueOrigin === 'start') {
-    valueStart = extent[0];
-  } else if (valueOrigin === 'end') {
-    valueStart = extent[1];
-  } // auto
-  else {
-      // Both positive
-      if (extent[0] > 0) {
-        valueStart = extent[0];
-      } // Both negative
-      else if (extent[1] < 0) {
-          valueStart = extent[1];
-        } // If is one positive, and one negative, onZero shall be true
-
-    }
-
-  return valueStart;
-}
-
-function getStackedOnPoint(dataCoordInfo, coordSys, data, idx) {
-  var value = NaN;
-
-  if (dataCoordInfo.stacked) {
-    value = data.get(data.getCalculationInfo('stackedOverDimension'), idx);
-  }
-
-  if (isNaN(value)) {
-    value = dataCoordInfo.valueStart;
-  }
-
-  var baseDataOffset = dataCoordInfo.baseDataOffset;
-  var stackedData = [];
-  stackedData[baseDataOffset] = data.get(dataCoordInfo.baseDim, idx);
-  stackedData[1 - baseDataOffset] = value;
-  return coordSys.dataToPoint(stackedData);
-}
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-// 'zrender/src/core/arrayDiff' has been used before, but it did
-// not do well in performance when roam with fixed dataZoom window.
-// function convertToIntId(newIdList, oldIdList) {
-//     // Generate int id instead of string id.
-//     // Compare string maybe slow in score function of arrDiff
-//     // Assume id in idList are all unique
-//     var idIndicesMap = {};
-//     var idx = 0;
-//     for (var i = 0; i < newIdList.length; i++) {
-//         idIndicesMap[newIdList[i]] = idx;
-//         newIdList[i] = idx++;
-//     }
-//     for (var i = 0; i < oldIdList.length; i++) {
-//         var oldId = oldIdList[i];
-//         // Same with newIdList
-//         if (idIndicesMap[oldId]) {
-//             oldIdList[i] = idIndicesMap[oldId];
-//         }
-//         else {
-//             oldIdList[i] = idx++;
-//         }
-//     }
-// }
-
-function diffData(oldData, newData) {
-  var diffResult = [];
-  newData.diff(oldData).add(function (idx) {
-    diffResult.push({
-      cmd: '+',
-      idx: idx
-    });
-  }).update(function (newIdx, oldIdx) {
-    diffResult.push({
-      cmd: '=',
-      idx: oldIdx,
-      idx1: newIdx
-    });
-  }).remove(function (idx) {
-    diffResult.push({
-      cmd: '-',
-      idx: idx
-    });
-  }).execute();
-  return diffResult;
-}
-
-var lineAnimationDiff = function (oldData, newData, oldStackedOnPoints, newStackedOnPoints, oldCoordSys, newCoordSys, oldValueOrigin, newValueOrigin) {
-  var diff = diffData(oldData, newData); // var newIdList = newData.mapArray(newData.getId);
-  // var oldIdList = oldData.mapArray(oldData.getId);
-  // convertToIntId(newIdList, oldIdList);
-  // // FIXME One data ?
-  // diff = arrayDiff(oldIdList, newIdList);
-
-  var currPoints = [];
-  var nextPoints = []; // Points for stacking base line
-
-  var currStackedPoints = [];
-  var nextStackedPoints = [];
-  var status = [];
-  var sortedIndices = [];
-  var rawIndices = [];
-  var newDataOldCoordInfo = prepareDataCoordInfo(oldCoordSys, newData, oldValueOrigin);
-  var oldDataNewCoordInfo = prepareDataCoordInfo(newCoordSys, oldData, newValueOrigin);
-
-  for (var i = 0; i < diff.length; i++) {
-    var diffItem = diff[i];
-    var pointAdded = true; // FIXME, animation is not so perfect when dataZoom window moves fast
-    // Which is in case remvoing or add more than one data in the tail or head
-
-    switch (diffItem.cmd) {
-      case '=':
-        var currentPt = oldData.getItemLayout(diffItem.idx);
-        var nextPt = newData.getItemLayout(diffItem.idx1); // If previous data is NaN, use next point directly
-
-        if (isNaN(currentPt[0]) || isNaN(currentPt[1])) {
-          currentPt = nextPt.slice();
-        }
-
-        currPoints.push(currentPt);
-        nextPoints.push(nextPt);
-        currStackedPoints.push(oldStackedOnPoints[diffItem.idx]);
-        nextStackedPoints.push(newStackedOnPoints[diffItem.idx1]);
-        rawIndices.push(newData.getRawIndex(diffItem.idx1));
-        break;
-
-      case '+':
-        var idx = diffItem.idx;
-        currPoints.push(oldCoordSys.dataToPoint([newData.get(newDataOldCoordInfo.dataDimsForPoint[0], idx), newData.get(newDataOldCoordInfo.dataDimsForPoint[1], idx)]));
-        nextPoints.push(newData.getItemLayout(idx).slice());
-        currStackedPoints.push(getStackedOnPoint(newDataOldCoordInfo, oldCoordSys, newData, idx));
-        nextStackedPoints.push(newStackedOnPoints[idx]);
-        rawIndices.push(newData.getRawIndex(idx));
-        break;
-
-      case '-':
-        var idx = diffItem.idx;
-        var rawIndex = oldData.getRawIndex(idx); // Data is replaced. In the case of dynamic data queue
-        // FIXME FIXME FIXME
-
-        if (rawIndex !== idx) {
-          currPoints.push(oldData.getItemLayout(idx));
-          nextPoints.push(newCoordSys.dataToPoint([oldData.get(oldDataNewCoordInfo.dataDimsForPoint[0], idx), oldData.get(oldDataNewCoordInfo.dataDimsForPoint[1], idx)]));
-          currStackedPoints.push(oldStackedOnPoints[idx]);
-          nextStackedPoints.push(getStackedOnPoint(oldDataNewCoordInfo, newCoordSys, oldData, idx));
-          rawIndices.push(rawIndex);
-        } else {
-          pointAdded = false;
-        }
-
-    } // Original indices
-
-
-    if (pointAdded) {
-      status.push(diffItem);
-      sortedIndices.push(sortedIndices.length);
-    }
-  } // Diff result may be crossed if all items are changed
-  // Sort by data index
-
-
-  sortedIndices.sort(function (a, b) {
-    return rawIndices[a] - rawIndices[b];
-  });
-  var sortedCurrPoints = [];
-  var sortedNextPoints = [];
-  var sortedCurrStackedPoints = [];
-  var sortedNextStackedPoints = [];
-  var sortedStatus = [];
-
-  for (var i = 0; i < sortedIndices.length; i++) {
-    var idx = sortedIndices[i];
-    sortedCurrPoints[i] = currPoints[idx];
-    sortedNextPoints[i] = nextPoints[idx];
-    sortedCurrStackedPoints[i] = currStackedPoints[idx];
-    sortedNextStackedPoints[i] = nextStackedPoints[idx];
-    sortedStatus[i] = status[idx];
-  }
-
-  return {
-    current: sortedCurrPoints,
-    next: sortedNextPoints,
-    stackedOnCurrent: sortedCurrStackedPoints,
-    stackedOnNext: sortedNextStackedPoints,
-    status: sortedStatus
-  };
-};
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-// Poly path support NaN point
-var vec2Min = min;
-var vec2Max = max;
-var scaleAndAdd$1 = scaleAndAdd;
-var v2Copy = copy; // Temporary variable
-
-var v = [];
-var cp0 = [];
-var cp1 = [];
-
-function isPointNull(p) {
-  return isNaN(p[0]) || isNaN(p[1]);
-}
-
-function drawSegment(ctx, points, start, segLen, allLen, dir, smoothMin, smoothMax, smooth, smoothMonotone, connectNulls) {
-  // if (smoothMonotone == null) {
-  //     if (isMono(points, 'x')) {
-  //         return drawMono(ctx, points, start, segLen, allLen,
-  //             dir, smoothMin, smoothMax, smooth, 'x', connectNulls);
-  //     }
-  //     else if (isMono(points, 'y')) {
-  //         return drawMono(ctx, points, start, segLen, allLen,
-  //             dir, smoothMin, smoothMax, smooth, 'y', connectNulls);
-  //     }
-  //     else {
-  //         return drawNonMono.apply(this, arguments);
-  //     }
-  // }
-  // else if (smoothMonotone !== 'none' && isMono(points, smoothMonotone)) {
-  //     return drawMono.apply(this, arguments);
-  // }
-  // else {
-  //     return drawNonMono.apply(this, arguments);
-  // }
-  if (smoothMonotone === 'none' || !smoothMonotone) {
-    return drawNonMono.apply(this, arguments);
-  } else {
-    return drawMono.apply(this, arguments);
-  }
-}
-/**
- * Check if points is in monotone.
- *
- * @param {number[][]} points         Array of points which is in [x, y] form
- * @param {string}     smoothMonotone 'x', 'y', or 'none', stating for which
- *                                    dimension that is checking.
- *                                    If is 'none', `drawNonMono` should be
- *                                    called.
- *                                    If is undefined, either being monotone
- *                                    in 'x' or 'y' will call `drawMono`.
- */
-// function isMono(points, smoothMonotone) {
-//     if (points.length <= 1) {
-//         return true;
-//     }
-//     var dim = smoothMonotone === 'x' ? 0 : 1;
-//     var last = points[0][dim];
-//     var lastDiff = 0;
-//     for (var i = 1; i < points.length; ++i) {
-//         var diff = points[i][dim] - last;
-//         if (!isNaN(diff) && !isNaN(lastDiff)
-//             && diff !== 0 && lastDiff !== 0
-//             && ((diff >= 0) !== (lastDiff >= 0))
-//         ) {
-//             return false;
-//         }
-//         if (!isNaN(diff) && diff !== 0) {
-//             lastDiff = diff;
-//             last = points[i][dim];
-//         }
-//     }
-//     return true;
-// }
-
-/**
- * Draw smoothed line in monotone, in which only vertical or horizontal bezier
- * control points will be used. This should be used when points are monotone
- * either in x or y dimension.
- */
-
-
-function drawMono(ctx, points, start, segLen, allLen, dir, smoothMin, smoothMax, smooth, smoothMonotone, connectNulls) {
-  var prevIdx = 0;
-  var idx = start;
-
-  for (var k = 0; k < segLen; k++) {
-    var p = points[idx];
-
-    if (idx >= allLen || idx < 0) {
-      break;
-    }
-
-    if (isPointNull(p)) {
-      if (connectNulls) {
-        idx += dir;
-        continue;
-      }
-
-      break;
-    }
-
-    if (idx === start) {
-      ctx[dir > 0 ? 'moveTo' : 'lineTo'](p[0], p[1]);
-    } else {
-      if (smooth > 0) {
-        var prevP = points[prevIdx];
-        var dim = smoothMonotone === 'y' ? 1 : 0; // Length of control point to p, either in x or y, but not both
-
-        var ctrlLen = (p[dim] - prevP[dim]) * smooth;
-        v2Copy(cp0, prevP);
-        cp0[dim] = prevP[dim] + ctrlLen;
-        v2Copy(cp1, p);
-        cp1[dim] = p[dim] - ctrlLen;
-        ctx.bezierCurveTo(cp0[0], cp0[1], cp1[0], cp1[1], p[0], p[1]);
-      } else {
-        ctx.lineTo(p[0], p[1]);
-      }
-    }
-
-    prevIdx = idx;
-    idx += dir;
-  }
-
-  return k;
-}
-/**
- * Draw smoothed line in non-monotone, in may cause undesired curve in extreme
- * situations. This should be used when points are non-monotone neither in x or
- * y dimension.
- */
-
-
-function drawNonMono(ctx, points, start, segLen, allLen, dir, smoothMin, smoothMax, smooth, smoothMonotone, connectNulls) {
-  var prevIdx = 0;
-  var idx = start;
-
-  for (var k = 0; k < segLen; k++) {
-    var p = points[idx];
-
-    if (idx >= allLen || idx < 0) {
-      break;
-    }
-
-    if (isPointNull(p)) {
-      if (connectNulls) {
-        idx += dir;
-        continue;
-      }
-
-      break;
-    }
-
-    if (idx === start) {
-      ctx[dir > 0 ? 'moveTo' : 'lineTo'](p[0], p[1]);
-      v2Copy(cp0, p);
-    } else {
-      if (smooth > 0) {
-        var nextIdx = idx + dir;
-        var nextP = points[nextIdx];
-
-        if (connectNulls) {
-          // Find next point not null
-          while (nextP && isPointNull(points[nextIdx])) {
-            nextIdx += dir;
-            nextP = points[nextIdx];
-          }
-        }
-
-        var ratioNextSeg = 0.5;
-        var prevP = points[prevIdx];
-        var nextP = points[nextIdx]; // Last point
-
-        if (!nextP || isPointNull(nextP)) {
-          v2Copy(cp1, p);
-        } else {
-          // If next data is null in not connect case
-          if (isPointNull(nextP) && !connectNulls) {
-            nextP = p;
-          }
-
-          sub(v, nextP, prevP);
-          var lenPrevSeg;
-          var lenNextSeg;
-
-          if (smoothMonotone === 'x' || smoothMonotone === 'y') {
-            var dim = smoothMonotone === 'x' ? 0 : 1;
-            lenPrevSeg = Math.abs(p[dim] - prevP[dim]);
-            lenNextSeg = Math.abs(p[dim] - nextP[dim]);
-          } else {
-            lenPrevSeg = dist(p, prevP);
-            lenNextSeg = dist(p, nextP);
-          } // Use ratio of seg length
-
-
-          ratioNextSeg = lenNextSeg / (lenNextSeg + lenPrevSeg);
-          scaleAndAdd$1(cp1, p, v, -smooth * (1 - ratioNextSeg));
-        } // Smooth constraint
-
-
-        vec2Min(cp0, cp0, smoothMax);
-        vec2Max(cp0, cp0, smoothMin);
-        vec2Min(cp1, cp1, smoothMax);
-        vec2Max(cp1, cp1, smoothMin);
-        ctx.bezierCurveTo(cp0[0], cp0[1], cp1[0], cp1[1], p[0], p[1]); // cp0 of next segment
-
-        scaleAndAdd$1(cp0, p, v, smooth * ratioNextSeg);
-      } else {
-        ctx.lineTo(p[0], p[1]);
-      }
-    }
-
-    prevIdx = idx;
-    idx += dir;
-  }
-
-  return k;
-}
-
-function getBoundingBox(points, smoothConstraint) {
-  var ptMin = [Infinity, Infinity];
-  var ptMax = [-Infinity, -Infinity];
-
-  if (smoothConstraint) {
-    for (var i = 0; i < points.length; i++) {
-      var pt = points[i];
-
-      if (pt[0] < ptMin[0]) {
-        ptMin[0] = pt[0];
-      }
-
-      if (pt[1] < ptMin[1]) {
-        ptMin[1] = pt[1];
-      }
-
-      if (pt[0] > ptMax[0]) {
-        ptMax[0] = pt[0];
-      }
-
-      if (pt[1] > ptMax[1]) {
-        ptMax[1] = pt[1];
-      }
-    }
-  }
-
-  return {
-    min: smoothConstraint ? ptMin : ptMax,
-    max: smoothConstraint ? ptMax : ptMin
-  };
-}
-
-var Polyline$1 = Path.extend({
-  type: 'ec-polyline',
-  shape: {
-    points: [],
-    smooth: 0,
-    smoothConstraint: true,
-    smoothMonotone: null,
-    connectNulls: false
-  },
-  style: {
-    fill: null,
-    stroke: '#000'
-  },
-  brush: fixClipWithShadow(Path.prototype.brush),
-  buildPath: function (ctx, shape) {
-    var points = shape.points;
-    var i = 0;
-    var len$$1 = points.length;
-    var result = getBoundingBox(points, shape.smoothConstraint);
-
-    if (shape.connectNulls) {
-      // Must remove first and last null values avoid draw error in polygon
-      for (; len$$1 > 0; len$$1--) {
-        if (!isPointNull(points[len$$1 - 1])) {
-          break;
-        }
-      }
-
-      for (; i < len$$1; i++) {
-        if (!isPointNull(points[i])) {
-          break;
-        }
-      }
-    }
-
-    while (i < len$$1) {
-      i += drawSegment(ctx, points, i, len$$1, len$$1, 1, result.min, result.max, shape.smooth, shape.smoothMonotone, shape.connectNulls) + 1;
-    }
-  }
-});
-var Polygon$1 = Path.extend({
-  type: 'ec-polygon',
-  shape: {
-    points: [],
-    // Offset between stacked base points and points
-    stackedOnPoints: [],
-    smooth: 0,
-    stackedOnSmooth: 0,
-    smoothConstraint: true,
-    smoothMonotone: null,
-    connectNulls: false
-  },
-  brush: fixClipWithShadow(Path.prototype.brush),
-  buildPath: function (ctx, shape) {
-    var points = shape.points;
-    var stackedOnPoints = shape.stackedOnPoints;
-    var i = 0;
-    var len$$1 = points.length;
-    var smoothMonotone = shape.smoothMonotone;
-    var bbox = getBoundingBox(points, shape.smoothConstraint);
-    var stackedOnBBox = getBoundingBox(stackedOnPoints, shape.smoothConstraint);
-
-    if (shape.connectNulls) {
-      // Must remove first and last null values avoid draw error in polygon
-      for (; len$$1 > 0; len$$1--) {
-        if (!isPointNull(points[len$$1 - 1])) {
-          break;
-        }
-      }
-
-      for (; i < len$$1; i++) {
-        if (!isPointNull(points[i])) {
-          break;
-        }
-      }
-    }
-
-    while (i < len$$1) {
-      var k = drawSegment(ctx, points, i, len$$1, len$$1, 1, bbox.min, bbox.max, shape.smooth, smoothMonotone, shape.connectNulls);
-      drawSegment(ctx, stackedOnPoints, i + k - 1, k, len$$1, -1, stackedOnBBox.min, stackedOnBBox.max, shape.stackedOnSmooth, smoothMonotone, shape.connectNulls);
-      i += k + 1;
-      ctx.closePath();
-    }
-  }
-});
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-function createGridClipPath(cartesian, hasAnimation, seriesModel) {
-  var rect = cartesian.getArea();
-  var isHorizontal = cartesian.getBaseAxis().isHorizontal();
-  var x = rect.x;
-  var y = rect.y;
-  var width = rect.width;
-  var height = rect.height;
-  var lineWidth = seriesModel.get('lineStyle.width') || 2; // Expand the clip path a bit to avoid the border is clipped and looks thinner
-
-  x -= lineWidth / 2;
-  y -= lineWidth / 2;
-  width += lineWidth;
-  height += lineWidth; // fix: https://github.com/apache/incubator-echarts/issues/11369
-
-  x = Math.floor(x);
-  width = Math.round(width);
-  var clipPath = new Rect({
-    shape: {
-      x: x,
-      y: y,
-      width: width,
-      height: height
-    }
-  });
-
-  if (hasAnimation) {
-    clipPath.shape[isHorizontal ? 'width' : 'height'] = 0;
-    initProps(clipPath, {
-      shape: {
-        width: width,
-        height: height
-      }
-    }, seriesModel);
-  }
-
-  return clipPath;
-}
-
-function createPolarClipPath(polar, hasAnimation, seriesModel) {
-  var sectorArea = polar.getArea(); // Avoid float number rounding error for symbol on the edge of axis extent.
-
-  var clipPath = new Sector({
-    shape: {
-      cx: round$1(polar.cx, 1),
-      cy: round$1(polar.cy, 1),
-      r0: round$1(sectorArea.r0, 1),
-      r: round$1(sectorArea.r, 1),
-      startAngle: sectorArea.startAngle,
-      endAngle: sectorArea.endAngle,
-      clockwise: sectorArea.clockwise
-    }
-  });
-
-  if (hasAnimation) {
-    clipPath.shape.endAngle = sectorArea.startAngle;
-    initProps(clipPath, {
-      shape: {
-        endAngle: sectorArea.endAngle
-      }
-    }, seriesModel);
-  }
-
-  return clipPath;
-}
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-// FIXME step not support polar
-function isPointsSame(points1, points2) {
-  if (points1.length !== points2.length) {
-    return;
-  }
-
-  for (var i = 0; i < points1.length; i++) {
-    var p1 = points1[i];
-    var p2 = points2[i];
-
-    if (p1[0] !== p2[0] || p1[1] !== p2[1]) {
-      return;
-    }
-  }
-
-  return true;
-}
-
-function getBoundingDiff(points1, points2) {
-  var min1 = [];
-  var max1 = [];
-  var min2 = [];
-  var max2 = [];
-  fromPoints(points1, min1, max1);
-  fromPoints(points2, min2, max2); // Get a max value from each corner of two boundings.
-
-  return Math.max(Math.abs(min1[0] - min2[0]), Math.abs(min1[1] - min2[1]), Math.abs(max1[0] - max2[0]), Math.abs(max1[1] - max2[1]));
-}
-
-function getSmooth(smooth) {
-  return typeof smooth === 'number' ? smooth : smooth ? 0.5 : 0;
-}
-/**
- * @param {module:echarts/coord/cartesian/Cartesian2D|module:echarts/coord/polar/Polar} coordSys
- * @param {module:echarts/data/List} data
- * @param {Object} dataCoordInfo
- * @param {Array.<Array.<number>>} points
- */
-
-
-function getStackedOnPoints(coordSys, data, dataCoordInfo) {
-  if (!dataCoordInfo.valueDim) {
-    return [];
-  }
-
-  var points = [];
-
-  for (var idx = 0, len = data.count(); idx < len; idx++) {
-    points.push(getStackedOnPoint(dataCoordInfo, coordSys, data, idx));
-  }
-
-  return points;
-}
-
-function turnPointsIntoStep(points, coordSys, stepTurnAt) {
-  var baseAxis = coordSys.getBaseAxis();
-  var baseIndex = baseAxis.dim === 'x' || baseAxis.dim === 'radius' ? 0 : 1;
-  var stepPoints = [];
-
-  for (var i = 0; i < points.length - 1; i++) {
-    var nextPt = points[i + 1];
-    var pt = points[i];
-    stepPoints.push(pt);
-    var stepPt = [];
-
-    switch (stepTurnAt) {
-      case 'end':
-        stepPt[baseIndex] = nextPt[baseIndex];
-        stepPt[1 - baseIndex] = pt[1 - baseIndex]; // default is start
-
-        stepPoints.push(stepPt);
-        break;
-
-      case 'middle':
-        // default is start
-        var middle = (pt[baseIndex] + nextPt[baseIndex]) / 2;
-        var stepPt2 = [];
-        stepPt[baseIndex] = stepPt2[baseIndex] = middle;
-        stepPt[1 - baseIndex] = pt[1 - baseIndex];
-        stepPt2[1 - baseIndex] = nextPt[1 - baseIndex];
-        stepPoints.push(stepPt);
-        stepPoints.push(stepPt2);
-        break;
-
-      default:
-        stepPt[baseIndex] = pt[baseIndex];
-        stepPt[1 - baseIndex] = nextPt[1 - baseIndex]; // default is start
-
-        stepPoints.push(stepPt);
-    }
-  } // Last points
-
-
-  points[i] && stepPoints.push(points[i]);
-  return stepPoints;
-}
-
-function getVisualGradient(data, coordSys) {
-  var visualMetaList = data.getVisual('visualMeta');
-
-  if (!visualMetaList || !visualMetaList.length || !data.count()) {
-    // When data.count() is 0, gradient range can not be calculated.
-    return;
-  }
-
-  if (coordSys.type !== 'cartesian2d') {
-    return;
-  }
-
-  var coordDim;
-  var visualMeta;
-
-  for (var i = visualMetaList.length - 1; i >= 0; i--) {
-    var dimIndex = visualMetaList[i].dimension;
-    var dimName = data.dimensions[dimIndex];
-    var dimInfo = data.getDimensionInfo(dimName);
-    coordDim = dimInfo && dimInfo.coordDim; // Can only be x or y
-
-    if (coordDim === 'x' || coordDim === 'y') {
-      visualMeta = visualMetaList[i];
-      break;
-    }
-  }
-
-  if (!visualMeta) {
-    return;
-  } // If the area to be rendered is bigger than area defined by LinearGradient,
-  // the canvas spec prescribes that the color of the first stop and the last
-  // stop should be used. But if two stops are added at offset 0, in effect
-  // browsers use the color of the second stop to render area outside
-  // LinearGradient. So we can only infinitesimally extend area defined in
-  // LinearGradient to render `outerColors`.
-
-
-  var axis = coordSys.getAxis(coordDim); // dataToCoor mapping may not be linear, but must be monotonic.
-
-  var colorStops = map(visualMeta.stops, function (stop) {
-    return {
-      coord: axis.toGlobalCoord(axis.dataToCoord(stop.value)),
-      color: stop.color
-    };
-  });
-  var stopLen = colorStops.length;
-  var outerColors = visualMeta.outerColors.slice();
-
-  if (stopLen && colorStops[0].coord > colorStops[stopLen - 1].coord) {
-    colorStops.reverse();
-    outerColors.reverse();
-  }
-
-  var tinyExtent = 10; // Arbitrary value: 10px
-
-  var minCoord = colorStops[0].coord - tinyExtent;
-  var maxCoord = colorStops[stopLen - 1].coord + tinyExtent;
-  var coordSpan = maxCoord - minCoord;
-
-  if (coordSpan < 1e-3) {
-    return 'transparent';
-  }
-
-  each$1(colorStops, function (stop) {
-    stop.offset = (stop.coord - minCoord) / coordSpan;
-  });
-  colorStops.push({
-    offset: stopLen ? colorStops[stopLen - 1].offset : 0.5,
-    color: outerColors[1] || 'transparent'
-  });
-  colorStops.unshift({
-    // notice colorStops.length have been changed.
-    offset: stopLen ? colorStops[0].offset : 0.5,
-    color: outerColors[0] || 'transparent'
-  }); // zrUtil.each(colorStops, function (colorStop) {
-  //     // Make sure each offset has rounded px to avoid not sharp edge
-  //     colorStop.offset = (Math.round(colorStop.offset * (end - start) + start) - start) / (end - start);
-  // });
-
-  var gradient = new LinearGradient(0, 0, 0, 0, colorStops, true);
-  gradient[coordDim] = minCoord;
-  gradient[coordDim + '2'] = maxCoord;
-  return gradient;
-}
-
-function getIsIgnoreFunc(seriesModel, data, coordSys) {
-  var showAllSymbol = seriesModel.get('showAllSymbol');
-  var isAuto = showAllSymbol === 'auto';
-
-  if (showAllSymbol && !isAuto) {
-    return;
-  }
-
-  var categoryAxis = coordSys.getAxesByScale('ordinal')[0];
-
-  if (!categoryAxis) {
-    return;
-  } // Note that category label interval strategy might bring some weird effect
-  // in some scenario: users may wonder why some of the symbols are not
-  // displayed. So we show all symbols as possible as we can.
-
-
-  if (isAuto // Simplify the logic, do not determine label overlap here.
-  && canShowAllSymbolForCategory(categoryAxis, data)) {
-    return;
-  } // Otherwise follow the label interval strategy on category axis.
-
-
-  var categoryDataDim = data.mapDimension(categoryAxis.dim);
-  var labelMap = {};
-  each$1(categoryAxis.getViewLabels(), function (labelItem) {
-    labelMap[labelItem.tickValue] = 1;
-  });
-  return function (dataIndex) {
-    return !labelMap.hasOwnProperty(data.get(categoryDataDim, dataIndex));
-  };
-}
-
-function canShowAllSymbolForCategory(categoryAxis, data) {
-  // In mose cases, line is monotonous on category axis, and the label size
-  // is close with each other. So we check the symbol size and some of the
-  // label size alone with the category axis to estimate whether all symbol
-  // can be shown without overlap.
-  var axisExtent = categoryAxis.getExtent();
-  var availSize = Math.abs(axisExtent[1] - axisExtent[0]) / categoryAxis.scale.count();
-  isNaN(availSize) && (availSize = 0); // 0/0 is NaN.
-  // Sampling some points, max 5.
-
-  var dataLen = data.count();
-  var step = Math.max(1, Math.round(dataLen / 5));
-
-  for (var dataIndex = 0; dataIndex < dataLen; dataIndex += step) {
-    if (SymbolClz$1.getSymbolSize(data, dataIndex // Only for cartesian, where `isHorizontal` exists.
-    )[categoryAxis.isHorizontal() ? 1 : 0] // Empirical number
-    * 1.5 > availSize) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function createLineClipPath(coordSys, hasAnimation, seriesModel) {
-  if (coordSys.type === 'cartesian2d') {
-    var isHorizontal = coordSys.getBaseAxis().isHorizontal();
-    var clipPath = createGridClipPath(coordSys, hasAnimation, seriesModel); // Expand clip shape to avoid clipping when line value exceeds axis
-
-    if (!seriesModel.get('clip', true)) {
-      var rectShape = clipPath.shape;
-      var expandSize = Math.max(rectShape.width, rectShape.height);
-
-      if (isHorizontal) {
-        rectShape.y -= expandSize;
-        rectShape.height += expandSize * 2;
-      } else {
-        rectShape.x -= expandSize;
-        rectShape.width += expandSize * 2;
-      }
-    }
-
-    return clipPath;
-  } else {
-    return createPolarClipPath(coordSys, hasAnimation, seriesModel);
-  }
-}
-
-Chart.extend({
-  type: 'line',
-  init: function () {
-    var lineGroup = new Group();
-    var symbolDraw = new SymbolDraw();
-    this.group.add(symbolDraw.group);
-    this._symbolDraw = symbolDraw;
-    this._lineGroup = lineGroup;
-  },
-  render: function (seriesModel, ecModel, api) {
-    var coordSys = seriesModel.coordinateSystem;
-    var group = this.group;
-    var data = seriesModel.getData();
-    var lineStyleModel = seriesModel.getModel('lineStyle');
-    var areaStyleModel = seriesModel.getModel('areaStyle');
-    var points = data.mapArray(data.getItemLayout);
-    var isCoordSysPolar = coordSys.type === 'polar';
-    var prevCoordSys = this._coordSys;
-    var symbolDraw = this._symbolDraw;
-    var polyline = this._polyline;
-    var polygon = this._polygon;
-    var lineGroup = this._lineGroup;
-    var hasAnimation = seriesModel.get('animation');
-    var isAreaChart = !areaStyleModel.isEmpty();
-    var valueOrigin = areaStyleModel.get('origin');
-    var dataCoordInfo = prepareDataCoordInfo(coordSys, data, valueOrigin);
-    var stackedOnPoints = getStackedOnPoints(coordSys, data, dataCoordInfo);
-    var showSymbol = seriesModel.get('showSymbol');
-    var isIgnoreFunc = showSymbol && !isCoordSysPolar && getIsIgnoreFunc(seriesModel, data, coordSys); // Remove temporary symbols
-
-    var oldData = this._data;
-    oldData && oldData.eachItemGraphicEl(function (el, idx) {
-      if (el.__temp) {
-        group.remove(el);
-        oldData.setItemGraphicEl(idx, null);
-      }
-    }); // Remove previous created symbols if showSymbol changed to false
-
-    if (!showSymbol) {
-      symbolDraw.remove();
-    }
-
-    group.add(lineGroup); // FIXME step not support polar
-
-    var step = !isCoordSysPolar && seriesModel.get('step');
-    var clipShapeForSymbol;
-
-    if (coordSys && coordSys.getArea && seriesModel.get('clip', true)) {
-      clipShapeForSymbol = coordSys.getArea(); // Avoid float number rounding error for symbol on the edge of axis extent.
-      // See #7913 and `test/dataZoom-clip.html`.
-
-      if (clipShapeForSymbol.width != null) {
-        clipShapeForSymbol.x -= 0.1;
-        clipShapeForSymbol.y -= 0.1;
-        clipShapeForSymbol.width += 0.2;
-        clipShapeForSymbol.height += 0.2;
-      } else if (clipShapeForSymbol.r0) {
-        clipShapeForSymbol.r0 -= 0.5;
-        clipShapeForSymbol.r1 += 0.5;
-      }
-    }
-
-    this._clipShapeForSymbol = clipShapeForSymbol; // Initialization animation or coordinate system changed
-
-    if (!(polyline && prevCoordSys.type === coordSys.type && step === this._step)) {
-      showSymbol && symbolDraw.updateData(data, {
-        isIgnore: isIgnoreFunc,
-        clipShape: clipShapeForSymbol
-      });
-
-      if (step) {
-        // TODO If stacked series is not step
-        points = turnPointsIntoStep(points, coordSys, step);
-        stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step);
-      }
-
-      polyline = this._newPolyline(points, coordSys, hasAnimation);
-
-      if (isAreaChart) {
-        polygon = this._newPolygon(points, stackedOnPoints, coordSys, hasAnimation);
-      }
-
-      lineGroup.setClipPath(createLineClipPath(coordSys, true, seriesModel));
-    } else {
-      if (isAreaChart && !polygon) {
-        // If areaStyle is added
-        polygon = this._newPolygon(points, stackedOnPoints, coordSys, hasAnimation);
-      } else if (polygon && !isAreaChart) {
-        // If areaStyle is removed
-        lineGroup.remove(polygon);
-        polygon = this._polygon = null;
-      } // Update clipPath
-
-
-      lineGroup.setClipPath(createLineClipPath(coordSys, false, seriesModel)); // Always update, or it is wrong in the case turning on legend
-      // because points are not changed
-
-      showSymbol && symbolDraw.updateData(data, {
-        isIgnore: isIgnoreFunc,
-        clipShape: clipShapeForSymbol
-      }); // Stop symbol animation and sync with line points
-      // FIXME performance?
-
-      data.eachItemGraphicEl(function (el) {
-        el.stopAnimation(true);
-      }); // In the case data zoom triggerred refreshing frequently
-      // Data may not change if line has a category axis. So it should animate nothing
-
-      if (!isPointsSame(this._stackedOnPoints, stackedOnPoints) || !isPointsSame(this._points, points)) {
-        if (hasAnimation) {
-          this._updateAnimation(data, stackedOnPoints, coordSys, api, step, valueOrigin);
-        } else {
-          // Not do it in update with animation
-          if (step) {
-            // TODO If stacked series is not step
-            points = turnPointsIntoStep(points, coordSys, step);
-            stackedOnPoints = turnPointsIntoStep(stackedOnPoints, coordSys, step);
-          }
-
-          polyline.setShape({
-            points: points
-          });
-          polygon && polygon.setShape({
-            points: points,
-            stackedOnPoints: stackedOnPoints
-          });
-        }
-      }
-    }
-
-    var visualColor = getVisualGradient(data, coordSys) || data.getVisual('color');
-    polyline.useStyle(defaults( // Use color in lineStyle first
-    lineStyleModel.getLineStyle(), {
-      fill: 'none',
-      stroke: visualColor,
-      lineJoin: 'bevel'
-    }));
-    var smooth = seriesModel.get('smooth');
-    smooth = getSmooth(seriesModel.get('smooth'));
-    polyline.setShape({
-      smooth: smooth,
-      smoothMonotone: seriesModel.get('smoothMonotone'),
-      connectNulls: seriesModel.get('connectNulls')
-    });
-
-    if (polygon) {
-      var stackedOnSeries = data.getCalculationInfo('stackedOnSeries');
-      var stackedOnSmooth = 0;
-      polygon.useStyle(defaults(areaStyleModel.getAreaStyle(), {
-        fill: visualColor,
-        opacity: 0.7,
-        lineJoin: 'bevel'
-      }));
-
-      if (stackedOnSeries) {
-        stackedOnSmooth = getSmooth(stackedOnSeries.get('smooth'));
-      }
-
-      polygon.setShape({
-        smooth: smooth,
-        stackedOnSmooth: stackedOnSmooth,
-        smoothMonotone: seriesModel.get('smoothMonotone'),
-        connectNulls: seriesModel.get('connectNulls')
-      });
-    }
-
-    this._data = data; // Save the coordinate system for transition animation when data changed
-
-    this._coordSys = coordSys;
-    this._stackedOnPoints = stackedOnPoints;
-    this._points = points;
-    this._step = step;
-    this._valueOrigin = valueOrigin;
-  },
-  dispose: function () {},
-  highlight: function (seriesModel, ecModel, api, payload) {
-    var data = seriesModel.getData();
-    var dataIndex = queryDataIndex(data, payload);
-
-    if (!(dataIndex instanceof Array) && dataIndex != null && dataIndex >= 0) {
-      var symbol = data.getItemGraphicEl(dataIndex);
-
-      if (!symbol) {
-        // Create a temporary symbol if it is not exists
-        var pt = data.getItemLayout(dataIndex);
-
-        if (!pt) {
-          // Null data
-          return;
-        } // fix #11360: should't draw symbol outside clipShapeForSymbol
-
-
-        if (this._clipShapeForSymbol && !this._clipShapeForSymbol.contain(pt[0], pt[1])) {
-          return;
-        }
-
-        symbol = new SymbolClz$1(data, dataIndex);
-        symbol.position = pt;
-        symbol.setZ(seriesModel.get('zlevel'), seriesModel.get('z'));
-        symbol.ignore = isNaN(pt[0]) || isNaN(pt[1]);
-        symbol.__temp = true;
-        data.setItemGraphicEl(dataIndex, symbol); // Stop scale animation
-
-        symbol.stopSymbolAnimation(true);
-        this.group.add(symbol);
-      }
-
-      symbol.highlight();
-    } else {
-      // Highlight whole series
-      Chart.prototype.highlight.call(this, seriesModel, ecModel, api, payload);
-    }
-  },
-  downplay: function (seriesModel, ecModel, api, payload) {
-    var data = seriesModel.getData();
-    var dataIndex = queryDataIndex(data, payload);
-
-    if (dataIndex != null && dataIndex >= 0) {
-      var symbol = data.getItemGraphicEl(dataIndex);
-
-      if (symbol) {
-        if (symbol.__temp) {
-          data.setItemGraphicEl(dataIndex, null);
-          this.group.remove(symbol);
-        } else {
-          symbol.downplay();
-        }
-      }
-    } else {
-      // FIXME
-      // can not downplay completely.
-      // Downplay whole series
-      Chart.prototype.downplay.call(this, seriesModel, ecModel, api, payload);
-    }
-  },
-
-  /**
-   * @param {module:zrender/container/Group} group
-   * @param {Array.<Array.<number>>} points
-   * @private
-   */
-  _newPolyline: function (points) {
-    var polyline = this._polyline; // Remove previous created polyline
-
-    if (polyline) {
-      this._lineGroup.remove(polyline);
-    }
-
-    polyline = new Polyline$1({
-      shape: {
-        points: points
-      },
-      silent: true,
-      z2: 10
-    });
-
-    this._lineGroup.add(polyline);
-
-    this._polyline = polyline;
-    return polyline;
-  },
-
-  /**
-   * @param {module:zrender/container/Group} group
-   * @param {Array.<Array.<number>>} stackedOnPoints
-   * @param {Array.<Array.<number>>} points
-   * @private
-   */
-  _newPolygon: function (points, stackedOnPoints) {
-    var polygon = this._polygon; // Remove previous created polygon
-
-    if (polygon) {
-      this._lineGroup.remove(polygon);
-    }
-
-    polygon = new Polygon$1({
-      shape: {
-        points: points,
-        stackedOnPoints: stackedOnPoints
-      },
-      silent: true
-    });
-
-    this._lineGroup.add(polygon);
-
-    this._polygon = polygon;
-    return polygon;
-  },
-
-  /**
-   * @private
-   */
-  // FIXME Two value axis
-  _updateAnimation: function (data, stackedOnPoints, coordSys, api, step, valueOrigin) {
-    var polyline = this._polyline;
-    var polygon = this._polygon;
-    var seriesModel = data.hostModel;
-    var diff = lineAnimationDiff(this._data, data, this._stackedOnPoints, stackedOnPoints, this._coordSys, coordSys, this._valueOrigin, valueOrigin);
-    var current = diff.current;
-    var stackedOnCurrent = diff.stackedOnCurrent;
-    var next = diff.next;
-    var stackedOnNext = diff.stackedOnNext;
-
-    if (step) {
-      // TODO If stacked series is not step
-      current = turnPointsIntoStep(diff.current, coordSys, step);
-      stackedOnCurrent = turnPointsIntoStep(diff.stackedOnCurrent, coordSys, step);
-      next = turnPointsIntoStep(diff.next, coordSys, step);
-      stackedOnNext = turnPointsIntoStep(diff.stackedOnNext, coordSys, step);
-    } // Don't apply animation if diff is large.
-    // For better result and avoid memory explosion problems like
-    // https://github.com/apache/incubator-echarts/issues/12229
-
-
-    if (getBoundingDiff(current, next) > 3000 || polygon && getBoundingDiff(stackedOnCurrent, stackedOnNext) > 3000) {
-      polyline.setShape({
-        points: next
-      });
-
-      if (polygon) {
-        polygon.setShape({
-          points: next,
-          stackedOnPoints: stackedOnNext
-        });
-      }
-
-      return;
-    } // `diff.current` is subset of `current` (which should be ensured by
-    // turnPointsIntoStep), so points in `__points` can be updated when
-    // points in `current` are update during animation.
-
-
-    polyline.shape.__points = diff.current;
-    polyline.shape.points = current;
-    updateProps(polyline, {
-      shape: {
-        points: next
-      }
-    }, seriesModel);
-
-    if (polygon) {
-      polygon.setShape({
-        points: current,
-        stackedOnPoints: stackedOnCurrent
-      });
-      updateProps(polygon, {
-        shape: {
-          points: next,
-          stackedOnPoints: stackedOnNext
-        }
-      }, seriesModel);
-    }
-
-    var updatedDataInfo = [];
-    var diffStatus = diff.status;
-
-    for (var i = 0; i < diffStatus.length; i++) {
-      var cmd = diffStatus[i].cmd;
-
-      if (cmd === '=') {
-        var el = data.getItemGraphicEl(diffStatus[i].idx1);
-
-        if (el) {
-          updatedDataInfo.push({
-            el: el,
-            ptIdx: i // Index of points
-
-          });
-        }
-      }
-    }
-
-    if (polyline.animators && polyline.animators.length) {
-      polyline.animators[0].during(function () {
-        for (var i = 0; i < updatedDataInfo.length; i++) {
-          var el = updatedDataInfo[i].el;
-          el.attr('position', polyline.shape.__points[updatedDataInfo[i].ptIdx]);
-        }
-      });
-    }
-  },
-  remove: function (ecModel) {
-    var group = this.group;
-    var oldData = this._data;
-
-    this._lineGroup.removeAll();
-
-    this._symbolDraw.remove(true); // Remove temporary created elements when highlighting
-
-
-    oldData && oldData.eachItemGraphicEl(function (el, idx) {
-      if (el.__temp) {
-        group.remove(el);
-        oldData.setItemGraphicEl(idx, null);
-      }
-    });
-    this._polyline = this._polygon = this._coordSys = this._points = this._stackedOnPoints = this._data = null;
-  }
-});
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-var visualSymbol = function (seriesType, defaultSymbolType, legendSymbol) {
-  // Encoding visual for all series include which is filtered for legend drawing
-  return {
-    seriesType: seriesType,
-    // For legend.
-    performRawSeries: true,
-    reset: function (seriesModel, ecModel, api) {
-      var data = seriesModel.getData();
-      var symbolType = seriesModel.get('symbol');
-      var symbolSize = seriesModel.get('symbolSize');
-      var keepAspect = seriesModel.get('symbolKeepAspect');
-      var symbolRotate = seriesModel.get('symbolRotate');
-      var hasSymbolTypeCallback = isFunction$1(symbolType);
-      var hasSymbolSizeCallback = isFunction$1(symbolSize);
-      var hasSymbolRotateCallback = isFunction$1(symbolRotate);
-      var hasCallback = hasSymbolTypeCallback || hasSymbolSizeCallback || hasSymbolRotateCallback;
-      var seriesSymbol = !hasSymbolTypeCallback && symbolType ? symbolType : defaultSymbolType;
-      var seriesSymbolSize = !hasSymbolSizeCallback ? symbolSize : null;
-      data.setVisual({
-        legendSymbol: legendSymbol || seriesSymbol,
-        // If seting callback functions on `symbol` or `symbolSize`, for simplicity and avoiding
-        // to bring trouble, we do not pick a reuslt from one of its calling on data item here,
-        // but just use the default value. Callback on `symbol` or `symbolSize` is convenient in
-        // some cases but generally it is not recommanded.
-        symbol: seriesSymbol,
-        symbolSize: seriesSymbolSize,
-        symbolKeepAspect: keepAspect,
-        symbolRotate: symbolRotate
-      }); // Only visible series has each data be visual encoded
-
-      if (ecModel.isSeriesFiltered(seriesModel)) {
-        return;
-      }
-
-      function dataEach(data, idx) {
-        if (hasCallback) {
-          var rawValue = seriesModel.getRawValue(idx);
-          var params = seriesModel.getDataParams(idx);
-          hasSymbolTypeCallback && data.setItemVisual(idx, 'symbol', symbolType(rawValue, params));
-          hasSymbolSizeCallback && data.setItemVisual(idx, 'symbolSize', symbolSize(rawValue, params));
-          hasSymbolRotateCallback && data.setItemVisual(idx, 'symbolRotate', symbolRotate(rawValue, params));
-        }
-
-        if (data.hasItemOption) {
-          var itemModel = data.getItemModel(idx);
-          var itemSymbolType = itemModel.getShallow('symbol', true);
-          var itemSymbolSize = itemModel.getShallow('symbolSize', true);
-          var itemSymbolRotate = itemModel.getShallow('symbolRotate', true);
-          var itemSymbolKeepAspect = itemModel.getShallow('symbolKeepAspect', true); // If has item symbol
-
-          if (itemSymbolType != null) {
-            data.setItemVisual(idx, 'symbol', itemSymbolType);
-          }
-
-          if (itemSymbolSize != null) {
-            // PENDING Transform symbolSize ?
-            data.setItemVisual(idx, 'symbolSize', itemSymbolSize);
-          }
-
-          if (itemSymbolRotate != null) {
-            data.setItemVisual(idx, 'symbolRotate', itemSymbolRotate);
-          }
-
-          if (itemSymbolKeepAspect != null) {
-            data.setItemVisual(idx, 'symbolKeepAspect', itemSymbolKeepAspect);
-          }
-        }
-      }
-
-      return {
-        dataEach: data.hasItemOption || hasCallback ? dataEach : null
-      };
-    }
-  };
-};
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
-/* global Float32Array */
-var layoutPoints = function (seriesType) {
-  return {
-    seriesType: seriesType,
-    plan: createRenderPlanner(),
-    reset: function (seriesModel) {
-      var data = seriesModel.getData();
-      var coordSys = seriesModel.coordinateSystem;
-      var pipelineContext = seriesModel.pipelineContext;
-      var isLargeRender = pipelineContext.large;
-
-      if (!coordSys) {
-        return;
-      }
-
-      var dims = map(coordSys.dimensions, function (dim) {
-        return data.mapDimension(dim);
-      }).slice(0, 2);
-      var dimLen = dims.length;
-      var stackResultDim = data.getCalculationInfo('stackResultDimension');
-
-      if (isDimensionStacked(data, dims[0]
-      /*, dims[1]*/
-      )) {
-        dims[0] = stackResultDim;
-      }
-
-      if (isDimensionStacked(data, dims[1]
-      /*, dims[0]*/
-      )) {
-        dims[1] = stackResultDim;
-      }
-
-      function progress(params, data) {
-        var segCount = params.end - params.start;
-        var points = isLargeRender && new Float32Array(segCount * dimLen);
-
-        for (var i = params.start, offset = 0, tmpIn = [], tmpOut = []; i < params.end; i++) {
-          var point;
-
-          if (dimLen === 1) {
-            var x = data.get(dims[0], i);
-            point = !isNaN(x) && coordSys.dataToPoint(x, null, tmpOut);
-          } else {
-            var x = tmpIn[0] = data.get(dims[0], i);
-            var y = tmpIn[1] = data.get(dims[1], i); // Also {Array.<number>}, not undefined to avoid if...else... statement
-
-            point = !isNaN(x) && !isNaN(y) && coordSys.dataToPoint(tmpIn, null, tmpOut);
-          }
-
-          if (isLargeRender) {
-            points[offset++] = point ? point[0] : NaN;
-            points[offset++] = point ? point[1] : NaN;
-          } else {
-            data.setItemLayout(i, point && point.slice() || [NaN, NaN]);
-          }
-        }
-
-        isLargeRender && data.setLayout('symbolPoints', points);
-      }
-
-      return dimLen && {
-        progress: progress
-      };
-    }
-  };
-};
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-var samplers = {
-  average: function (frame) {
-    var sum = 0;
-    var count = 0;
-
-    for (var i = 0; i < frame.length; i++) {
-      if (!isNaN(frame[i])) {
-        sum += frame[i];
-        count++;
-      }
-    } // Return NaN if count is 0
-
-
-    return count === 0 ? NaN : sum / count;
-  },
-  sum: function (frame) {
-    var sum = 0;
-
-    for (var i = 0; i < frame.length; i++) {
-      // Ignore NaN
-      sum += frame[i] || 0;
-    }
-
-    return sum;
-  },
-  max: function (frame) {
-    var max = -Infinity;
-
-    for (var i = 0; i < frame.length; i++) {
-      frame[i] > max && (max = frame[i]);
-    } // NaN will cause illegal axis extent.
-
-
-    return isFinite(max) ? max : NaN;
-  },
-  min: function (frame) {
-    var min = Infinity;
-
-    for (var i = 0; i < frame.length; i++) {
-      frame[i] < min && (min = frame[i]);
-    } // NaN will cause illegal axis extent.
-
-
-    return isFinite(min) ? min : NaN;
-  },
-  // TODO
-  // Median
-  nearest: function (frame) {
-    return frame[0];
-  }
-};
-
-var indexSampler = function (frame, value) {
-  return Math.round(frame.length / 2);
-};
-
-var dataSample = function (seriesType) {
-  return {
-    seriesType: seriesType,
-    modifyOutputEnd: true,
-    reset: function (seriesModel, ecModel, api) {
-      var data = seriesModel.getData();
-      var sampling = seriesModel.get('sampling');
-      var coordSys = seriesModel.coordinateSystem; // Only cartesian2d support down sampling
-
-      if (coordSys.type === 'cartesian2d' && sampling) {
-        var baseAxis = coordSys.getBaseAxis();
-        var valueAxis = coordSys.getOtherAxis(baseAxis);
-        var extent = baseAxis.getExtent(); // Coordinste system has been resized
-
-        var size = extent[1] - extent[0];
-        var rate = Math.round(data.count() / size);
-
-        if (rate > 1) {
-          var sampler;
-
-          if (typeof sampling === 'string') {
-            sampler = samplers[sampling];
-          } else if (typeof sampling === 'function') {
-            sampler = sampling;
-          }
-
-          if (sampler) {
-            // Only support sample the first dim mapped from value axis.
-            seriesModel.setData(data.downSample(data.mapDimension(valueAxis.dim), 1 / rate, sampler, indexSampler));
-          }
-        }
-      }
-    }
-  };
-};
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-
-/**
- * Cartesian coordinate system
- * @module  echarts/coord/Cartesian
- *
- */
-function dimAxisMapper(dim) {
-  return this._axes[dim];
-}
-/**
- * @alias module:echarts/coord/Cartesian
- * @constructor
- */
-
-
-var Cartesian = function (name) {
-  this._axes = {};
-  this._dimList = [];
-  /**
-   * @type {string}
-   */
-
-  this.name = name || '';
-};
-
-Cartesian.prototype = {
-  constructor: Cartesian,
-  type: 'cartesian',
-
-  /**
-   * Get axis
-   * @param  {number|string} dim
-   * @return {module:echarts/coord/Cartesian~Axis}
-   */
-  getAxis: function (dim) {
-    return this._axes[dim];
-  },
-
-  /**
-   * Get axes list
-   * @return {Array.<module:echarts/coord/Cartesian~Axis>}
-   */
-  getAxes: function () {
-    return map(this._dimList, dimAxisMapper, this);
-  },
-
-  /**
-   * Get axes list by given scale type
-   */
-  getAxesByScale: function (scaleType) {
-    scaleType = scaleType.toLowerCase();
-    return filter(this.getAxes(), function (axis) {
-      return axis.scale.type === scaleType;
-    });
-  },
-
-  /**
-   * Add axis
-   * @param {module:echarts/coord/Cartesian.Axis}
-   */
-  addAxis: function (axis) {
-    var dim = axis.dim;
-    this._axes[dim] = axis;
-
-    this._dimList.push(dim);
-  },
-
-  /**
-   * Convert data to coord in nd space
-   * @param {Array.<number>|Object.<string, number>} val
-   * @return {Array.<number>|Object.<string, number>}
-   */
-  dataToCoord: function (val) {
-    return this._dataCoordConvert(val, 'dataToCoord');
-  },
-
-  /**
-   * Convert coord in nd space to data
-   * @param  {Array.<number>|Object.<string, number>} val
-   * @return {Array.<number>|Object.<string, number>}
-   */
-  coordToData: function (val) {
-    return this._dataCoordConvert(val, 'coordToData');
-  },
-  _dataCoordConvert: function (input, method) {
-    var dimList = this._dimList;
-    var output = input instanceof Array ? [] : {};
-
-    for (var i = 0; i < dimList.length; i++) {
-      var dim = dimList[i];
-      var axis = this._axes[dim];
-      output[dim] = axis[method](input[dim]);
-    }
-
-    return output;
-  }
-};
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-function Cartesian2D(name) {
-  Cartesian.call(this, name);
-}
-
-Cartesian2D.prototype = {
-  constructor: Cartesian2D,
-  type: 'cartesian2d',
-
-  /**
-   * @type {Array.<string>}
-   * @readOnly
-   */
-  dimensions: ['x', 'y'],
-
-  /**
-   * Base axis will be used on stacking.
-   *
-   * @return {module:echarts/coord/cartesian/Axis2D}
-   */
-  getBaseAxis: function () {
-    return this.getAxesByScale('ordinal')[0] || this.getAxesByScale('time')[0] || this.getAxis('x');
-  },
-
-  /**
-   * If contain point
-   * @param {Array.<number>} point
-   * @return {boolean}
-   */
-  containPoint: function (point) {
-    var axisX = this.getAxis('x');
-    var axisY = this.getAxis('y');
-    return axisX.contain(axisX.toLocalCoord(point[0])) && axisY.contain(axisY.toLocalCoord(point[1]));
-  },
-
-  /**
-   * If contain data
-   * @param {Array.<number>} data
-   * @return {boolean}
-   */
-  containData: function (data) {
-    return this.getAxis('x').containData(data[0]) && this.getAxis('y').containData(data[1]);
-  },
-
-  /**
-   * @param {Array.<number>} data
-   * @param {Array.<number>} out
-   * @return {Array.<number>}
-   */
-  dataToPoint: function (data, reserved, out) {
-    var xAxis = this.getAxis('x');
-    var yAxis = this.getAxis('y');
-    out = out || [];
-    out[0] = xAxis.toGlobalCoord(xAxis.dataToCoord(data[0]));
-    out[1] = yAxis.toGlobalCoord(yAxis.dataToCoord(data[1]));
-    return out;
-  },
-
-  /**
-   * @param {Array.<number>} data
-   * @param {Array.<number>} out
-   * @return {Array.<number>}
-   */
-  clampData: function (data, out) {
-    var xScale = this.getAxis('x').scale;
-    var yScale = this.getAxis('y').scale;
-    var xAxisExtent = xScale.getExtent();
-    var yAxisExtent = yScale.getExtent();
-    var x = xScale.parse(data[0]);
-    var y = yScale.parse(data[1]);
-    out = out || [];
-    out[0] = Math.min(Math.max(Math.min(xAxisExtent[0], xAxisExtent[1]), x), Math.max(xAxisExtent[0], xAxisExtent[1]));
-    out[1] = Math.min(Math.max(Math.min(yAxisExtent[0], yAxisExtent[1]), y), Math.max(yAxisExtent[0], yAxisExtent[1]));
-    return out;
-  },
-
-  /**
-   * @param {Array.<number>} point
-   * @param {Array.<number>} out
-   * @return {Array.<number>}
-   */
-  pointToData: function (point, out) {
-    var xAxis = this.getAxis('x');
-    var yAxis = this.getAxis('y');
-    out = out || [];
-    out[0] = xAxis.coordToData(xAxis.toLocalCoord(point[0]));
-    out[1] = yAxis.coordToData(yAxis.toLocalCoord(point[1]));
-    return out;
-  },
-
-  /**
-   * Get other axis
-   * @param {module:echarts/coord/cartesian/Axis2D} axis
-   */
-  getOtherAxis: function (axis) {
-    return this.getAxis(axis.dim === 'x' ? 'y' : 'x');
-  },
-
-  /**
-   * Get rect area of cartesian.
-   * Area will have a contain function to determine if a point is in the coordinate system.
-   * @return {BoundingRect}
-   */
-  getArea: function () {
-    var xExtent = this.getAxis('x').getGlobalExtent();
-    var yExtent = this.getAxis('y').getGlobalExtent();
-    var x = Math.min(xExtent[0], xExtent[1]);
-    var y = Math.min(yExtent[0], yExtent[1]);
-    var width = Math.max(xExtent[0], xExtent[1]) - x;
-    var height = Math.max(yExtent[0], yExtent[1]) - y;
-    var rect = new BoundingRect(x, y, width, height);
-    return rect;
-  }
-};
-inherits(Cartesian2D, Cartesian);
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
 /**
  * Extend axis 2d
  * @constructor module:echarts/coord/cartesian/Axis2D
@@ -37830,6 +36817,87 @@ var axisModelCreator = function (axisName, BaseAxisModelClass, axisTypeDefaulter
     });
   });
   ComponentModel.registerSubTypeDefaulter(axisName + 'Axis', curry(axisTypeDefaulter, axisName));
+};
+
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+var axisModelCommonMixin = {
+  /**
+   * @param {boolean} origin
+   * @return {number|string} min value or 'dataMin' or null/undefined (means auto) or NaN
+   */
+  getMin: function (origin) {
+    var option = this.option;
+    var min = !origin && option.rangeStart != null ? option.rangeStart : option.min;
+
+    if (this.axis && min != null && min !== 'dataMin' && typeof min !== 'function' && !eqNaN(min)) {
+      min = this.axis.scale.parse(min);
+    }
+
+    return min;
+  },
+
+  /**
+   * @param {boolean} origin
+   * @return {number|string} max value or 'dataMax' or null/undefined (means auto) or NaN
+   */
+  getMax: function (origin) {
+    var option = this.option;
+    var max = !origin && option.rangeEnd != null ? option.rangeEnd : option.max;
+
+    if (this.axis && max != null && max !== 'dataMax' && typeof max !== 'function' && !eqNaN(max)) {
+      max = this.axis.scale.parse(max);
+    }
+
+    return max;
+  },
+
+  /**
+   * @return {boolean}
+   */
+  getNeedCrossZero: function () {
+    var option = this.option;
+    return option.rangeStart != null || option.rangeEnd != null ? false : !option.scale;
+  },
+
+  /**
+   * Should be implemented by each axis model if necessary.
+   * @return {module:echarts/model/Component} coordinate system model
+   */
+  getCoordSysModel: noop,
+
+  /**
+   * @param {number} rangeStart Can only be finite number or null/undefined or NaN.
+   * @param {number} rangeEnd Can only be finite number or null/undefined or NaN.
+   */
+  setRange: function (rangeStart, rangeEnd) {
+    this.option.rangeStart = rangeStart;
+    this.option.rangeEnd = rangeEnd;
+  },
+
+  /**
+   * Reset range
+   */
+  resetRange: function () {
+    // rangeStart and rangeEnd is readonly.
+    this.option.rangeStart = this.option.rangeEnd = null;
+  }
 };
 
 /*
@@ -40003,214 +39071,6 @@ registerVisual(visualSymbol('line', 'circle', 'line'));
 registerLayout(layoutPoints('line')); // Down sample after filter
 
 registerProcessor(PRIORITY.PROCESSOR.STATISTIC, dataSample('line'));
-
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-*   http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-extendComponentModel({
-  type: 'title',
-  layoutMode: {
-    type: 'box',
-    ignoreSize: true
-  },
-  defaultOption: {
-    // 一级层叠
-    zlevel: 0,
-    // 二级层叠
-    z: 6,
-    show: true,
-    text: '',
-    // 超链接跳转
-    // link: null,
-    // 仅支持self | blank
-    target: 'blank',
-    subtext: '',
-    // 超链接跳转
-    // sublink: null,
-    // 仅支持self | blank
-    subtarget: 'blank',
-    // 'center' ¦ 'left' ¦ 'right'
-    // ¦ {number}（x坐标，单位px）
-    left: 0,
-    // 'top' ¦ 'bottom' ¦ 'center'
-    // ¦ {number}（y坐标，单位px）
-    top: 0,
-    // 水平对齐
-    // 'auto' | 'left' | 'right' | 'center'
-    // 默认根据 left 的位置判断是左对齐还是右对齐
-    // textAlign: null
-    //
-    // 垂直对齐
-    // 'auto' | 'top' | 'bottom' | 'middle'
-    // 默认根据 top 位置判断是上对齐还是下对齐
-    // textVerticalAlign: null
-    // textBaseline: null // The same as textVerticalAlign.
-    backgroundColor: 'rgba(0,0,0,0)',
-    // 标题边框颜色
-    borderColor: '#ccc',
-    // 标题边框线宽，单位px，默认为0（无边框）
-    borderWidth: 0,
-    // 标题内边距，单位px，默认各方向内边距为5，
-    // 接受数组分别设定上右下左边距，同css
-    padding: 5,
-    // 主副标题纵向间隔，单位px，默认为10，
-    itemGap: 10,
-    textStyle: {
-      fontSize: 18,
-      fontWeight: 'bolder',
-      color: '#333'
-    },
-    subtextStyle: {
-      color: '#aaa'
-    }
-  }
-}); // View
-
-extendComponentView({
-  type: 'title',
-  render: function (titleModel, ecModel, api) {
-    this.group.removeAll();
-
-    if (!titleModel.get('show')) {
-      return;
-    }
-
-    var group = this.group;
-    var textStyleModel = titleModel.getModel('textStyle');
-    var subtextStyleModel = titleModel.getModel('subtextStyle');
-    var textAlign = titleModel.get('textAlign');
-    var textVerticalAlign = retrieve2(titleModel.get('textBaseline'), titleModel.get('textVerticalAlign'));
-    var textEl = new Text({
-      style: setTextStyle({}, textStyleModel, {
-        text: titleModel.get('text'),
-        textFill: textStyleModel.getTextColor()
-      }, {
-        disableBox: true
-      }),
-      z2: 10
-    });
-    var textRect = textEl.getBoundingRect();
-    var subText = titleModel.get('subtext');
-    var subTextEl = new Text({
-      style: setTextStyle({}, subtextStyleModel, {
-        text: subText,
-        textFill: subtextStyleModel.getTextColor(),
-        y: textRect.height + titleModel.get('itemGap'),
-        textVerticalAlign: 'top'
-      }, {
-        disableBox: true
-      }),
-      z2: 10
-    });
-    var link = titleModel.get('link');
-    var sublink = titleModel.get('sublink');
-    var triggerEvent = titleModel.get('triggerEvent', true);
-    textEl.silent = !link && !triggerEvent;
-    subTextEl.silent = !sublink && !triggerEvent;
-
-    if (link) {
-      textEl.on('click', function () {
-        windowOpen(link, '_' + titleModel.get('target'));
-      });
-    }
-
-    if (sublink) {
-      subTextEl.on('click', function () {
-        windowOpen(link, '_' + titleModel.get('subtarget'));
-      });
-    }
-
-    textEl.eventData = subTextEl.eventData = triggerEvent ? {
-      componentType: 'title',
-      componentIndex: titleModel.componentIndex
-    } : null;
-    group.add(textEl);
-    subText && group.add(subTextEl); // If no subText, but add subTextEl, there will be an empty line.
-
-    var groupRect = group.getBoundingRect();
-    var layoutOption = titleModel.getBoxLayoutParams();
-    layoutOption.width = groupRect.width;
-    layoutOption.height = groupRect.height;
-    var layoutRect = getLayoutRect(layoutOption, {
-      width: api.getWidth(),
-      height: api.getHeight()
-    }, titleModel.get('padding')); // Adjust text align based on position
-
-    if (!textAlign) {
-      // Align left if title is on the left. center and right is same
-      textAlign = titleModel.get('left') || titleModel.get('right');
-
-      if (textAlign === 'middle') {
-        textAlign = 'center';
-      } // Adjust layout by text align
-
-
-      if (textAlign === 'right') {
-        layoutRect.x += layoutRect.width;
-      } else if (textAlign === 'center') {
-        layoutRect.x += layoutRect.width / 2;
-      }
-    }
-
-    if (!textVerticalAlign) {
-      textVerticalAlign = titleModel.get('top') || titleModel.get('bottom');
-
-      if (textVerticalAlign === 'center') {
-        textVerticalAlign = 'middle';
-      }
-
-      if (textVerticalAlign === 'bottom') {
-        layoutRect.y += layoutRect.height;
-      } else if (textVerticalAlign === 'middle') {
-        layoutRect.y += layoutRect.height / 2;
-      }
-
-      textVerticalAlign = textVerticalAlign || 'top';
-    }
-
-    group.attr('position', [layoutRect.x, layoutRect.y]);
-    var alignStyle = {
-      textAlign: textAlign,
-      textVerticalAlign: textVerticalAlign
-    };
-    textEl.setStyle(alignStyle);
-    subTextEl.setStyle(alignStyle); // Render background
-    // Get groupRect again because textAlign has been changed
-
-    groupRect = group.getBoundingRect();
-    var padding = layoutRect.margin;
-    var style = titleModel.getItemStyle(['color', 'opacity']);
-    style.fill = titleModel.get('backgroundColor');
-    var rect = new Rect({
-      shape: {
-        x: groupRect.x - padding[3],
-        y: groupRect.y - padding[0],
-        width: groupRect.width + padding[1] + padding[3],
-        height: groupRect.height + padding[0] + padding[2],
-        r: titleModel.get('borderRadius')
-      },
-      style: style,
-      subPixelOptimize: true,
-      silent: true
-    });
-    group.add(rect);
-  }
-});
 
 /*
 * Licensed to the Apache Software Foundation (ASF) under one
@@ -44727,21 +43587,5 @@ exports.setCanvasCreator = setCanvasCreator;
 exports.registerMap = registerMap;
 exports.getMap = getMap;
 exports.dataTool = dataTool;
-exports.zrender = zrender;
-exports.number = number;
-exports.format = format;
-exports.throttle = throttle;
-exports.helper = helper;
-exports.matrix = matrix;
-exports.vector = vector;
-exports.color = color;
-exports.parseGeoJSON = parseGeoJSON;
-exports.parseGeoJson = parseGeoJson;
-exports.util = ecUtil;
-exports.graphic = graphic$1;
-exports.List = List;
-exports.Model = Model;
-exports.Axis = Axis;
-exports.env = env$1;
 
 })));
