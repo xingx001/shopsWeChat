@@ -23,7 +23,7 @@ interface AuthsContainer {
 }
 class AuthsContainer extends Component {
   state = {
-    shopid:1
+    shopid: 1
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -37,28 +37,19 @@ class AuthsContainer extends Component {
   }
   componentDidMount() {
     const { shopid } = this.state;
-    Taro.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          API.logout({
-            code:res.code,
-            shopid:shopid
-          }).then(result=>{
-            const {data,status,msg} = result;
-            if(status==='0')
-            Taro.setStorageSync('authsInfo', {
-              shopid:shopid,
-              uid:data
-            });
-            Taro.switchTab({
-              url: "/pages/home/index/index"
-            })
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
+    API.getPossigin({
+      uname: 123456,
+      pwd: 123456
+    }).then(result => {
+      const { data, status, msg } = result;
+      if (status === '0')
+        Taro.setStorageSync('authsInfo', {
+          shopid: shopid,
+          uid: data
+        });
+      Taro.redirectTo({
+        url: "/pages/home/index/index"
+      })
     })
   }
   componentWillUnmount() { }
@@ -67,7 +58,7 @@ class AuthsContainer extends Component {
   render() {
     return (
       <View className='auths'>
-          <Loading fullPage/>
+        <Loading fullPage />
       </View>
     )
   }

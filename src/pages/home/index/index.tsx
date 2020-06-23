@@ -44,9 +44,13 @@ interface Index {
 }))
 class Index extends Component {
   state = {
+    authsInfo: Taro.getStorageSync('authsInfo') || {},
     value: false,
-    latitude: 30.274825,
-    longitude: 119.961748,
+    ShopFullName:'',
+    Shop_Photo:'',
+    ShopContent:'',
+    TodayAdd:'',
+    
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -67,20 +71,26 @@ class Index extends Component {
     console.log(this.props, nextProps)
   }
   componentDidMount() {
-    Taro.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          API.getUserIdByOpenId({
-            openid: 1,
-            shopid: 1
-          }).then(result => {
-            console.log(result)
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
+    this.getHomeDataReq();
+  }
+  getHomeDataReq() {
+    const { authsInfo } = this.state;
+    API.getPOSFirstPage(authsInfo).then(res => {
+      const { code, msg, data } = res;
+      if (code === '0') {
+        console.log(data)
+        let {ShopFullName,Shop_Photo,ShopContent} = data;
+        this.setState({
+          ShopFullName,
+          Shop_Photo,
+          ShopContent
+        })
+
+
+      }else{
+
       }
+
     })
   }
   onJump = (e) => {
@@ -105,16 +115,16 @@ class Index extends Component {
           url: '/pages/activities/index/index'
         })
         break;
-        case 5:
-          Taro.navigateTo({
-            url: '/pages/activities/index/index'
-          })
-          break;
-          case 6:
-            Taro.navigateTo({
-              url: '/pages/memberDetail/index'
-            })
-            break;
+      case 5:
+        Taro.navigateTo({
+          url: '/pages/activities/index/index'
+        })
+        break;
+      case 6:
+        Taro.navigateTo({
+          url: '/pages/memberDetail/index'
+        })
+        break;
       default:
         break;
     }
@@ -127,7 +137,7 @@ class Index extends Component {
 
   componentDidHide() { }
   render() {
-    const { latitude, longitude } = this.state;
+    const { ShopFullName,Shop_Photo,ShopContent } = this.state;
     const option = {
       color: ['#F5A623', '#26BBF2'],
       tooltip: {
@@ -230,10 +240,10 @@ class Index extends Component {
         <View className="stores-introd">
           <View className="stores-list">
             <View className="stores-left">
-              <Image src={require('@/assets/images/card/4.png')} className="store_img" />
+              <Image src={Shop_Photo} className="store_img" />
               <View className="stores-name">
-                <View className="name">门店名称</View>
-                <View className="inforn">门店简介</View>
+                 <View className="name">{ShopFullName}</View>
+    <View className="inforn">{ShopContent}</View>
               </View>
             </View>
             <Text className="at-icon at-icon-chevron-right store_right" ></Text>
