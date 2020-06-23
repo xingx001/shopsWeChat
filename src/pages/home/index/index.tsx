@@ -46,11 +46,15 @@ class Index extends Component {
   state = {
     authsInfo: Taro.getStorageSync('authsInfo') || {},
     value: false,
-    ShopFullName:'',
-    Shop_Photo:'',
-    ShopContent:'',
-    TodayAdd:'',
-    
+    ShopFullName: '',
+    Shop_Photo: '',
+    ShopContent: '',
+    TodayAdd: '',
+    TodayInStore: '',
+    SumUserVIP: '',
+    Weeks:[]
+
+
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -79,57 +83,26 @@ class Index extends Component {
       const { code, msg, data } = res;
       if (code === '0') {
         console.log(data)
-        let {ShopFullName,Shop_Photo,ShopContent} = data;
+
+        let { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,Weeks } = data;
         this.setState({
           ShopFullName,
           Shop_Photo,
-          ShopContent
+          ShopContent,
+          TodayAdd,
+          TodayInStore,
+          SumUserVIP,
+          Weeks:JSON.parse(Weeks)
         })
-
-
-      }else{
-
+      } else {
       }
 
     })
   }
   onJump = (e) => {
-    switch (e) {
-      case 1:
-        Taro.navigateTo({
-          url: '/pages/shopDecoration/index'
-        })
-        break;
-      case 2:
-        Taro.navigateTo({
-          url: '/pages/shopManage/index/index'
-        })
-        break;
-      case 3:
-        Taro.navigateTo({
-          url: '/pages/coupons/index/index'
-        })
-        break;
-      case 4:
-        Taro.navigateTo({
-          url: '/pages/activities/index/index'
-        })
-        break;
-      case 5:
-        Taro.navigateTo({
-          url: '/pages/activities/index/index'
-        })
-        break;
-      case 6:
-        Taro.navigateTo({
-          url: '/pages/memberDetail/index'
-        })
-        break;
-      default:
-        break;
-    }
-
-
+    Taro.navigateTo({
+      url: e
+    })
   }
   componentWillUnmount() { }
 
@@ -137,7 +110,8 @@ class Index extends Component {
 
   componentDidHide() { }
   render() {
-    const { ShopFullName,Shop_Photo,ShopContent } = this.state;
+    const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,Weeks } = this.state;
+    console.log(Weeks)
     const option = {
       color: ['#F5A623', '#26BBF2'],
       tooltip: {
@@ -187,7 +161,7 @@ class Index extends Component {
           }
         },
         boundaryGap: false,
-        data: ['07-17', '07-17', '07-17', '07-17', '07-17', '07-17', '07-17']
+        data: Weeks
       },
       yAxis: {
         type: 'value',
@@ -242,27 +216,27 @@ class Index extends Component {
             <View className="stores-left">
               <Image src={Shop_Photo} className="store_img" />
               <View className="stores-name">
-                 <View className="name">{ShopFullName}</View>
-    <View className="inforn">{ShopContent}</View>
+                <View className="name">{ShopFullName}</View>
+                <View className="inforn">{ShopContent}</View>
               </View>
             </View>
             <Text className="at-icon at-icon-chevron-right store_right" ></Text>
           </View>
         </View>
         <View className="store-box">
-          <View className="store-li" onClick={() => this.onJump(1)}>
+          <View className="store-li" onClick={() => this.onJump('/pages/shopDecoration/index')}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">店面装修</Text>
           </View>
-          <View className="store-li" onClick={() => this.onJump(2)}>
+          <View className="store-li" onClick={() => this.onJump('/pages/shopManage/index/index')}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">商品管理</Text>
           </View>
-          <View className="store-li" onClick={() => this.onJump(3)}>
+          <View className="store-li" onClick={() => this.onJump('/pages/coupons/index/index')}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">优惠券</Text>
           </View>
-          <View className="store-li" onClick={() => this.onJump(4)}>
+          <View className="store-li" onClick={() => this.onJump('/pages/activities/index/index')}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">活动管理</Text>
           </View>
@@ -274,22 +248,22 @@ class Index extends Component {
         <View className="member-detail">
           <View className="member-top">
             <View className="detail-name">会员数据</View>
-            <View className="check-detail" onClick={() => this.onJump(6)}>
+            <View className="check-detail" onClick={() => this.onJump('/pages/memberDetail/index')}>
               <Text className="tit">会员明细</Text>
               <Text className="at-icon at-icon-chevron-right icon_right"></Text>
             </View>
           </View>
           <View className="detail-ul">
             <View className="detail-li">
-              <Text className="num">58</Text>
+              <Text className="num">{TodayAdd}</Text>
               <Text className="tit">今日新增</Text>
             </View>
             <View className="detail-li">
-              <Text className="num">58</Text>
+              <Text className="num">{TodayInStore}</Text>
               <Text className="tit">今日进店</Text>
             </View>
             <View className="detail-li">
-              <Text className="num">58</Text>
+              <Text className="num">{SumUserVIP}</Text>
               <Text className="tit">会员总计</Text>
             </View>
           </View>

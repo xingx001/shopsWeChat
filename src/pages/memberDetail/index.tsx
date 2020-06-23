@@ -44,7 +44,8 @@ interface Index {
 }))
 class Index extends Component {
   state = {
-    text: '',
+    authsInfo: Taro.getStorageSync('authsInfo') || {},
+    detailData: []
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -60,19 +61,16 @@ class Index extends Component {
     console.log(this.props, nextProps)
   }
   componentDidMount() {
-    Taro.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          API.getUserIdByOpenId({
-            openid: 1,
-            shopid: 1
-          }).then(result => {
-            console.log(result)
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
+    this.getDetailReq()
+  }
+  getDetailReq() {
+    const { authsInfo } = this.state
+    API.getPOSShopVipPage(authsInfo).then(res => {
+      const { code, msg, data } = res;
+      if (code == '0') {
+        this.setState({
+          detailData: data
+        })
       }
     })
   }
@@ -81,66 +79,28 @@ class Index extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
-  onOpenMap() {
-    // Taro.getLocation({ type: 'gcj02' }).then((res) => {
-    //   const latitude = res.latitude
-    //   const longitude = res.longitude
-    //   Taro.openLocation({
-    //     latitude:30.274825,
-    //     longitude:119.961748,
-    //     scale: 16
-    //   })
-    //   this.setState({ latitude: latitude })
-    //   this.setState({ longitude: longitude })
-    // })
-  }
   handleChangeTextarea = (value) => {
     this.setState({ text: value })
   }
   render() {
-    const { text } = this.state;
+    const { detailData } = this.state;
     return (
       <View className='detail_wrap'>
-        <View className="detail_li">
-          <View className="detail_left">
-            <Image src={require('@/assets/images/icon/heard.png')} className="heard_img" />
-            <View className="detail_inforn">
-              <View className="member_name">会员昵称</View>
-              <View>手机号：17898675687</View>
+        {
+          detailData.map((item) =>
+            <View className="detail_li" key={item.User_ID}>
+              <View className="detail_left">
+                <Image src={item.Userimg} className="heard_img" />
+                <View className="detail_inforn">
+                  <View className="member_name">{item.Username}</View>
+                  <View>手机号：{item.Phone}</View>
+                </View>
+              </View>
+              <View className="detail_right">2019/10/01 14:54:23</View>
             </View>
-          </View>
-          <View className="detail_right">2019/10/01 14:54:23</View>
-        </View>
-        <View className="detail_li">
-          <View className="detail_left">
-            <Image src={require('@/assets/images/icon/heard.png')} className="heard_img" />
-            <View className="detail_inforn">
-              <View className="member_name">会员昵称</View>
-              <View>手机号：17898675687</View>
-            </View>
-          </View>
-          <View className="detail_right">2019/10/01 14:54:23</View>
-        </View>
-        <View className="detail_li">
-          <View className="detail_left">
-            <Image src={require('@/assets/images/icon/heard.png')} className="heard_img" />
-            <View className="detail_inforn">
-              <View className="member_name">会员昵称</View>
-              <View>手机号：17898675687</View>
-            </View>
-          </View>
-          <View className="detail_right">2019/10/01 14:54:23</View>
-        </View>
-        <View className="detail_li">
-          <View className="detail_left">
-            <Image src={require('@/assets/images/icon/heard.png')} className="heard_img" />
-            <View className="detail_inforn">
-              <View className="member_name">会员昵称</View>
-              <View>手机号：17898675687</View>
-            </View>
-          </View>
-          <View className="detail_right">2019/10/01 14:54:23</View>
-        </View>
+          )
+        }
+
       </View>
     )
   }
