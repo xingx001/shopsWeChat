@@ -2,49 +2,20 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import { AtTextarea, AtIcon } from 'taro-ui'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '@/actions/counter';
-
 import { API } from '@/apis';
 
 import './style.scss'
-type PageStateProps = {
-  counter: {
-    num: number
-  }
+type IProps = {
+
 }
-type PageDispatchProps = {
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
+const initState = {
+  authsInfo: Taro.getStorageSync('authsInfo') || {},
+  text:''
 }
-
-type PageOwnProps = {}
-
-type PageState = {}
-
-type IProps = PageStateProps & PageDispatchProps & PageOwnProps
-
-interface Index {
-  props: IProps;
-}
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
-class Index extends Component {
-  state = {
-    text: '',
+type IState = typeof initState;
+class Index extends Component<IProps,IState> {
+  state:IState = {
+    ...initState
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -60,40 +31,13 @@ class Index extends Component {
     console.log(this.props, nextProps)
   }
   componentDidMount() {
-    Taro.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          API.getUserIdByOpenId({
-            openid: 1,
-            shopid: 1
-          }).then(result => {
-            console.log(result)
-          })
-        } else {
-          console.log('登录失败！' + res.errMsg)
-        }
-      }
-    })
+
   }
   componentWillUnmount() { }
 
   componentDidShow() { }
 
   componentDidHide() { }
-  onOpenMap() {
-    // Taro.getLocation({ type: 'gcj02' }).then((res) => {
-    //   const latitude = res.latitude
-    //   const longitude = res.longitude
-    //   Taro.openLocation({
-    //     latitude:30.274825,
-    //     longitude:119.961748,
-    //     scale: 16
-    //   })
-    //   this.setState({ latitude: latitude })
-    //   this.setState({ longitude: longitude })
-    // })
-  }
   handleChangeTextarea = (value) => {
     this.setState({ text: value })
   }
@@ -167,4 +111,4 @@ class Index extends Component {
 //
 // #endregion
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+export default Index as ComponentClass

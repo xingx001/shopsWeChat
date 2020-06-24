@@ -4,23 +4,22 @@ import { View, Input, Text, Image, Picker } from '@tarojs/components';
 import { AtModal, AtImagePicker } from 'taro-ui';
 import './style.scss'
 
-interface IProps {
-}
-interface IState {
-  current: number,
-  activeTabKey: string | number,
-  isOpened: boolean,
-  files: any[]
-}
+type IProps = {
 
+}
+const initState = {
+  authsInfo: Taro.getStorageSync('authsInfo') || {},
+  current: 0,
+    activeTabKey: '1',
+    isOpened: false,
+    files: []
+}
+type IState = typeof initState;
 const tabsData = [{ text: '推荐', value: '1' }, { text: '蛋糕', value: '2' }, { text: '点心', value: '3' }, { text: '其他甜点', value: '4' }, { text: '其他甜点', value: '5' }]
 
 class Index extends Component<IProps, IState> {
   state: IState = {
-    current: 0,
-    activeTabKey: '1',
-    isOpened: false,
-    files: []
+    ...initState
   }
   config: Config = {
     navigationBarTitleText: '',
@@ -155,7 +154,6 @@ class Index extends Component<IProps, IState> {
             onConfirm={this.handleConfirm}
             content='确定删除该商品吗？'
           />
-
         </View>
         <View className="fix_bottom_btn">确认修改</View>
       </View>

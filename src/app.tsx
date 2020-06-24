@@ -1,6 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
-import Index from './pages/home/index/index'
 import AuthsContainer from './pages/authsContainer/index/index'
 import configStore from './store'
 import './app.scss'
@@ -38,8 +37,6 @@ class App extends Component {
       'pages/shopDecoration/index',
       'pages/memberDetail/index',
       'pages/launchEvent/index'
-
-
     ],
     window: {
       backgroundTextStyle: 'light',
