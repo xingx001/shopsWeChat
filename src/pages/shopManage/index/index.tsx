@@ -4,22 +4,26 @@ import { View, Image } from '@tarojs/components';
 import Tags from '@/components/tags';
 import { AtIcon,AtModal } from 'taro-ui';
 import './style.scss'
-
+import { API } from '@/apis';
 interface IProps {
 }
 interface IState {
   current: number,
   activeTabKey:string|number,
-  isOpened:boolean
+  isOpened:boolean,
+  authsInfo:any,
+  proList:any,
+  proTypeList:any
+
 }
-
-const tabsData =[{text:'推荐',value:'1'},{text:'蛋糕',value:'2'},{text:'点心',value:'3'},{text:'其他甜点',value:'4'}]
-
 class Index extends Component<IProps, IState> {
   state: IState = {
+    authsInfo: Taro.getStorageSync('authsInfo') || {},
     current: 0,
-    activeTabKey:'1',
-    isOpened:false
+    activeTabKey:'推荐',
+    isOpened:false,
+    proList:[],
+    proTypeList:[]
   }
   config: Config = {
     navigationBarTitleText: '商品管理',
@@ -30,13 +34,32 @@ class Index extends Component<IProps, IState> {
     console.log(this.props, nextProps)
   }
   componentDidMount() {
-
+    this.getShopDataReq();
   }
   componentWillUnmount() { }
 
   componentDidShow() { }
 
-  componentDidHide() { }
+  componentDidHide() {
+   
+  }
+  getShopDataReq(typeName='推荐') {
+    const { authsInfo } = this.state;
+    API.getPOSProManagePage({...authsInfo,ptype:typeName}).then(res => {
+      const { code, msg, data } = res;
+      if (code === '0') {
+        console.log(data)
+        const {proList,proTypeList} = data;
+        this.setState({
+          proList,
+          proTypeList
+        })
+
+      } else {
+      }
+
+    })
+  }
   onChangeSwiper = (e) => {
     const currentTarget = e.currentTarget;
     const { current } = currentTarget;
@@ -49,6 +72,7 @@ class Index extends Component<IProps, IState> {
     this.setState({
       activeTabKey:value
     })
+    this.getShopDataReq(value);
   }
   handleCancel = () => {
     this.setState({
@@ -71,42 +95,27 @@ class Index extends Component<IProps, IState> {
     })
   }
   render() {
-    const { activeTabKey,isOpened } = this.state;
+    const {activeTabKey,isOpened ,proList,proTypeList} = this.state;
+    const tabsData = proTypeList.map((item,index) => {
+      return { text: item.ProTypeName, value: item.ProTypeName }
+    })
     return (
       <View className='shop-index'>
         <View className="goods_tabs"><Tags value={activeTabKey} data={tabsData} onChange={this.onChangeTabs}/></View>
         <View className="goods_info">
           <View className="goods_ul">
-            <View className="goods_li">
-              <Image src={require('@/assets/images/card/4.png')} className="good_img">
-                <View className="delect-btn" onClick={()=>this.onDeleteShop()}>
-                  <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-                </View>
-              </Image>
+          {
+            proList.map(item=>
+            <View className="goods_li" key={item.Id}>
+              <Image src={item.Pru_Img} className="good_img" />
               <View className="good_content">
-                <View className="good_name">原味香草泡芙</View>
-                <View className="good_desc">泡芙的外壳很酥脆～</View>
-                <View className="good_price">¥19.9</View>
-
-              </View>
-
-            </View>
-            <View className="goods_li">
-              <Image src={require('@/assets/images/card/4.png')} className="good_img" />
-              <View className="good_content">
-                <View className="good_name">原味香草泡芙</View>
-                <View className="good_desc">泡芙的外壳很酥脆～</View>
-                <View className="good_price">¥19.9</View>
+            <View className="good_name">{item.Pru_Name}</View>
+            <View className="good_desc">{item.EzInfo}</View>
+            <View className="good_price">¥{item.Pru_Money}</View>
               </View>
             </View>
-            <View className="goods_li">
-              <Image src={require('@/assets/images/card/4.png')} className="good_img" />
-              <View className="good_content">
-                <View className="good_name">原味香草泡芙</View>
-                <View className="good_desc">泡芙的外壳很酥脆～</View>
-                <View className="good_price">¥19.9</View>
-              </View>
-            </View>
+            )
+          }  
           </View>
           <AtModal
             isOpened={isOpened}

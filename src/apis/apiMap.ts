@@ -28,4 +28,9 @@ export default {
     method: 'post',
     url: `/API/POSProManagePage`
   },
+  getPOSShopVipPage: {//商户端-会员明细
+    method: 'get',
+    url: `/API/POSShopVipPage`
+  },
+
 }
