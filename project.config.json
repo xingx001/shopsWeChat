@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "shopsWeChat",
   "description": "商家端小程序",
-  "appid": "",
+  "appid": "wxe5f1ba20f970f6a7",
   "setting": {
     "urlCheck": true,
     "es6": false,

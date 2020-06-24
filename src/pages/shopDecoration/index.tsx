@@ -4,10 +4,10 @@ import { View, Text, Image } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { connect } from '@tarojs/redux'
 import { add, minus, asyncAdd } from '@/actions/counter';
-
 import { API } from '@/apis';
 
-import './style.scss'
+import './style.scss';
+const chooseLocation = Taro.requirePlugin('chooseLocation');
 type PageStateProps = {
   counter: {
     num: number
@@ -45,6 +45,7 @@ interface Index {
 class Index extends Component {
   state = {
     text: '',
+    address: '请选择地址',
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -63,13 +64,7 @@ class Index extends Component {
     Taro.login({
       success: function (res) {
         if (res.code) {
-          //发起网络请求
-          API.getUserIdByOpenId({
-            openid: 1,
-            shopid: 1
-          }).then(result => {
-            console.log(result)
-          })
+
         } else {
           console.log('登录失败！' + res.errMsg)
         }
@@ -78,40 +73,35 @@ class Index extends Component {
   }
   componentWillUnmount() { }
 
-  componentDidShow() { }
+  componentDidShow() {
+    const location = chooseLocation.getLocation();
+    if(location){
+      const { address } = location;
+      this.setState({
+        address
+      })
+      console.log('location', location)
+    }
+  }
 
   componentDidHide() { }
-  onOpenMap() {
-    // Taro.getLocation({ type: 'gcj02' }).then((res) => {
-    //   const latitude = res.latitude
-    //   const longitude = res.longitude
-    //   Taro.openLocation({
-    //     latitude:30.274825,
-    //     longitude:119.961748,
-    //     scale: 16
-    //   })
-    //   this.setState({ latitude: latitude })
-    //   this.setState({ longitude: longitude })
-    // })
-  }
   handleChangeTextarea = (value) => {
     this.setState({ text: value })
   }
   onSelectMap = () => {
-      const key = ''; //使用在腾讯位置服务申请的key
-      const referer = ''; //调用插件的app的名称
-      const location = JSON.stringify({
-        latitude: 39.89631551,
-        longitude: 116.323459711
-      });
-      const category = '生活服务,娱乐休闲';
-
-      Taro.navigateTo({
-        url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
-      });
+    const key = 'RH2BZ-OPKHG-ADFQL-IARZL-ZAVYQ-6QFKV'; //使用在腾讯位置服务申请的key
+    const referer = 'shopsWeChat'; //调用插件的app的名称
+    const location = JSON.stringify({
+      latitude: 30.274825,
+      longitude: 119.961748
+    });
+    const category = '';
+    Taro.navigateTo({
+      url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
+    });
   }
   render() {
-    const { text } = this.state;
+    const { address } = this.state;
     return (
       <View className='storesinform-box'>
         <View className="'inform-li">
@@ -155,7 +145,7 @@ class Index extends Component {
           </View>
           <View className="inform-tit">
             <View className="store-msg">门店地址</View>
-            <View className="store-msg" onClick={this.onSelectMap}>9:00-22:00</View>
+            <View className="store-msg" onClick={this.onSelectMap}>{address}</View>
           </View>
           <View className="inform-tit">
             <View className="store-msg">门牌号</View>
