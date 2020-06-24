@@ -1,60 +1,30 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '@/actions/counter';
 import EChart from 'techarts';
 import * as echarts from '@/lib/echarts';
 import { API } from '@/apis';
+import option from './options';
 
 import './style.scss'
-type PageStateProps = {
-  counter: {
-    num: number
-  }
+type IProps = {
+
 }
-type PageDispatchProps = {
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
+const initState = {
+  authsInfo: Taro.getStorageSync('authsInfo') || {},
+  value: false,
+  ShopFullName: '',
+  Shop_Photo: '',
+  ShopContent: '',
+  TodayAdd: '',
+  TodayInStore: '',
+  SumUserVIP: '',
+  option
 }
-
-type PageOwnProps = {}
-
-type PageState = {}
-
-type IProps = PageStateProps & PageDispatchProps & PageOwnProps
-
-interface Index {
-  props: IProps;
-}
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
-class Index extends Component {
-  state = {
-    authsInfo: Taro.getStorageSync('authsInfo') || {},
-    value: false,
-    ShopFullName: '',
-    Shop_Photo: '',
-    ShopContent: '',
-    TodayAdd: '',
-    TodayInStore: '',
-    SumUserVIP: '',
-    Weeks:[]
-
-
+type IState = typeof initState;
+class Index extends Component<IProps,IState> {
+  state:IState = {
+    ...initState
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -82,9 +52,10 @@ class Index extends Component {
     API.getPOSFirstPage(authsInfo).then(res => {
       const { code, msg, data } = res;
       if (code === '0') {
-        console.log(data)
-
-        let { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,Weeks } = data;
+        let { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,WeekData,WeeksList } = data;
+        let newOption= JSON.parse(JSON.stringify(option));
+        newOption.xAxis.data = WeeksList;
+        newOption.series = WeekData.map((item,index)=>Object.assign({},newOption.series[index],item));
         this.setState({
           ShopFullName,
           Shop_Photo,
@@ -92,7 +63,7 @@ class Index extends Component {
           TodayAdd,
           TodayInStore,
           SumUserVIP,
-          Weeks:JSON.parse(Weeks)
+          option:newOption
         })
       } else {
       }
@@ -110,105 +81,7 @@ class Index extends Component {
 
   componentDidHide() { }
   render() {
-    const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,Weeks } = this.state;
-    console.log(Weeks)
-    const option = {
-      color: ['#F5A623', '#26BBF2'],
-      tooltip: {
-        trigger: 'axis'
-      },
-      legend: {
-        right: 0,
-        top: 0,
-        textStyle: {
-          fontSize: 10,
-          color: '#333333'
-        },
-        selectedMode: false,
-        data: ['领取量', '使用量']
-      },
-      grid: {
-        left: 20,
-        right: 20,
-        bottom: 20,
-        top: 30,
-        containLabel: true
-      },
-      toolbox: {
-        feature: {
-          saveAsImage: {}
-        }
-      },
-      xAxis: {
-        type: 'category',
-        splitLine: {
-          show: false
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#E9E9E9'
-          }
-        },
-        axisLabel: {
-          rotate: 45,
-          color: '#B7B7B7',
-          fontSize: 10
-        },
-        axisTick: {
-          show: false,
-          lineStyle: {
-            width: 1
-          }
-        },
-        boundaryGap: false,
-        data: Weeks
-      },
-      yAxis: {
-        type: 'value',
-        splitLine: {
-          show: false
-        },
-        axisLine: {
-          lineStyle: {
-            color: '#E9E9E9'
-          }
-        },
-        axisLabel: {
-          color: '#B7B7B7',
-          fontSize: 10
-        },
-        axisTick: {
-          show: false,
-          lineStyle: {
-            width: 1
-          }
-        },
-      },
-      series: [
-        {
-          name: '领取量',
-          type: 'line',
-          symbol: 'circle',
-          symbolSize: 8,
-          smooth: true,
-          lineStyle: {
-            width: 1
-          },
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: '使用量',
-          type: 'line',
-          symbol: 'circle',
-          symbolSize: 8,
-          smooth: true,
-          lineStyle: {
-            width: 1
-          },
-          data: [220, 182, 191, 234, 290, 330, 310]
-        }
-      ]
-    };
+    const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,option } = this.state;
     return (
       <View className='home_index'>
         <View className="stores-introd">
@@ -284,4 +157,4 @@ class Index extends Component {
 //
 // #endregion
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+export default Index as ComponentClass
