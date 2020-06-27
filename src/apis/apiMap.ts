@@ -17,5 +17,10 @@ export default {
     method: 'get',
     url: `/API/POSShopVipPage`
   },
+  getPOSShopCardPage: {//商户端-优惠券数据加载
+    method: 'get',
+    url: `/API/POSShopCardPage`
+  },
+  
   
 }
