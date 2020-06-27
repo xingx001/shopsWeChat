@@ -1,51 +1,20 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
-import { AtTextarea, AtIcon } from 'taro-ui'
-import { connect } from '@tarojs/redux'
-import { add, minus, asyncAdd } from '@/actions/counter';
-
+import { View, Image } from '@tarojs/components'
 import { API } from '@/apis';
-
 import './style.scss'
-type PageStateProps = {
-  counter: {
-    num: number
-  }
+
+type IProps = {
+
 }
-type PageDispatchProps = {
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
+const initState = {
+  authsInfo: Taro.getStorageSync('authsInfo') || {},
+  detailData: []
 }
-
-type PageOwnProps = {}
-
-type PageState = {}
-
-type IProps = PageStateProps & PageDispatchProps & PageOwnProps
-
-interface Index {
-  props: IProps;
-}
-
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
-}))
-class Index extends Component {
-  state = {
-    authsInfo: Taro.getStorageSync('authsInfo') || {},
-    detailData: []
+type IState = typeof initState;
+class Index extends Component<IProps,IState> {
+  state:IState = {
+    ...initState
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -79,9 +48,6 @@ class Index extends Component {
   componentDidShow() { }
 
   componentDidHide() { }
-  handleChangeTextarea = (value) => {
-    this.setState({ text: value })
-  }
   render() {
     const { detailData } = this.state;
     return (
@@ -112,4 +78,4 @@ class Index extends Component {
 //
 // #endregion
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+export default Index as ComponentClass

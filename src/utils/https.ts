@@ -28,11 +28,11 @@ export default {
       mode: 'cors',
       xhrFields: { withCredentials: true }
     }
-    Taro.showLoading({
-      title: "加载中..."
-    })
+    // Taro.showLoading({
+    //   title: "加载中..."
+    // })
     return Taro.request(option).then((res) => {
-      Taro.hideLoading();
+      // Taro.hideLoading();
       if (res.statusCode === HTTP_STATUS.NOT_FOUND) {
         return logError('api', '请求资源不存在')
       } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {

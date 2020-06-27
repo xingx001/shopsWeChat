@@ -2,7 +2,7 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components';
 import Tags from '@/components/tags';
-import { AtIcon,AtModal } from 'taro-ui';
+import { AtIcon,AtModal,AtMessage } from 'taro-ui';
 import './style.scss'
 import { API } from '@/apis';
 interface IProps {
@@ -13,7 +13,8 @@ interface IState {
   isOpened:boolean,
   authsInfo:any,
   proList:any,
-  proTypeList:any
+  proTypeList:any,
+  pid:string
 
 }
 class Index extends Component<IProps, IState> {
@@ -23,7 +24,8 @@ class Index extends Component<IProps, IState> {
     activeTabKey:'推荐',
     isOpened:false,
     proList:[],
-    proTypeList:[]
+    proTypeList:[],
+    pid:''
   }
   config: Config = {
     navigationBarTitleText: '商品管理',
@@ -41,14 +43,13 @@ class Index extends Component<IProps, IState> {
   componentDidShow() { }
 
   componentDidHide() {
-   
+
   }
-  getShopDataReq(typeName='推荐') {
-    const { authsInfo } = this.state;
-    API.getPOSProManagePage({...authsInfo,ptype:typeName}).then(res => {
+  getShopDataReq() {
+    const { authsInfo,activeTabKey } = this.state;
+    API.getPOSProManagePage({...authsInfo,ptype:activeTabKey}).then(res => {
       const { code, msg, data } = res;
       if (code === '0') {
-        console.log(data)
         const {proList,proTypeList} = data;
         this.setState({
           proList,
@@ -68,25 +69,36 @@ class Index extends Component<IProps, IState> {
     })
   }
   onChangeTabs = (value) => {
-    console.log(value);
     this.setState({
       activeTabKey:value
-    })
-    this.getShopDataReq(value);
+    },this.getShopDataReq)
   }
   handleCancel = () => {
     this.setState({
-      isOpened:false
+      isOpened:false,
+      pid:''
     })
   }
   handleConfirm = () => {
-    this.setState({
-      isOpened:true
+    const {pid,authsInfo} = this.state;
+    API.deletePOSDelProduct({...authsInfo,pid}).then(res=>{
+      const { code } =res;
+      if(code==0){
+        this.setState({
+          isOpened:true,
+          pid:''
+        },this.getShopDataReq);
+        Taro.atMessage({
+          'message': '删除成功',
+          'type': 'success',
+        })
+      }
     })
   }
-  onDeleteShop = () => {
+  onDeleteShop = (pid) => {
     this.setState({
-      isOpened:true
+      isOpened:true,
+      pid
     })
   }
   onHandleAdd = () => {
@@ -107,7 +119,11 @@ class Index extends Component<IProps, IState> {
           {
             proList.map(item=>
             <View className="goods_li" key={item.Id}>
-              <Image src={item.Pru_Img} className="good_img" />
+              <Image src={item.Pru_Img} className="good_img">
+                <View className="delect-btn" onClick={()=>this.onDeleteShop(item.Id)}>
+                  <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
+                </View>
+              </Image>
               <View className="good_content">
             <View className="good_name">{item.Pru_Name}</View>
             <View className="good_desc">{item.EzInfo}</View>
@@ -115,7 +131,7 @@ class Index extends Component<IProps, IState> {
               </View>
             </View>
             )
-          }  
+          }
           </View>
           <AtModal
             isOpened={isOpened}

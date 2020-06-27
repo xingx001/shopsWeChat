@@ -1,6 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { Provider } from '@tarojs/redux'
-import Index from './pages/home/index/index'
 import AuthsContainer from './pages/authsContainer/index/index'
 import configStore from './store'
 import './app.scss'
@@ -38,8 +37,6 @@ class App extends Component {
       'pages/shopDecoration/index',
       'pages/memberDetail/index',
       'pages/launchEvent/index'
-
-
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -47,12 +44,12 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-  //   plugins: {
-  //     "chooseLocation": {
-  //     "version": "1.0.4",
-  //     "provider": "wx76a9a06e5b4e693e"
-  //     }
-  //  },
+    plugins: {
+      "chooseLocation": {
+      "version": "1.0.4",
+      "provider": "wx76a9a06e5b4e693e"
+      }
+   },
   networkTimeout: {
       "request": 10000,
       "downloadFile": 10000
