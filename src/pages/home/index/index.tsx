@@ -22,8 +22,8 @@ const initState = {
   option
 }
 type IState = typeof initState;
-class Index extends Component<IProps,IState> {
-  state:IState = {
+class Index extends Component<IProps, IState> {
+  state: IState = {
     ...initState
   }
   /**
@@ -52,10 +52,10 @@ class Index extends Component<IProps,IState> {
     API.getPOSFirstPage(authsInfo).then(res => {
       const { code, msg, data } = res;
       if (code === '0') {
-        let { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,WeekData,WeeksList } = data;
-        let newOption= JSON.parse(JSON.stringify(option));
+        let { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP, WeekData, WeeksList } = data;
+        let newOption = JSON.parse(JSON.stringify(option));
         newOption.xAxis.data = WeeksList;
-        newOption.series = WeekData.map((item,index)=>Object.assign({},newOption.series[index],item));
+        newOption.series = WeekData.map((item, index) => Object.assign({}, newOption.series[index], item));
         this.setState({
           ShopFullName,
           Shop_Photo,
@@ -63,7 +63,7 @@ class Index extends Component<IProps,IState> {
           TodayAdd,
           TodayInStore,
           SumUserVIP,
-          option:newOption
+          option: newOption
         })
       } else {
       }
@@ -81,7 +81,7 @@ class Index extends Component<IProps,IState> {
 
   componentDidHide() { }
   render() {
-    const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP,option } = this.state;
+    const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP, option } = this.state;
     return (
       <View className='home_index'>
         <View className="stores-introd">
@@ -113,7 +113,12 @@ class Index extends Component<IProps,IState> {
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">活动管理</Text>
           </View>
-          <View className="store-li" onClick={() => this.onJump(5)}>
+          <View className="store-li" onClick={() => {
+            Taro.showToast({
+              title: '开发中',
+              icon: 'none'
+            })
+          }}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">会员权益</Text>
           </View>

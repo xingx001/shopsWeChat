@@ -85,7 +85,7 @@ class Index extends Component<IProps, IState> {
       const { code } =res;
       if(code==0){
         this.setState({
-          isOpened:true,
+          isOpened:false,
           pid:''
         },this.getShopDataReq);
         Taro.atMessage({
@@ -113,6 +113,7 @@ class Index extends Component<IProps, IState> {
     })
     return (
       <View className='shop-index'>
+         <AtMessage />
         <View className="goods_tabs"><Tags value={activeTabKey} data={tabsData} onChange={this.onChangeTabs}/></View>
         <View className="goods_info">
           <View className="goods_ul">
