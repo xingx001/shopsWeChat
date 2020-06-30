@@ -46,7 +46,7 @@ export default {
   },
   POSShopCardState: {//商户端-优惠券-上下架优惠券POST：
     method: 'post',
-    url: `/API/POSShopCardPage`
+    url: `/API/POSShopCardState`
   },
   getPOSShopTaskManagePage: {//商户端-活动管理
     method: 'get',

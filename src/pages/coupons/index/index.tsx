@@ -13,7 +13,10 @@ interface IState {
   ShopCardList: any,
   SumBuyCount: Number,
   SumOutCount: Number,
-  toastMsg:String
+  toastMsg:String,
+  id:Number,
+  cardstate:Number
+
 }
 
 class Index extends Component<IProps, IState> {
@@ -23,7 +26,9 @@ class Index extends Component<IProps, IState> {
     ShopCardList: [],
     SumBuyCount: null,
     SumOutCount: null,
-    toastMsg:''
+    toastMsg:'',
+    id:null,
+    cardstate:null
 
 
   }
@@ -49,15 +54,37 @@ class Index extends Component<IProps, IState> {
     })
   }
   handleConfirm = () => {
-    this.setState({
-      isOpened: true
-    })
+   
+    const { authsInfo,id,cardstate } = this.state;
+    let states=null;
+    if(cardstate == 2||cardstate == 0){
+      states = 1
+    }else if(cardstate == 1){
+      states = 0
+    }else if(cardstate == 3){
+      states = 2
+    }
+    console.log(cardstate,states)
+
+    API.POSShopCardState({...authsInfo,scid:id,ste:states}).then(res=>{
+      Taro.showToast({
+        title: '操作成功',
+        icon: 'success'
+      })
+      this.setState({
+        isOpened: false
+      })
+      this.getDataReq()
+
+    }) 
   }
-  onHandlePublish = (e) => {
+  onHandlePublish = (e,id,state) => {
     this.setState({
       isOpened: true,
-      toastMsg:e
-    })
+      toastMsg:e,
+      id:id,
+      cardstate:state
+    }) 
   }
   onHandleAdd = () => {
     Taro.navigateTo({
@@ -106,7 +133,7 @@ class Index extends Component<IProps, IState> {
                 {item.cardstate==1&&item.estate!=1&&
                <Text className="status up">上架</Text>
               }
-              {item.cardstate==2&&item.estate!=1&&
+              {(item.cardstate==2||item.cardstate==0)&&item.estate!=1&&
                <Text className="status down">下架</Text>
               }
                </View>
@@ -118,11 +145,11 @@ class Index extends Component<IProps, IState> {
             </View>
             <View className="content-right">
             {item.estate==1&&
-              <Text className="btn" onClick={()=>this.onHandlePublish('取消上架')}>取消上架</Text>}
-              {item.estate!=1&&item.cardstate!=2&&
-              <Text className="btn down" onClick={()=>this.onHandlePublish('下架')}>下架</Text>}
-               {item.estate!=1&&item.cardstate==2&&
-              <Text className="btn up" onClick={()=>this.onHandlePublish('上架')}>上架</Text>}
+              <Text className="btn" onClick={()=>this.onHandlePublish('取消上架',item.Id,item.cardstate)}>取消上架</Text>}
+              {item.estate!=1&&item.cardstate==1&&
+              <Text className="btn down" onClick={()=>this.onHandlePublish('下架',item.Id,item.cardstate)}>下架</Text>}
+               {item.estate!=1&&(item.cardstate==2||item.cardstate==0)&&
+              <Text className="btn up" onClick={()=>this.onHandlePublish('上架',item.Id,item.cardstate)}>上架</Text>}
              
   
             </View>
