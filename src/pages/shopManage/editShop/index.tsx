@@ -2,6 +2,7 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Input, Text, Image, Picker,Button } from '@tarojs/components';
 import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtImagePicker } from 'taro-ui';
+import { API } from '@/apis';
 import './style.scss'
 
 type IProps = {
@@ -9,14 +10,16 @@ type IProps = {
 }
 const initState = {
   authsInfo: Taro.getStorageSync('authsInfo') || {},
-  current: 0,
-    activeTabKey: '1',
-    isOpened: false,
-    files: []
+  isOpened: false,
+  Id:0,//商品ID(新增商品此ID为0  修改商品则为商品ID)
+	pruname:'',//商品名称
+	isups:1,//是否上架 1上架 0不上架
+	ezinfo:'',//商品介绍
+	tname:'',//商品类型
+	pruimg:'',//商品图片
+  files: []
 }
 type IState = typeof initState;
-const tabsData = [{ text: '推荐', value: '1' }, { text: '蛋糕', value: '2' }, { text: '点心', value: '3' }, { text: '其他甜点', value: '4' }, { text: '其他甜点', value: '5' }]
-
 class Index extends Component<IProps, IState> {
   state: IState = {
     ...initState
@@ -36,24 +39,22 @@ class Index extends Component<IProps, IState> {
       })
     }
   }
+  getPOSProAddPType = () => {
+    const { authsInfo } = this.state;
+    API.getPOSProAddPType({
+      ...authsInfo,
+    }).then(res => {
+      const { code,data } = res;
+      if (code === '0') {
+        console.log(data)
+      }
+    })
+  }
   componentWillUnmount() { }
 
   componentDidShow() { }
 
   componentDidHide() { }
-  onChangeSwiper = (e) => {
-    const currentTarget = e.currentTarget;
-    const { current } = currentTarget;
-    this.setState({
-      current
-    })
-  }
-  onChangeTabs = (value) => {
-    console.log(value);
-    this.setState({
-      activeTabKey: value
-    })
-  }
   handleCancel = () => {
     this.setState({
       isOpened: false
@@ -76,6 +77,27 @@ class Index extends Component<IProps, IState> {
       files
     })
   }
+  onHandleSave = () => {
+    const { authsInfo,Id,	pruname,ezinfo,	tname,isups,files } = this.state;
+    const img = files ? files[0].url:'';
+    API.savePOSProductMange({
+        ...authsInfo,
+        Id,
+        pruimg:img,
+        pruname,
+        ezinfo,
+        tname,
+        isups
+      }).then(res => {
+        const { code } = res;
+        if (code === '0') {
+          Taro.showToast({
+            'title': '保存成功',
+            'icon': 'success',
+          });
+        }
+      })
+  }
   render() {
     const { isOpened, files } = this.state;
     return (
@@ -91,7 +113,7 @@ class Index extends Component<IProps, IState> {
           </View>
           <View className="info_li_allow">
             <View className="label">在架状态</View>
-            <Picker value={0} mode='selector' range={['上架', '下架']} onChange={()=>{}}>
+            <Picker value={0} mode='selector' range={['上架', '不上架']} onChange={()=>{}}>
               上架<Text className="at-icon at-icon-chevron-right store_right" ></Text>
             </Picker>
           </View>
@@ -150,7 +172,7 @@ class Index extends Component<IProps, IState> {
             <AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>
           </AtModal>
         </View>
-        <View className="fix_bottom_btn">确认修改</View>
+        <View className="fix_bottom_btn" onClick={this.onHandleSave}>确认修改</View>
       </View>
     )
   }

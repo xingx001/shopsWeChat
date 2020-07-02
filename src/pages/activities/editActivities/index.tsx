@@ -68,9 +68,9 @@ class Index extends Component<IProps, IState> {
       }).then(res => {
         const { code } = res;
         if (code === '0') {
-          Taro.atMessage({
-            'message': '删除成功',
-            'type': 'success',
+          Taro.showToast({
+            'title': '保存成功',
+            'icon': 'success',
           });
         }
       })
@@ -172,7 +172,7 @@ class Index extends Component<IProps, IState> {
             }
           </View>
         </View>
-        <RangeDatePicker isOpened={isOpened} BiginTiem={btime} EndTiem={etime}  onCancel={this.onCancelTimeSelect} onChange={this.onTimeChange}/>
+        <RangeDatePicker isOpened={isOpened} type="date" BiginTiem={btime} EndTiem={etime}  onCancel={this.onCancelTimeSelect} onChange={this.onTimeChange}/>
         <View className="fix_bottom_btn" onClick={this.onHandlePublish}>立即发布</View>
       </View>
     )

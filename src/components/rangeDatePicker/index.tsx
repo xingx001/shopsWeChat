@@ -31,12 +31,12 @@ class RangeDatePicker extends Component<IProps,IState> {
     const { isOpened,BiginTiem,EndTiem,onCancel,onChange,type } = this.props;
     return (
       <AtActionSheet isOpened={isOpened} title={`开始时间：${BiginTiem||'---'}  结束时间：${EndTiem||'---'}`} cancelText='取消' onClose={onCancel} onCancel={onCancel}>
-      <Picker mode='time' value={BiginTiem} onChange={(e)=>onChange(e,'BiginTiem')}>
+      <Picker mode={type} value={BiginTiem} onChange={(e)=>onChange(e,'BiginTiem')}>
          <AtActionSheetItem>
             开始时间
          </AtActionSheetItem>
        </Picker>
-       <Picker mode='time' value={EndTiem} onChange={(e)=>onChange(e,'EndTiem')}>
+       <Picker mode={type} value={EndTiem} onChange={(e)=>onChange(e,'EndTiem')}>
          <AtActionSheetItem>
             结束时间
          </AtActionSheetItem>

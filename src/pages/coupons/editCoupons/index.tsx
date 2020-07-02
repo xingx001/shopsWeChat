@@ -1,20 +1,33 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Input, Text, Textarea, Picker, Image } from '@tarojs/components';
-import { AtModal, AtTextarea } from 'taro-ui';
+import { AtModal } from 'taro-ui';
+import { API } from '@/apis';
 import './style.scss'
 
 interface IProps {
 }
-interface IState {
-  isOpened: boolean,
-  radioType: Number
+const initState = {
+  authsInfo: Taro.getStorageSync('authsInfo') || {},
+  isOpened: false,
+  radioType: 1,
+  Id:0,//优惠券Id(新增为0 修改为优惠券ID)
+  scname:'',//优惠券名称
+  ctype:1,// 优惠券类型 （1=折扣券，2=代金券）
+  limit:0,// 满多少元订单才可使用 0=无门槛
+  cinfo:'',// 优惠券描述
+  cstate:2,// 1=正常 ，2=下架，3=售罄
+  paynum:0,// 售价
+  bnum:0,// 初始数量
+  btime:'2019-11-26 10:20:55',// 有效开始日期
+  etime:'2019-12-31 00:00:00',// 有效截至日期
+  issue:1,// 发行至 1=首页广告栏 ，2=优惠券栏目 ，3=店内会员
 }
+type IState = typeof initState;
 
 class EditCoupons extends Component<IProps, IState> {
   state: IState = {
-    isOpened: false,
-    radioType: 1
+    ...initState
   }
   config: Config = {
     navigationBarTitleText: '创建优惠券',
@@ -56,22 +69,36 @@ class EditCoupons extends Component<IProps, IState> {
   }
   handleChange = () => { }
   onHandleAdd = () => {
+    const { authsInfo,Id,	scname,ctype,	limit,cinfo,cstate,paynum,bnum,btime,etime,issue } = this.state;
+    API.savePOSShopCardManage({
+        ...authsInfo,
+        Id,
+        scname,ctype,	limit,cinfo,cstate,paynum,bnum,btime,etime,issue
+      }).then(res => {
+        const { code } = res;
+        if (code === '0') {
+          Taro.showToast({
+            'title': '保存成功',
+            'icon': 'success',
+          });
+        }
+      })
 
   }
   render() {
-    const { isOpened, radioType } = this.state;
+    const { isOpened, radioType,scname,ctype,	limit,cinfo,cstate,paynum,bnum,btime,etime,issue } = this.state;
     return (
       <View className='edit-coupons'>
         <View className="title">基本信息</View>
         <View className="goods_info">
           <View className="info_li">
             <View className="label">优惠券名称</View>
-            <Input type='text' className="input" placeholder='如：8.8折券，最多15个字' placeholderClass="placeholderClass" maxLength={15} />
+            <Input type='text' className="input" value={scname} placeholder='如：8.8折券，最多15个字' placeholderClass="placeholderClass" maxLength={15} />
           </View>
           <View className="info_li_allow">
             <View className="label">优惠券类型</View>
             <View className="allow">
-              <Picker value={0} mode='selector' range={['上架', '下架']} onChange={this.onChangePicker}>
+              <Picker value={0} mode='selector' rangeKey="text" range={[{value:'1',text:'折扣券'},{value:'2',text:'代金券'}]} onChange={this.onChangePicker}>
                 <Text className="">请选择</Text> <Text className="at-icon at-icon-chevron-right store_right" ></Text>
               </Picker>
             </View>

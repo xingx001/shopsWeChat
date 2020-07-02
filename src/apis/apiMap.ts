@@ -37,7 +37,7 @@ export default {
     url: `/API/POSProAddPType`
   },
   savePOSProductMange: {//商户端-新增商品/修改商品（保存数据）POST：
-    method: 'get',
+    method: 'post',
     url: `/API/POSProductMange`
   },
   getPOSShopCardPage: {//商户端-优惠券数据加载
@@ -47,6 +47,14 @@ export default {
   POSShopCardState: {//商户端-优惠券-上下架优惠券POST：
     method: 'post',
     url: `/API/POSShopCardState`
+  },
+  getPOSShopCardGet:{ //商户端-优惠券-根据优惠券ID获取优惠券信息：
+    method: 'get',
+    url: `/API/POSShopCardGet`
+  },
+  savePOSShopCardManage:{ //新增修改优惠券
+    method: 'post',
+    url: `/API/POSShopCardManage`
   },
   getPOSShopTaskManagePage: {//商户端-活动管理
     method: 'get',
