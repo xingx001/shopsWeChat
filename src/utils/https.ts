@@ -1,8 +1,16 @@
 import Taro from '@tarojs/taro'
 import { HTTP_STATUS } from '@/constants/status';
-
 import { logError } from '@/utils/error';
-
+import OSS from 'ali-oss'
+declare var OSS;
+const aliYunConfig = {
+  // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
+  region: 'oss-cn-hangzhou',
+  // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
+  accessKeyId: 'LTAI4Fsbfp2m8HQwLF5etifB',
+  accessKeySecret: '<Your AccessKeySecret>',
+  bucket: 'aqkj-test'
+}
 const baseUrl='http://ykd.aoqikc.com';//api地址
 type OptionType = {
   url: string
@@ -68,5 +76,18 @@ export default {
   delete(url, data?: object) {
     const option = { url, data }
     return this.baseOptions(option, 'DELETE')
+  },
+  ossUpload(file){
+    const current=file.file
+    let name = current.name;
+    const suffix = name.substr(name.indexOf("."));
+    const timestamp= Date.now();
+    const fileName = 'header/' +timestamp+ suffix;
+    let client = new OSS(aliYunConfig);
+    return client.multipartUpload(fileName, file.file, {
+      progress:function (p) { //获取进度条的值
+        console.log(p)
+      }
+     })
   }
 }

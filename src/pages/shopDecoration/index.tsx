@@ -1,8 +1,8 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import OSS from 'ali-oss'
-import { View, Text, Image } from '@tarojs/components'
-import { AtIcon, AtImagePicker } from 'taro-ui'
+import { View, Text, Image,Picker } from '@tarojs/components'
+import { AtIcon, AtImagePicker, AtActionSheet, AtActionSheetItem } from 'taro-ui'
 import { API } from '@/apis';
 // const OSS = require("ali-oss");
 import './style.scss';
@@ -29,7 +29,8 @@ const initState = {
     accessKeyId: 'LTAI4Fsbfp2m8HQwLF5etifB',
     accessKeySecret: '<Your AccessKeySecret>',
     bucket: 'aqkj-test'
-  }
+  },
+  isOpened:false
 }
 type IState = typeof initState;
 class Index extends Component<IProps, IState> {
@@ -101,13 +102,14 @@ class Index extends Component<IProps, IState> {
   }
   onHandleSave = () => { }
   onChangeAtImagePicker = (files) => {
-    // const { fileList } = this.state;
-    // this.setState({
-    //   fileList: [...fileList, ...files]
-    // })
-    if(files&&files.length){
-      this.uploadOssfile(files[0].file);
-    }
+    const { fileList } = this.state;
+    this.setState({
+      fileList: [...fileList, ...files]
+    });
+    console.log(files);
+    // if(files&&files.length){
+    //   this.uploadOssfile(files[0].file);
+    // }
   }
   uploadOssfile = (file) => {
     console.log(file)
@@ -124,28 +126,51 @@ class Index extends Component<IProps, IState> {
     }
     putObject();
   }
-  onHandleDelete = (index)=>{
+  onHandleDelete = (index) => {
     const { fileList } = this.state;
     Taro.showModal({
-      title:'',
-      content:'确定删除该图片吗？',
-      cancelText:'取消',
-      confirmText:'确认',
-      confirmColor:'#F5A623',
-      success:(res)=>{
-        if(res.confirm){
-          fileList.splice(index,1)
+      title: '',
+      content: '确定删除该图片吗？',
+      cancelText: '取消',
+      confirmText: '确认',
+      confirmColor: '#F5A623',
+      success: (res) => {
+        if (res.confirm) {
+          fileList.splice(index, 1)
           this.setState({
             fileList
           })
-          
+
         }
       }
     })
-  
+
+  }
+  onSelectTime = () => {
+    this.setState({
+      isOpened:true
+    })
+  }
+  onCancelTimeSelect = () =>{
+    this.setState({
+      isOpened:false
+    })
+  }
+  onTimeChange = (e,type)=>{
+    const value = e.detail.value;
+    if(type=='start'){
+      this.setState({
+        BiginTiem:value
+      })
+    }else {
+      this.setState({
+        EndTiem:value
+      })
+    }
+    console.log(value,type)
   }
   render() {
-    const { Address, files, fileList } = this.state;
+    const { Address, files, fileList,BiginTiem,EndTiem,isOpened } = this.state;
     return (
       <View className='storesinform-box'>
         <View className="'inform-li">
@@ -167,10 +192,10 @@ class Index extends Component<IProps, IState> {
             </View>
             {
               fileList.map((item, index) => (
-                <View className="img-list" key={index+'_list'}>
+                <View className="img-list" key={index + '_list'}>
                   <Image src={item.url} className="shop_img" />
                   <View className="delect-btn">
-                    <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' onClick={()=>this.onHandleDelete(index)} className="icon-del"></AtIcon>
+                    <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' onClick={() => this.onHandleDelete(index)} className="icon-del"></AtIcon>
                   </View>
                 </View>
               ))
@@ -181,7 +206,11 @@ class Index extends Component<IProps, IState> {
         <View className="inform-li inform-box">
           <View className="inform-tit">
             <View className="store-msg">营业时间</View>
-            <View className="store-msg">9:00-22:00</View>
+          <View className="store-msg" onClick={this.onSelectTime}>
+          {
+            BiginTiem&&EndTiem ? `${BiginTiem}-${EndTiem}`:'请选择时间'
+          }
+          </View>
           </View>
           <View className="inform-tit">
             <View className="store-msg">联系电话</View>
@@ -190,8 +219,8 @@ class Index extends Component<IProps, IState> {
           <View className="inform-tit">
             <View className="store-msg">门店地址</View>
             <View className="adress_right">
-            <View className="store-msg" onClick={this.onSelectMap}>{Address}</View>
-            <Text className="at-icon at-icon-chevron-right icon_right"></Text>
+              <View className="store-msg" onClick={this.onSelectMap}>{Address}</View>
+              <Text className="at-icon at-icon-chevron-right icon_right"></Text>
             </View>
           </View>
           {/* <View className="inform-tit">
@@ -200,7 +229,18 @@ class Index extends Component<IProps, IState> {
           </View> */}
         </View>
         <View className="warn_msg">门店地址用地图选点的方式得到， 选的点即为用户端地图展示的地点</View>
-
+        <AtActionSheet isOpened={isOpened} title={`开始时间：${BiginTiem||'---'}  结束时间：${EndTiem||'---'}`} cancelText='取消' onClose={this.onCancelTimeSelect} onCancel={this.onCancelTimeSelect}>
+           <Picker mode='time' value={BiginTiem} onChange={(e)=>this.onTimeChange(e,'start')}>
+              <AtActionSheetItem>
+                 开始时间
+              </AtActionSheetItem>
+            </Picker>
+            <Picker mode='time' value={EndTiem} onChange={(e)=>this.onTimeChange(e,'end')}>
+              <AtActionSheetItem>
+                 结束时间
+              </AtActionSheetItem>
+            </Picker>
+        </AtActionSheet>
         <View className="save_btn" onClick={this.onHandleSave}>保存</View>
       </View>
     )
