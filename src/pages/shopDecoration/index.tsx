@@ -1,17 +1,15 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import OSS from 'ali-oss'
 import { View, Text, Image,Input } from '@tarojs/components'
 import { AtIcon, AtImagePicker} from 'taro-ui'
 import { API } from '@/apis';
-// const OSS = require("ali-oss");
-import './style.scss';
 import RangeDatePicker from '@/components/rangeDatePicker'
-declare var OSS;
 const chooseLocation = Taro.requirePlugin('chooseLocation');
+const OSS:any = require("ali-oss");
 type IProps = {
 
 }
+console.log(OSS)
 const initState = {
   fileList: [],
   authsInfo: Taro.getStorageSync('authsInfo') || {},
@@ -27,9 +25,9 @@ const initState = {
     // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
     region: 'oss-cn-hangzhou',
     // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-    accessKeyId: 'LTAI4Fsbfp2m8HQwLF5etifB',
-    accessKeySecret: '<Your AccessKeySecret>',
-    bucket: 'aqkj-test'
+    accessKeyId: 'LTAI4G3HYZapXoAXeVBWFQ3R',
+    accessKeySecret: 'ins4c8sVV3c4UBM3CLEYqveBBUAW6u',
+    bucket: 'doutui-img.oss-cn-hangzhou.aliyuncs.com '
   },
   isOpened:false
 }
@@ -109,23 +107,25 @@ class Index extends Component<IProps, IState> {
     });
     console.log(files);
     // if(files&&files.length){
-    //   this.uploadOssfile(files[0].file);
+      this.uploadOssfile(files[0].file);
     // }
   }
   uploadOssfile = (file) => {
     console.log(file)
     const { aliYunConfig } = this.state
-    let client = new OSS(aliYunConfig);
-    async function putObject() {
-      try {
-        // object-key可以自定义为文件名（例如file.txt）或目录（例如abc/test/file.txt）的形式，实现将文件上传至当前Bucket或Bucket下的指定目录。
-        let result = await client.put('test', file);
-        console.log(result);
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    putObject();
+    debugger
+    // let client = new OSS(aliYunConfig);
+    // console.log(client)
+    // async function putObject() {
+    //   try {
+    //     // object-key可以自定义为文件名（例如file.txt）或目录（例如abc/test/file.txt）的形式，实现将文件上传至当前Bucket或Bucket下的指定目录。
+    //     let result = await client.put('test', file);
+    //     console.log(result);
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // }
+    // putObject();
   }
   onHandleDelete = (index) => {
     const { fileList } = this.state;
