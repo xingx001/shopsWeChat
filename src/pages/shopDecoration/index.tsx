@@ -1,28 +1,39 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
+import OSS from 'ali-oss'
 import { View, Text, Image } from '@tarojs/components'
-import { AtIcon,AtImagePicker } from 'taro-ui'
+import { AtIcon, AtImagePicker } from 'taro-ui'
 import { API } from '@/apis';
-
+// const OSS = require("ali-oss");
 import './style.scss';
+declare var OSS;
 const chooseLocation = Taro.requirePlugin('chooseLocation');
 type IProps = {
 
 }
 const initState = {
+  fileList: [],
   authsInfo: Taro.getStorageSync('authsInfo') || {},
-  Id:'',//门店Id
-  files:[],
-  Address:'',
-  XCode:'',
-  YCode:'',
-  Phone:'',
-  BiginTiem:'',
-  EndTiem:''
+  Id: '',//门店Id
+  files: [],
+  Address: '请选择地址',
+  XCode: '',
+  YCode: '',
+  Phone: '',
+  BiginTiem: '',
+  EndTiem: '',
+  aliYunConfig: {
+    // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
+    region: 'oss-cn-hangzhou',
+    // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
+    accessKeyId: 'LTAI4Fsbfp2m8HQwLF5etifB',
+    accessKeySecret: '<Your AccessKeySecret>',
+    bucket: 'aqkj-test'
+  }
 }
 type IState = typeof initState;
-class Index extends Component<IProps,IState> {
-  state:IState = {
+class Index extends Component<IProps, IState> {
+  state: IState = {
     ...initState
   }
   /**
@@ -66,10 +77,10 @@ class Index extends Component<IProps,IState> {
 
   componentDidShow() {
     const location = chooseLocation.getLocation();
-    if(location){
+    if (location) {
       const { address } = location;
       this.setState({
-        Address:address
+        Address: address
       })
       console.log('location', location)
     }
@@ -88,14 +99,53 @@ class Index extends Component<IProps,IState> {
       url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
     });
   }
-  onHandleSave = () => {}
+  onHandleSave = () => { }
   onChangeAtImagePicker = (files) => {
-    this.setState({
-      files
+    // const { fileList } = this.state;
+    // this.setState({
+    //   fileList: [...fileList, ...files]
+    // })
+    if(files&&files.length){
+      this.uploadOssfile(files[0].file);
+    }
+  }
+  uploadOssfile = (file) => {
+    console.log(file)
+    const { aliYunConfig } = this.state
+    let client = new OSS(aliYunConfig);
+    async function putObject() {
+      try {
+        // object-key可以自定义为文件名（例如file.txt）或目录（例如abc/test/file.txt）的形式，实现将文件上传至当前Bucket或Bucket下的指定目录。
+        let result = await client.put('test', file);
+        console.log(result);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    putObject();
+  }
+  onHandleDelete = (index)=>{
+    const { fileList } = this.state;
+    Taro.showModal({
+      title:'',
+      content:'确定删除该图片吗？',
+      cancelText:'取消',
+      confirmText:'确认',
+      confirmColor:'#F5A623',
+      success:(res)=>{
+        if(res.confirm){
+          fileList.splice(index,1)
+          this.setState({
+            fileList
+          })
+          
+        }
+      }
     })
+  
   }
   render() {
-    const { Address,files } = this.state;
+    const { Address, files, fileList } = this.state;
     return (
       <View className='storesinform-box'>
         <View className="'inform-li">
@@ -106,39 +156,31 @@ class Index extends Component<IProps,IState> {
                 <Image src={require('@/assets/images/icon/upload.png')} className="add-icon" />
                 <Text className="upload-msg">上传照片</Text>
                 <AtImagePicker
-                      className="upload-image-picker"
-                      multiple={false}
-                      length={1}
-                      mode='top'
-                      files={files}
-                      onChange={this.onChangeAtImagePicker}
-                    />
+                  className="upload-image-picker"
+                  multiple={true}
+                  length={1}
+                  mode='top'
+                  files={files}
+                  onChange={this.onChangeAtImagePicker}
+                />
               </View>
             </View>
-            <View className="img-list">
-              <Image src={require('@/assets/images/card/7.png')} className="shop_img" />
-              <View className="delect-btn">
-                <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-              </View>
-            </View>
-            <View className="img-list">
-              <Image src={require('@/assets/images/card/7.png')} className="shop_img" />
-              <View className="delect-btn">
-                <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-              </View>
-            </View>
-            <View className="img-list ">
-              <Image src={require('@/assets/images/card/7.png')} className="shop_img" />
-              <View className="delect-btn">
-                <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-              </View>
-            </View>
+            {
+              fileList.map((item, index) => (
+                <View className="img-list" key={index+'_list'}>
+                  <Image src={item.url} className="shop_img" />
+                  <View className="delect-btn">
+                    <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' onClick={()=>this.onHandleDelete(index)} className="icon-del"></AtIcon>
+                  </View>
+                </View>
+              ))
+            }
 
           </View>
         </View>
         <View className="inform-li inform-box">
           <View className="inform-tit">
-            <View className="store-msg">门店图册</View>
+            <View className="store-msg">营业时间</View>
             <View className="store-msg">9:00-22:00</View>
           </View>
           <View className="inform-tit">
@@ -147,12 +189,15 @@ class Index extends Component<IProps,IState> {
           </View>
           <View className="inform-tit">
             <View className="store-msg">门店地址</View>
+            <View className="adress_right">
             <View className="store-msg" onClick={this.onSelectMap}>{Address}</View>
+            <Text className="at-icon at-icon-chevron-right icon_right"></Text>
+            </View>
           </View>
-          <View className="inform-tit">
+          {/* <View className="inform-tit">
             <View className="store-msg">门牌号</View>
             <View className="store-msg">4楼421</View>
-          </View>
+          </View> */}
         </View>
         <View className="warn_msg">门店地址用地图选点的方式得到， 选的点即为用户端地图展示的地点</View>
 
