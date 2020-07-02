@@ -9,6 +9,7 @@
       flex-wrap: wrap;
       border-bottom: 1px solid #E1E1E1;
       padding: 20px 30px 20px 0;
+      font-size: 28px;
       .label{
         font-size:28px;
         font-family:PingFangSC-Regular,PingFang SC;
@@ -24,10 +25,7 @@
       }
       .input{
         font-size: 28px;
-      }
-      .placeholderClass{
-        font-size:28px;
-        color:#B9B9B9;
+        flex: 1;
       }
       .tag_list{
         padding: 7px 8px;
@@ -97,12 +95,18 @@
         }
       }
     }
+    .placeholderClass{
+      font-size:28px;
+      color:#B9B9B9;
+      vertical-align: middle;
+    }
     .info_li_allow{
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid #E1E1E1;
       padding: 20px 30px 20px 0;
+      font-size: 28px;
       .label{
         font-size:28px;
         font-family:PingFangSC-Regular,PingFang SC;

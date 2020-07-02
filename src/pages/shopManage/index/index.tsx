@@ -2,7 +2,7 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components';
 import Tags from '@/components/tags';
-import { AtIcon,AtModal,AtMessage } from 'taro-ui';
+import { AtIcon,AtMessage } from 'taro-ui';
 import './style.scss'
 import { API } from '@/apis';
 interface IProps {
@@ -13,9 +13,7 @@ interface IState {
   isOpened:boolean,
   authsInfo:any,
   proList:any,
-  proTypeList:any,
-  pid:string
-
+  proTypeList:any
 }
 class Index extends Component<IProps, IState> {
   state: IState = {
@@ -24,8 +22,7 @@ class Index extends Component<IProps, IState> {
     activeTabKey:'推荐',
     isOpened:false,
     proList:[],
-    proTypeList:[],
-    pid:''
+    proTypeList:[]
   }
   config: Config = {
     navigationBarTitleText: '商品管理',
@@ -73,32 +70,28 @@ class Index extends Component<IProps, IState> {
       activeTabKey:value
     },this.getShopDataReq)
   }
-  handleCancel = () => {
-    this.setState({
-      isOpened:false,
-      pid:''
-    })
-  }
-  handleConfirm = () => {
-    const {pid,authsInfo} = this.state;
-    API.deletePOSDelProduct({...authsInfo,pid}).then(res=>{
-      const { code } =res;
-      if(code==0){
-        this.setState({
-          isOpened:false,
-          pid:''
-        },this.getShopDataReq);
-        Taro.atMessage({
-          'message': '删除成功',
-          'type': 'success',
-        })
-      }
-    })
-  }
   onDeleteShop = (pid) => {
-    this.setState({
-      isOpened:true,
-      pid
+    Taro.showModal({
+      title:'',
+      content:'确定删除该商品吗？',
+      cancelText:'取消',
+      confirmText:'确认',
+      confirmColor:'#F5A623',
+      success:(res)=>{
+        if(res.confirm){
+          const {authsInfo} = this.state;
+          API.deletePOSDelProduct({...authsInfo,pid}).then(res=>{
+            const { code } =res;
+            if(code==0){
+              this.getShopDataReq();
+              Taro.atMessage({
+                'message': '删除成功',
+                'type': 'success',
+              })
+            }
+          })
+        }
+      }
     })
   }
   onHandleAdd = () => {
@@ -107,7 +100,7 @@ class Index extends Component<IProps, IState> {
     })
   }
   render() {
-    const {activeTabKey,isOpened ,proList,proTypeList} = this.state;
+    const {activeTabKey ,proList,proTypeList} = this.state;
     const tabsData = proTypeList.map((item,index) => {
       return { text: item.ProTypeName, value: item.ProTypeName }
     })
@@ -134,16 +127,6 @@ class Index extends Component<IProps, IState> {
             )
           }
           </View>
-          <AtModal
-            isOpened={isOpened}
-            cancelText='取消'
-            confirmText='确认'
-            onClose={ this.handleCancel }
-            onCancel={ this.handleCancel }
-            onConfirm={ this.handleConfirm }
-            content='确定删除该商品吗？'
-          />
-
         </View>
         <View className="fix_bottom_btn" onClick={this.onHandleAdd}>新增商品</View>
       </View>

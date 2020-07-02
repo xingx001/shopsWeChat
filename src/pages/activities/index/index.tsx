@@ -1,7 +1,8 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-import { AtMessage,AtModal } from 'taro-ui';
+import { AtMessage } from 'taro-ui';
+import qs from 'qs';
 import { API } from '@/apis'
 import './style.scss'
 
@@ -39,9 +40,7 @@ class Index extends Component<IProps,IState> {
         this.setState({
           listData:data
         })
-      } else {
       }
-
     })
   }
   componentWillUnmount() { }
@@ -57,7 +56,7 @@ class Index extends Component<IProps,IState> {
         break;
       }
       case 'edit':{
-        this.onHandlePubilsh()
+        this.onHandlePubilsh(item,'1')
         break;
       }
       case 'delete':{
@@ -78,9 +77,10 @@ class Index extends Component<IProps,IState> {
       default:
     }
   }
-  onHandlePubilsh = () => {
+  onHandlePubilsh = (item={},type='0') => {
+    let params = qs.stringify(item, { arrayFormat: 'repeat' })
     Taro.navigateTo({
-      url: '/pages/activities/editActivities/index'
+      url: '/pages/activities/editActivities/index?type='+type+params
     })
   }
   handleConfirm = (id) => {
@@ -129,7 +129,7 @@ class Index extends Component<IProps,IState> {
           )
           )
         }
-        <View className="fix_bottom_btn" onClick={this.onHandlePubilsh}>发布活动</View>
+        <View className="fix_bottom_btn" onClick={()=>this.onHandlePubilsh()}>发布活动</View>
       </View>
     )
   }

@@ -1,11 +1,12 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import OSS from 'ali-oss'
-import { View, Text, Image,Picker } from '@tarojs/components'
-import { AtIcon, AtImagePicker, AtActionSheet, AtActionSheetItem } from 'taro-ui'
+import { View, Text, Image,Input } from '@tarojs/components'
+import { AtIcon, AtImagePicker} from 'taro-ui'
 import { API } from '@/apis';
 // const OSS = require("ali-oss");
 import './style.scss';
+import RangeDatePicker from '@/components/rangeDatePicker'
 declare var OSS;
 const chooseLocation = Taro.requirePlugin('chooseLocation');
 type IProps = {
@@ -16,7 +17,7 @@ const initState = {
   authsInfo: Taro.getStorageSync('authsInfo') || {},
   Id: '',//门店Id
   files: [],
-  Address: '请选择地址',
+  Address: '',
   XCode: '',
   YCode: '',
   Phone: '',
@@ -158,16 +159,17 @@ class Index extends Component<IProps, IState> {
   }
   onTimeChange = (e,type)=>{
     const value = e.detail.value;
-    if(type=='start'){
-      this.setState({
-        BiginTiem:value
-      })
-    }else {
-      this.setState({
-        EndTiem:value
-      })
+    switch(type){
+      case 'BiginTiem':
+        this.setState({
+          BiginTiem:value
+        })
+        break;
+      default:
+        this.setState({
+          EndTiem:value
+        })
     }
-    console.log(value,type)
   }
   render() {
     const { Address, files, fileList,BiginTiem,EndTiem,isOpened } = this.state;
@@ -206,20 +208,26 @@ class Index extends Component<IProps, IState> {
         <View className="inform-li inform-box">
           <View className="inform-tit">
             <View className="store-msg">营业时间</View>
-          <View className="store-msg" onClick={this.onSelectTime}>
-          {
-            BiginTiem&&EndTiem ? `${BiginTiem}-${EndTiem}`:'请选择时间'
-          }
+            <View className="store-msg" onClick={this.onSelectTime}>
+            {
+              BiginTiem||EndTiem ? `${BiginTiem}-${EndTiem}`:<Text className="placeholderClass">请选择时间</Text>
+            }
           </View>
           </View>
           <View className="inform-tit">
             <View className="store-msg">联系电话</View>
-            <View className="store-msg">13878677654</View>
+            <View className="store-msg">
+              <Input type='number' className="input" placeholder='请输入联系电话' placeholderClass="placeholderClass" maxLength={11} />
+            </View>
           </View>
           <View className="inform-tit">
             <View className="store-msg">门店地址</View>
             <View className="adress_right">
-              <View className="store-msg" onClick={this.onSelectMap}>{Address}</View>
+              <View className="store-msg" onClick={this.onSelectMap}>
+                {
+                  Address ? Address:(<Text className="placeholderClass">请选择地址</Text>)
+                }
+              </View>
               <Text className="at-icon at-icon-chevron-right icon_right"></Text>
             </View>
           </View>
@@ -229,18 +237,7 @@ class Index extends Component<IProps, IState> {
           </View> */}
         </View>
         <View className="warn_msg">门店地址用地图选点的方式得到， 选的点即为用户端地图展示的地点</View>
-        <AtActionSheet isOpened={isOpened} title={`开始时间：${BiginTiem||'---'}  结束时间：${EndTiem||'---'}`} cancelText='取消' onClose={this.onCancelTimeSelect} onCancel={this.onCancelTimeSelect}>
-           <Picker mode='time' value={BiginTiem} onChange={(e)=>this.onTimeChange(e,'start')}>
-              <AtActionSheetItem>
-                 开始时间
-              </AtActionSheetItem>
-            </Picker>
-            <Picker mode='time' value={EndTiem} onChange={(e)=>this.onTimeChange(e,'end')}>
-              <AtActionSheetItem>
-                 结束时间
-              </AtActionSheetItem>
-            </Picker>
-        </AtActionSheet>
+        <RangeDatePicker isOpened={isOpened} BiginTiem={BiginTiem} EndTiem={EndTiem}  onCancel={this.onCancelTimeSelect} onChange={this.onTimeChange}/>
         <View className="save_btn" onClick={this.onHandleSave}>保存</View>
       </View>
     )

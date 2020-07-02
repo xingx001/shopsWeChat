@@ -1,7 +1,7 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Input, Text, Image, Picker } from '@tarojs/components';
-import { AtModal, AtImagePicker } from 'taro-ui';
+import { View, Input, Text, Image, Picker,Button } from '@tarojs/components';
+import { AtModal, AtModalHeader, AtModalContent, AtModalAction, AtImagePicker } from 'taro-ui';
 import './style.scss'
 
 type IProps = {
@@ -64,13 +64,10 @@ class Index extends Component<IProps, IState> {
       isOpened: true
     })
   }
-  onDeleteShop = () => {
+  onHandleAdd = () => {
     this.setState({
       isOpened: true
     })
-  }
-  onChangePicker = () => {
-
   }
   handleChange = () => { }
   onChangeAtImagePicker = (files) => {
@@ -94,7 +91,7 @@ class Index extends Component<IProps, IState> {
           </View>
           <View className="info_li_allow">
             <View className="label">在架状态</View>
-            <Picker value={0} mode='selector' range={['上架', '下架']} onChange={this.onChangePicker}>
+            <Picker value={0} mode='selector' range={['上架', '下架']} onChange={()=>{}}>
               上架<Text className="at-icon at-icon-chevron-right store_right" ></Text>
             </Picker>
           </View>
@@ -106,7 +103,7 @@ class Index extends Component<IProps, IState> {
               <Text className="tag_list">其他甜点</Text>
               <Text className="tag_list">巧克力</Text>
               <Text className="tag_list">巧克力s</Text>
-              <Text className="add_tag">{`+ 添加分类`}</Text>
+              <Text className="add_tag" onClick={this.onHandleAdd}>{`+ 添加分类`}</Text>
             </View>
           </View>
           <View className="info_li">
@@ -145,15 +142,13 @@ class Index extends Component<IProps, IState> {
                 )
             }
           </View>
-          <AtModal
-            isOpened={isOpened}
-            cancelText='取消'
-            confirmText='确认'
-            onClose={this.handleCancel}
-            onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
-            content='确定删除该商品吗？'
-          />
+          <AtModal isOpened={isOpened}>
+            <AtModalHeader>添加分类</AtModalHeader>
+            <AtModalContent>
+              <Input type='text' className="input" placeholder='请输入分类名称' placeholderClass="placeholderClass" maxLength={10} />
+            </AtModalContent>
+            <AtModalAction> <Button>取消</Button> <Button>确定</Button> </AtModalAction>
+          </AtModal>
         </View>
         <View className="fix_bottom_btn">确认修改</View>
       </View>

@@ -16,12 +16,21 @@
   }
   .inform-box{
     padding: 0px;
-    border-bottom: 1px solid rgba(233, 233, 233, 1); 
+    border-bottom: 1px solid rgba(233, 233, 233, 1);
     .store-msg{
       margin-right: 30px;
     }
   }
-
+  .input{
+    vertical-align: middle;
+    height: 110px;
+    line-height: 110px;
+    text-align: right;
+  }
+  .placeholderClass{
+    text-align: right;
+    color: #B9B9B9;
+  }
   .upload_img {
     display: flex;
     justify-content: flex-start;
