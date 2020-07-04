@@ -38,18 +38,19 @@ class AuthsContainer extends Component {
   componentDidMount() {
     const { shopid } = this.state;
     API.getPossigin({
-      uname: 123456,
+      uname: 13888888888,
       pwd: 123456
     }).then(result => {
       const { data, status, msg } = result;
-      if (status === '0')
+      if (status === '0'){
         Taro.setStorageSync('authsInfo', {
           shopid: shopid,
           uid: data
         });
-      Taro.redirectTo({
-        url: "/pages/home/index/index"
-      })
+        Taro.redirectTo({
+          url: "/pages/home/index/index"
+        })
+      }
     })
   }
   componentWillUnmount() { }

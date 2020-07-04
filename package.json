@@ -46,7 +46,6 @@
     "@tarojs/taro-swan": "2.2.6",
     "@tarojs/taro-tt": "2.2.6",
     "@tarojs/taro-weapp": "2.2.6",
-    "ali-oss": "^6.9.1",
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.6",
     "husky": "^4.2.5",

@@ -5,11 +5,9 @@ import { AtIcon, AtImagePicker} from 'taro-ui'
 import { API } from '@/apis';
 import RangeDatePicker from '@/components/rangeDatePicker'
 const chooseLocation = Taro.requirePlugin('chooseLocation');
-const OSS:any = require("ali-oss");
 type IProps = {
 
 }
-console.log(OSS)
 const initState = {
   fileList: [],
   authsInfo: Taro.getStorageSync('authsInfo') || {},
@@ -27,7 +25,7 @@ const initState = {
     // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
     accessKeyId: 'LTAI4G3HYZapXoAXeVBWFQ3R',
     accessKeySecret: 'ins4c8sVV3c4UBM3CLEYqveBBUAW6u',
-    bucket: 'doutui-img.oss-cn-hangzhou.aliyuncs.com '
+    bucket: 'doutui-img.oss-cn-hangzhou.aliyuncs.com'
   },
   isOpened:false
 }
@@ -106,8 +104,30 @@ class Index extends Component<IProps, IState> {
       fileList: [...fileList, ...files]
     });
     console.log(files);
+    Taro.chooseImage({
+      success (res) {
+        const tempFilePaths = res.tempFilePaths
+        Taro.uploadFile({
+          url: 'https://yunkeduo.oss-cn-hangzhou.aliyuncs.com', //仅为示例，非真实的接口地址
+          filePath: tempFilePaths[0],
+          name: 'file',
+          formData: {
+            key: new Date().valueOf() + "sss.jpg",
+            policy:"eyJleHBpcmF0aW9uIjoiMjAyMS0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==",
+            OSSAccessKeyId: "LTAI4Fsbfp2m8HQwLF5etifB",
+            success_action_status: 200,
+            signature: "Aeryc6zJx6kdBFs6pkjsG28QrbY="
+          },
+          success: (res)=>{
+            const data = res.data;
+            console.log('res',res)
+            //do something
+          }
+        })
+      }
+    })
     // if(files&&files.length){
-      this.uploadOssfile(files[0].file);
+      // this.uploadOssfile(files[0].file);
     // }
   }
   uploadOssfile = (file) => {
@@ -231,10 +251,6 @@ class Index extends Component<IProps, IState> {
               <Text className="at-icon at-icon-chevron-right icon_right"></Text>
             </View>
           </View>
-          {/* <View className="inform-tit">
-            <View className="store-msg">门牌号</View>
-            <View className="store-msg">4楼421</View>
-          </View> */}
         </View>
         <View className="warn_msg">门店地址用地图选点的方式得到， 选的点即为用户端地图展示的地点</View>
         <RangeDatePicker isOpened={isOpened} BiginTiem={BiginTiem} EndTiem={EndTiem}  onCancel={this.onCancelTimeSelect} onChange={this.onTimeChange}/>

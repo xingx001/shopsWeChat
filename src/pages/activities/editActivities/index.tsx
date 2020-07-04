@@ -38,7 +38,23 @@ class Index extends Component<IProps, IState> {
       Taro.setNavigationBarTitle({
         title: '修改活动'
       });
+      this.getPOSShopTaskDetails(id)
     }
+  }
+  getPOSShopTaskDetails = (Id) => {
+    const { authsInfo } = this.state;
+    API.getPOSShopTaskDetails({
+        ...authsInfo,
+        stid:Id,
+      }).then(res => {
+        const { code,data } = res;
+        if (code === '0') {
+          this.setState({
+            Id
+          })
+          console.log(data);
+        }
+      })
   }
   componentWillUnmount() { }
 
@@ -56,11 +72,11 @@ class Index extends Component<IProps, IState> {
   }
   onHandlePublish = () => {
     const { authsInfo,Id,tinfo,ttitle,btime,etime,files } = this.state;
-    const img = files ? files[0].url:'';
+    const img = files.length ? files[0].url:'';
     API.savePOSShopTaskManage({
         ...authsInfo,
         Id,
-        tiimg:img,
+        tiimg:'https://wx.qlogo.cn/mmopen/vi_32/r7UAOHMVZRibuyEibLcIwicC8VEVcBSbNmvygSTMibmna5HnVLOQYFpLOaKYnlTTcRHibjZNXZ61DHKkdeiaEyxSRjnw/132',
         tinfo,
         ttitle,
         btime,
@@ -72,6 +88,7 @@ class Index extends Component<IProps, IState> {
             'title': '保存成功',
             'icon': 'success',
           });
+          Taro.navigateBack();
         }
       })
   }

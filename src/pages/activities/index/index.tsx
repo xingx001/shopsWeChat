@@ -2,9 +2,8 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import { AtMessage } from 'taro-ui';
-import qs from 'qs';
-import { API } from '@/apis'
-import './style.scss'
+import { API } from '@/apis';
+import './style.scss';
 
 type IProps = {
 
@@ -30,7 +29,7 @@ class Index extends Component<IProps,IState> {
   componentWillReceiveProps(nextProps) {
   }
   componentDidMount() {
-    this.getPOSShopTaskManagePage();
+
   }
   getPOSShopTaskManagePage() {
     const { authsInfo } = this.state;
@@ -45,8 +44,9 @@ class Index extends Component<IProps,IState> {
   }
   componentWillUnmount() { }
 
-  componentDidShow() { }
-
+  componentDidShow() {
+    this.getPOSShopTaskManagePage();
+  }
   componentDidHide() { }
   onHandleTask = (item,type) => {
     const {Id,Task_Info_Img} = item
@@ -56,7 +56,7 @@ class Index extends Component<IProps,IState> {
         break;
       }
       case 'edit':{
-        this.onHandlePubilsh(item,'1')
+        this.onHandlePubilsh(Id,'1')
         break;
       }
       case 'delete':{
@@ -77,10 +77,9 @@ class Index extends Component<IProps,IState> {
       default:
     }
   }
-  onHandlePubilsh = (item={},type='0') => {
-    let params = qs.stringify(item, { arrayFormat: 'repeat' })
+  onHandlePubilsh = (id='',type='0') => {
     Taro.navigateTo({
-      url: '/pages/activities/editActivities/index?type='+type+params
+      url: '/pages/activities/editActivities/index?type='+type+'&id='+id
     })
   }
   handleConfirm = (id) => {
