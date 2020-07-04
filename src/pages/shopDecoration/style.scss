@@ -89,7 +89,6 @@
     border-bottom: 1px solid rgba(233, 233, 233, 1);
     justify-content: space-between;
     .adress_right{
-      width: 310px;
       display: flex;
       justify-content: flex-end;
       .icon_right{
@@ -99,6 +98,12 @@
       }
       .store-msg{
         margin-right: 5px;
+      }
+      .map-text{
+        width: 500px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
       }
     }
     &:last-child{

@@ -1,9 +1,10 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Input, Text, Image, Picker } from '@tarojs/components';
-import { AtImagePicker } from 'taro-ui';
+import { View, Input, Text, Image } from '@tarojs/components';
 import RangeDatePicker from '@/components/rangeDatePicker';
 import { API } from '@/apis'
+import Http from '@/utils/https';
+import {formatDate} from '@/utils';
 import './style.scss'
 
 type IProps = {
@@ -18,7 +19,6 @@ const initState = {
 	tiimg:'',//活动图片
 	btime:'',//活动开始时间
 	etime:'',//活动截至时间
-  files: []
 }
 type IState = typeof initState;
 class Index extends Component<IProps, IState> {
@@ -49,10 +49,15 @@ class Index extends Component<IProps, IState> {
       }).then(res => {
         const { code,data } = res;
         if (code === '0') {
+          const {	ttitle,	tinfo,	tiimg,	btime,	etime } = data;
           this.setState({
-            Id
+            Id,
+            ttitle,
+            tinfo,
+            tiimg,
+            btime:formatDate(btime,'YYYY-MM-DD'),
+            etime:formatDate(etime,'YYYY-MM-DD'),
           })
-          console.log(data);
         }
       })
   }
@@ -61,22 +66,28 @@ class Index extends Component<IProps, IState> {
   componentDidShow() { }
 
   componentDidHide() { }
-  onChangePicker = () => {
 
-  }
-  handleChange = () => { }
-  onChangeAtImagePicker = (files) => {
-    this.setState({
-      files
+  onChooseImage = () => {
+    Taro.chooseImage({
+      success:(res) => {
+        const tempFilePaths = res.tempFilePaths;
+        Http.ossUpload(tempFilePaths[0]).then(res=>{
+          const {data,statusCode} = res;
+          if(statusCode==200){
+            this.setState({
+              tiimg: data
+            });
+          }
+        })
+      }
     })
   }
   onHandlePublish = () => {
-    const { authsInfo,Id,tinfo,ttitle,btime,etime,files } = this.state;
-    const img = files.length ? files[0].url:'';
+    const { authsInfo,Id,tinfo,ttitle,btime,etime,tiimg } = this.state;
     API.savePOSShopTaskManage({
         ...authsInfo,
         Id,
-        tiimg:'https://wx.qlogo.cn/mmopen/vi_32/r7UAOHMVZRibuyEibLcIwicC8VEVcBSbNmvygSTMibmna5HnVLOQYFpLOaKYnlTTcRHibjZNXZ61DHKkdeiaEyxSRjnw/132',
+        tiimg:tiimg,
         tinfo,
         ttitle,
         btime,
@@ -131,7 +142,7 @@ class Index extends Component<IProps, IState> {
     })
   }
   render() {
-    const { files,isOpened,btime,etime,ttitle,tinfo } = this.state;
+    const {isOpened,btime,etime,ttitle,tinfo,tiimg } = this.state;
     return (
       <View className='edit-shop'>
         <View className="goods_info">
@@ -155,36 +166,19 @@ class Index extends Component<IProps, IState> {
           <View className="info_li">
             <View className="label">活动海报</View>
             {
-              files.length ? (<View className="upload-image">
-                <Image src={files[0].url} className="img" />
+              tiimg ? (<View className="upload-image">
+                <Image src={tiimg} className="img" />
                 <View className="img-foot">
-                  <View className="title">
+                  <View className="title" onClick={this.onChooseImage}>
                     点击修改
                   </View>
-                  <AtImagePicker
-                      className="upload-image-picker"
-                      multiple={false}
-                      length={1}
-                      mode='top'
-                      files={[]}
-                      onChange={this.onChangeAtImagePicker}
-                    />
                 </View>
               </View>
               ) : (
-                  <View className="upload-image">
+                  <View className="upload-image" onClick={this.onChooseImage}>
                     <Image src={require('@/assets/images/icon/upload.png')} className="add-img" />
                     <View className="add-desc">上传照片</View>
-                    <AtImagePicker
-                      className="upload-image-picker"
-                      multiple={false}
-                      length={1}
-                      mode='top'
-                      files={files}
-                      onChange={this.onChangeAtImagePicker}
-                    />
                   </View>
-
                 )
             }
           </View>

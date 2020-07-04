@@ -16,6 +16,7 @@ interface IState {
 
 class RangeDatePicker extends Component<IProps,IState> {
   static defaultProps = {
+    type:'time',
     value:'',
     BiginTiem:'',
     EndTiem:'',
