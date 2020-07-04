@@ -87,8 +87,9 @@ class Index extends Component<IProps, IState> {
       scanType:["qrCode"],
       onlyFromCamera:true,
       success:(res)=>{
-        const { result } = res
-        API.savePOSUserCardUse(JSON.parse(result)).then(res=>{
+        const { result } = res;
+        const params = JSON.parse(result)
+        API.savePOSUserCardUse(params).then(res=>{
           const { code } = res;
           if(code==0){
             Taro.showToast({
