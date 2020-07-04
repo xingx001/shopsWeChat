@@ -5,10 +5,6 @@ import { AtIcon, AtImagePicker} from 'taro-ui'
 import { API } from '@/apis';
 import RangeDatePicker from '@/components/rangeDatePicker'
 const chooseLocation = Taro.requirePlugin('chooseLocation');
-<<<<<<< HEAD
-// const OSS:any = require("ali-oss");
-=======
->>>>>>> d3a6fe7c324212c73cc0b257da20c1a282e92c17
 type IProps = {
 
 }
@@ -24,22 +20,12 @@ const initState = {
   BiginTiem: '',
   EndTiem: '',
   aliYunConfig: {
-<<<<<<< HEAD
-    name:'1',
-    key: new Date().valueOf() + "d.jpg",
-    policy:
-        "eyJleHBpcmF0aW9uIjoiMjAyMS0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==",
-    OSSAccessKeyId: "LTAI4Fsbfp2m8HQwLF5etifB",
-    success_action_status: 200,
-    signature: "Aeryc6zJx6kdBFs6pkjsG28QrbY="
-=======
     // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
     region: 'oss-cn-hangzhou',
     // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
     accessKeyId: 'LTAI4G3HYZapXoAXeVBWFQ3R',
     accessKeySecret: 'ins4c8sVV3c4UBM3CLEYqveBBUAW6u',
     bucket: 'doutui-img.oss-cn-hangzhou.aliyuncs.com'
->>>>>>> d3a6fe7c324212c73cc0b257da20c1a282e92c17
   },
   isOpened:false
 }
