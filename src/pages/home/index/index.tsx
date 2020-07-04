@@ -49,11 +49,12 @@ class Index extends Component<IProps, IState> {
   }
   getHomeDataReq() {
     const { authsInfo } = this.state;
-    API.getPOSFirstPage(authsInfo).then(res => {
+    API.getPOSFirstPage({...authsInfo}).then(res => {
       const { code, msg, data } = res;
       if (code === '0') {
         let { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP, WeekData, WeeksList } = data;
         let newOption = JSON.parse(JSON.stringify(option));
+        newOption.legend.data=WeekData.map((item) =>item.name);
         newOption.xAxis.data = WeeksList;
         newOption.series = WeekData.map((item, index) => Object.assign({}, newOption.series[index], item));
         this.setState({

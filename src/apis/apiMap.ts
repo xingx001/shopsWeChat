@@ -60,12 +60,16 @@ export default {
     method: 'get',
     url: `/API/POSShopTaskManagePage`
   },
+  getPOSShopTaskDetails: {//商户端-活动管理-根据ID获取活动信息
+    method: 'get',
+    url: `/API/POSShopTaskGet`
+  },
   deletePOSDelShopTask: {//商户端-活动管理-删除活动
     method: 'get',
     url: `/API/POSDelShopTask`
   },
   savePOSShopTaskManage: {//商户端-活动管理新增/修改商品（保存数据）POST：
-    method: 'get',
+    method: 'post',
     url: `/API/POSShopTaskManage`
   },
   getPOSShopVipPage: {//商户端-会员明细

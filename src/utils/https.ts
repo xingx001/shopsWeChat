@@ -1,16 +1,15 @@
 import Taro from '@tarojs/taro'
 import { HTTP_STATUS } from '@/constants/status';
 import { logError } from '@/utils/error';
-import OSS from 'ali-oss'
-declare var OSS;
-const aliYunConfig = {
-  // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
-  region: 'oss-cn-hangzhou',
-  // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-  accessKeyId: 'LTAI4Fsbfp2m8HQwLF5etifB',
-  accessKeySecret: '<Your AccessKeySecret>',
-  bucket: 'aqkj-test'
-}
+// const OSS:any  = require('ali-oss');
+// const aliYunConfig ={
+//   // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
+//   region: 'oss-cn-hangzhou',
+//   // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
+//   accessKeyId: 'LTAI4G3HYZapXoAXeVBWFQ3R',
+//   accessKeySecret: 'ins4c8sVV3c4UBM3CLEYqveBBUAW6u',
+//   bucket: 'doutui-img.oss-cn-hangzhou.aliyuncs.com '
+// }
 const baseUrl='http://ykd.aoqikc.com';//api地址
 type OptionType = {
   url: string
@@ -45,6 +44,8 @@ export default {
         return logError('api', '请求资源不存在')
       } else if (res.statusCode === HTTP_STATUS.BAD_GATEWAY) {
         return logError('api', '服务端出现了问题')
+      } else if (res.statusCode === HTTP_STATUS.SERVER_ERROR) {
+        return logError('api', '服务端出现了问题')
       } else if (res.statusCode === HTTP_STATUS.FORBIDDEN) {
         return logError('api', '没有权限访问')
       } else if (res.statusCode === HTTP_STATUS.AUTHENTICATE) {
@@ -78,16 +79,16 @@ export default {
     return this.baseOptions(option, 'DELETE')
   },
   ossUpload(file){
-    const current=file.file
-    let name = current.name;
-    const suffix = name.substr(name.indexOf("."));
-    const timestamp= Date.now();
-    const fileName = 'header/' +timestamp+ suffix;
-    let client = new OSS(aliYunConfig);
-    return client.multipartUpload(fileName, file.file, {
-      progress:function (p) { //获取进度条的值
-        console.log(p)
-      }
-     })
+    // const current=file.file
+    // let name = current.name;
+    // const suffix = name.substr(name.indexOf("."));
+    // const timestamp= Date.now();
+    // const fileName = 'header/' +timestamp+ suffix;
+    // let client = new OSS(aliYunConfig);
+    // return client.multipartUpload(fileName, file.file, {
+    //   progress:function (p) { //获取进度条的值
+    //     console.log(p)
+    //   }
+    //  })
   }
 }
