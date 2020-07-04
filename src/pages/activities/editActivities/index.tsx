@@ -29,17 +29,7 @@ class Index extends Component<IProps, IState> {
     navigationBarTitleText: '活动',
   }
   componentDidMount() {
-    const { type, id } = this.$router.params;
-    if (type === '0') {
-      Taro.setNavigationBarTitle({
-        title: '发布活动'
-      })
-    } else {
-      Taro.setNavigationBarTitle({
-        title: '修改活动'
-      });
-      this.getPOSShopTaskDetails(id)
-    }
+
   }
   getPOSShopTaskDetails = (Id) => {
     const { authsInfo } = this.state;
@@ -63,7 +53,19 @@ class Index extends Component<IProps, IState> {
   }
   componentWillUnmount() { }
 
-  componentDidShow() { }
+  componentDidShow() {
+    const { type, id } = this.$router.params;
+    if (type === '0') {
+      Taro.setNavigationBarTitle({
+        title: '发布活动'
+      })
+    } else {
+      Taro.setNavigationBarTitle({
+        title: '修改活动'
+      });
+      this.getPOSShopTaskDetails(id)
+    }
+  }
 
   componentDidHide() { }
 

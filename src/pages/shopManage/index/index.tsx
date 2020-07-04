@@ -2,7 +2,7 @@ import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components';
 import Tags from '@/components/tags';
-import { AtIcon,AtMessage } from 'taro-ui';
+import { AtIcon } from 'taro-ui';
 import './style.scss'
 import { API } from '@/apis';
 interface IProps {
@@ -45,7 +45,7 @@ class Index extends Component<IProps, IState> {
   getShopDataReq() {
     const { authsInfo,activeTabKey } = this.state;
     API.getPOSProManagePage({...authsInfo,ptype:activeTabKey}).then(res => {
-      const { code, msg, data } = res;
+      const { code, data } = res;
       if (code === '0') {
         const {proList,proTypeList} = data;
         this.setState({
@@ -84,9 +84,9 @@ class Index extends Component<IProps, IState> {
             const { code } =res;
             if(code==0){
               this.getShopDataReq();
-              Taro.atMessage({
-                'message': '删除成功',
-                'type': 'success',
+              Taro.showToast({
+                'title': '删除成功',
+                'icon': 'success',
               })
             }
           })
@@ -106,7 +106,6 @@ class Index extends Component<IProps, IState> {
     })
     return (
       <View className='shop-index'>
-         <AtMessage />
         <View className="goods_tabs"><Tags value={activeTabKey} data={tabsData} onChange={this.onChangeTabs}/></View>
         <View className="goods_info">
           <View className="goods_ul">

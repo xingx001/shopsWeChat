@@ -72,7 +72,8 @@ export default {
   ossUpload(tempFilePaths){
     const host = 'http://doutui-img.oss-cn-hangzhou.aliyuncs.com';
     const fileName = tempFilePaths.replace('http://tmp','');
-    const filePath = host+fileName
+    const filePath = host+fileName;
+    Taro.showLoading({title: "图片上传中..."})
     return Taro.uploadFile({
       url: host, //仅为示例，非真实的接口地址
       filePath: tempFilePaths,
@@ -89,7 +90,11 @@ export default {
         const {data,statusCode} = res;
         if(statusCode==200){
           res.data = filePath
+          Taro.hideLoading()
         }
+      },
+      fail:()=>{
+        Taro.hideLoading()
       }
     })
   }

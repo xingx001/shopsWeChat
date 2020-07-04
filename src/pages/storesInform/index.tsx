@@ -1,8 +1,9 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text, Image } from '@tarojs/components'
+import { View, Text, Image, Input } from '@tarojs/components'
 import { AtTextarea, AtIcon } from 'taro-ui'
 import { API } from '@/apis';
+import Http from '@/utils/https';
 
 import './style.scss'
 type IProps = {
@@ -10,11 +11,15 @@ type IProps = {
 }
 const initState = {
   authsInfo: Taro.getStorageSync('authsInfo') || {},
-  text:''
+  Id: '',
+  text: '',
+  sname: '',//店铺名称
+  scon: '',//店铺简介
+  imgs: []
 }
 type IState = typeof initState;
-class Index extends Component<IProps,IState> {
-  state:IState = {
+class Index extends Component<IProps, IState> {
+  state: IState = {
     ...initState
   }
   /**
@@ -31,75 +36,129 @@ class Index extends Component<IProps,IState> {
     console.log(this.props, nextProps)
   }
   componentDidMount() {
-
+    this.getPOSShopInfoPage();
   }
   componentWillUnmount() { }
 
   componentDidShow() { }
 
   componentDidHide() { }
+  getPOSShopInfoPage = () => {
+    const { authsInfo } = this.state;
+    API.getPOSShopInfoPage({
+      ...authsInfo,
+    }).then(res => {
+      const { code, data } = res;
+      if (code === '0') {
+        const { Id, ShopFullName, ShopContent, Imgs } = data;
+        this.setState({
+          Id,
+          sname: ShopFullName,
+          scon: ShopContent,
+          imgs: Imgs.map(item => item.ImgUrl)
+        })
+      }
+    })
+  }
   handleChangeTextarea = (value) => {
-    this.setState({ text: value })
+    this.setState({ sname: value })
+  }
+  savePOSShopInfo = () => {
+    const { Id, authsInfo, sname, scon, imgs } = this.state;
+    API.savePOSShopInfo({
+      ...authsInfo,
+      Id,
+      sname,
+      scon,
+      imgs: imgs.join(',')
+    }).then(res => {
+      const { code } = res;
+      if (code === '0') {
+        Taro.showToast({
+          'title': '保存成功',
+          'icon': 'success',
+        });
+      }
+    })
+  }
+  onChangeInput = (e) => {
+    const value = e.target.value;
+    this.setState({
+      sname: value
+    })
+  }
+  onDeleteImg = (index) => {
+    const { imgs } = this.state;
+    Taro.showModal({
+      title: '',
+      content: '确定删除该图片吗？',
+      cancelText: '取消',
+      confirmText: '确认',
+      confirmColor: '#F5A623',
+      success: (res) => {
+        if (res.confirm) {
+          imgs.splice(index, 1)
+          this.setState({
+            imgs
+          })
+        }
+      }
+    })
+  }
+  onChooseImage = () => {
+    Taro.chooseImage({
+      success: (res) => {
+        const tempFilePaths = res.tempFilePaths;
+        Http.ossUpload(tempFilePaths[0]).then(res => {
+          const { data, statusCode } = res;
+          if (statusCode == 200) {
+            this.setState({
+              imgs: [data, ...this.state.imgs]
+            });
+          }
+        })
+      }
+    })
   }
   render() {
-    const { text } = this.state;
+    const { sname, scon, imgs } = this.state;
     return (
       <View className='storesinform-box'>
         <View className="'inform-li inform-tit">
           <View className="store-msg">门店名称</View>
-          <View className="store-name">可莎蜜儿</View>
+          <Input type='text' value={sname} onInput={this.onChangeInput} className="input" placeholder='请输入活动标题，不超过20个字' placeholderClass="placeholderClass" maxLength={20} />
         </View>
         <View className="'inform-li">
           <View className="introduction-box">
             <View>门店简介</View>
-            <AtTextarea value={text} onChange={this.handleChangeTextarea} placeholder="请输入门店介绍" autoFocus maxLength={50} className="introd-textarea" />
+            <AtTextarea value={scon} onChange={this.handleChangeTextarea} placeholder="请输入门店介绍" autoFocus maxLength={50} className="introd-textarea" />
           </View>
         </View>
         <View className="'inform-li">
           <View>门店大图<Text className="msg">门店菜品轮播图</Text></View>
           <View className="stores-images">
             <View className="img-list">
-              <View className="on-upload">
+              <View className="on-upload" onClick={this.onChooseImage}>
                 <Image src={require('@/assets/images/icon/upload.png')} className="add-icon" />
                 <Text className="upload-msg">上传视频或照片</Text>
               </View>
             </View>
-            <View className="img-list">
-              <View className="imgs-li">
-                <Image src={require('@/assets/images/card/4.png')} className="shop_img" />
-                <View className="delect-btn">
-                  <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
+            {
+              imgs.map((item, index) => (
+                <View className="img-list" key={'img' + index}>
+                  <View className="imgs-li">
+                    <Image src={item} className="shop_img" />
+                    <View className="delect-btn" onClick={() => this.onDeleteImg(index)}>
+                      <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
+                    </View>
+                  </View>
                 </View>
-              </View>
-            </View>
-            <View className="img-list">
-              <View className="imgs-li">
-                <Image src={require('@/assets/images/card/4.png')} className="shop_img" />
-                <View className="delect-btn">
-                  <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-                </View>
-              </View>
-            </View>
-            <View className="img-list">
-              <View className="imgs-li">
-                <Image src={require('@/assets/images/card/4.png')} className="shop_img" />
-                <View className="delect-btn">
-                  <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-                </View>
-              </View>
-            </View>
-            <View className="img-list">
-              <View className="imgs-li">
-                <Image src={require('@/assets/images/card/4.png')} className="shop_img" />
-                <View className="delect-btn">
-                  <AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon>
-                </View>
-              </View>
-            </View>
 
+              ))
+            }
           </View>
         </View>
-        <View className="save_btn">保存</View>
+        <View className="save_btn" onClick={this.savePOSShopInfo}>保存</View>
       </View>
     )
   }

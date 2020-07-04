@@ -44,9 +44,6 @@ class Index extends Component<IProps, IState> {
   componentWillReceiveProps(nextProps) {
     console.log(this.props, nextProps)
   }
-  componentDidMount() {
-    this.getHomeDataReq();
-  }
   getHomeDataReq() {
     const { authsInfo } = this.state;
     API.getPOSFirstPage({...authsInfo}).then(res => {
@@ -76,9 +73,13 @@ class Index extends Component<IProps, IState> {
       url: e
     })
   }
-  componentWillUnmount() { }
+  componentWillUnmount() {
 
-  componentDidShow() { }
+  }
+
+  componentDidShow() {
+    this.getHomeDataReq();
+  }
 
   componentDidHide() { }
   render() {
@@ -94,7 +95,7 @@ class Index extends Component<IProps, IState> {
                 <View className="inforn">{ShopContent}</View>
               </View>
             </View>
-            <Text className="at-icon at-icon-chevron-right store_right" ></Text>
+            <Text className="at-icon at-icon-chevron-right store_right" onClick={() => this.onJump('/pages/storesInform/index')} ></Text>
           </View>
         </View>
         <View className="store-box">
