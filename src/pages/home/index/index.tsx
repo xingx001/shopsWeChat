@@ -82,6 +82,27 @@ class Index extends Component<IProps, IState> {
   }
 
   componentDidHide() { }
+  scanCode = () =>{
+    Taro.scanCode({
+      scanType:["qrCode"],
+      onlyFromCamera:true,
+      success:(res)=>{
+        const { result } = res
+        API.savePOSUserCardUse(JSON.parse(result)).then(res=>{
+          const { code } = res;
+          if(code==0){
+            Taro.showToast({
+              title:'核销成功',
+              icon:'success'
+            })
+          }
+        })
+      },
+      fail:(res)=>{
+        console.log(res)
+      }
+    })
+  }
   render() {
     const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP, option } = this.state;
     return (
@@ -123,6 +144,10 @@ class Index extends Component<IProps, IState> {
           }}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">会员权益</Text>
+          </View>
+          <View className="store-li" onClick={this.scanCode}>
+            <Image src={require('@/assets/images/icon/WechatIMG384.png')} className="icon_img" />
+            <Text className="store-title">扫码核销</Text>
           </View>
         </View>
         <View className="member-detail">

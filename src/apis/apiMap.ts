@@ -52,6 +52,10 @@ export default {
     method: 'get',
     url: `/API/POSShopCardGet`
   },
+  savePOSUserCardUse:{ //商户端-优惠券-核销优惠券POST
+    method: 'post',
+    url: `/API/POSUserCardUse`
+  },
   savePOSShopCardManage:{ //新增修改优惠券
     method: 'post',
     url: `/API/POSShopCardManage`

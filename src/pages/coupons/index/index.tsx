@@ -1,7 +1,6 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components';
-import { AtModal } from 'taro-ui';
 import './style.scss'
 import { API } from '@/apis';
 

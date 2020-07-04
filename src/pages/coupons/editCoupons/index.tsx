@@ -1,9 +1,10 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Input, Text, Textarea, Picker, Image } from '@tarojs/components';
-import { API } from '@/apis';
-import './style.scss'
 import RangeDatePicker from '@/components/rangeDatePicker';
+import { API } from '@/apis';
+import { formatDate } from '@/utils';
+import './style.scss'
 
 interface IProps {
 }
@@ -57,13 +58,31 @@ class EditCoupons extends Component<IProps, IState> {
       this.getPOSShopCardGet(id)
     }
   }
-  getPOSShopCardGet = (id)=>{
-    const { authsInfo } =this.state;
+  getPOSShopCardGet = (id) => {
+    const { authsInfo } = this.state;
     API.getPOSShopCardGet({
       ...authsInfo,
-      scid:id
-    }).then(res=>{
-        console.log(res);
+      scid: id
+    }).then(res => {
+      const { code, data } = res;
+      if (code == 0) {
+        const { Id, scname, bnum, btime, cinfo, cstate, ctype, etime, issue, limit, paynum } = data;
+        this.setState({
+          Id,
+          scname,
+          bnum,
+          cinfo,
+          cstate: 1,
+          ctype: ctype - 1,
+          btime: formatDate(btime, 'YYYY-MM-DD'),
+          etime: formatDate(etime, 'YYYY-MM-DD'),
+          issue: issue - 1,
+          limit,
+          radioType: limit ? 1 : 0,
+          paynum
+        })
+      }
+      console.log(res);
     })
   }
   componentDidHide() { }
@@ -85,11 +104,12 @@ class EditCoupons extends Component<IProps, IState> {
   onChangeRadio = (value) => {
     this.setState({
       radioType: value,
-      limit:0
+      limit: 0
     })
   }
   onChangePicker = (e, type) => {
     const value = e.detail.value;
+    console.log(e, type)
     switch (type) {
       case 'ctype':
         this.setState({
@@ -151,7 +171,7 @@ class EditCoupons extends Component<IProps, IState> {
       ...authsInfo,
       Id,
       scname,
-      ctype:ctype+1,
+      ctype: ctype + 1,
       limit,
       cinfo,
       cstate,
@@ -159,7 +179,7 @@ class EditCoupons extends Component<IProps, IState> {
       bnum,
       btime,
       etime,
-      issue:issue+1
+      issue: issue + 1
     }).then(res => {
       const { code } = res;
       if (code === '0') {
@@ -182,7 +202,7 @@ class EditCoupons extends Component<IProps, IState> {
     })
   }
   render() {
-    const { isOpened, radioType, scname, ctype, limit, cinfo, cstate, paynum, bnum, btime, etime, issue } = this.state;
+    const { Id, isOpened, radioType, scname, ctype, limit, cinfo, cstate, paynum, bnum, btime, etime, issue } = this.state;
     return (
       <View className='edit-coupons'>
         <View className="title">基本信息</View>
@@ -222,17 +242,22 @@ class EditCoupons extends Component<IProps, IState> {
         </View>
         <View className="title">上架信息</View>
         <View className="goods_info">
-          <View className="info_li_allow">
-            <View className="label">立即上架</View>
-            <View className="allow">
-              <Picker value={cstate} mode='selector' range={statusList} onChange={(e) => this.onChangePicker(e, 'cstate')}>
-                {
-                  statusList[cstate]
-                }
-                <Text className="at-icon at-icon-chevron-right store_right" ></Text>
-              </Picker>
-            </View>
-          </View>
+          {
+            Id ? null : (
+              <View className="info_li_allow">
+                <View className="label">立即上架</View>
+                <View className="allow">
+                  <Picker value={cstate} mode='selector' range={statusList} onChange={(e) => this.onChangePicker(e, 'cstate')}>
+                    {
+                      statusList[cstate]
+                    }
+                    <Text className="at-icon at-icon-chevron-right store_right" ></Text>
+                  </Picker>
+                </View>
+              </View>
+
+            )
+          }
           {
             cstate == 1 && (
               <View>
@@ -249,7 +274,10 @@ class EditCoupons extends Component<IProps, IState> {
                 <View className="info_li_allow">
                   <View className="label">使用时间段</View>
                   <View className="allow" onClick={this.onSelectDate}>
-                    <Text className="placeholderClass">请选择</Text><Text className="at-icon at-icon-chevron-right store_right" ></Text>
+                    {
+                      btime||etime ? `${btime} - ${etime}`: <Text className="placeholderClass">请选择</Text>
+                    }
+                    <Text className="at-icon at-icon-chevron-right store_right" ></Text>
                     <RangeDatePicker isOpened={isOpened} type="date" BiginTiem={btime} EndTiem={etime} onCancel={this.onCancelSelectDate} onChange={this.onChangePicker} />
                   </View>
                 </View>
@@ -270,7 +298,7 @@ class EditCoupons extends Component<IProps, IState> {
             )
           }
         </View>
-        <View className="fix_bottom_btn" onClick={this.onHandleAdd}>立即创建</View>
+        <View className="fix_bottom_btn" onClick={this.onHandleAdd}>{Id ? '立即上架':'立即创建'}</View>
       </View>
     )
   }
