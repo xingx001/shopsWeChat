@@ -1,6 +1,6 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Text, Image, Input, Button } from '@tarojs/components'
 import Loading from '@/components/loading';
 import { API } from '@/apis';
 
@@ -23,7 +23,9 @@ interface AuthsContainer {
 }
 class AuthsContainer extends Component {
   state = {
-    shopid: 1
+    shopid: 1,
+    userName: "13888888888",
+    passWord: "123456"
   }
   /**
   * 指定config的类型声明为: Taro.Config
@@ -33,13 +35,16 @@ class AuthsContainer extends Component {
   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
   */
   config: Config = {
-    navigationBarTitleText: '首页'
+    navigationBarTitleText: '商家登录'
   }
   componentDidMount() {
-    const { shopid } = this.state;
+  }
+  //登录
+  onLogin = () => {
+    const { shopid,userName,passWord } = this.state;
     API.getPossigin({
-      uname: 123456,
-      pwd: 123456
+      uname: userName,
+      pwd: passWord
     }).then(result => {
       const { data, status, msg } = result;
       if (status === '0')
@@ -51,14 +56,31 @@ class AuthsContainer extends Component {
         url: "/pages/home/index/index"
       })
     })
+
   }
   componentWillUnmount() { }
   componentDidShow() { }
   componentDidHide() { }
   render() {
+    const { userName, passWord } = this.state;
     return (
       <View className='auths'>
-        <Loading fullPage />
+        {/* <Loading fullPage /> */}
+        <View className="logo">
+          <Image src={require('@/assets/images/icon/logo.png')} className="logo_icon" />
+        </View>
+        <View className="login_wrap">
+          <View className="login_list">
+            <Image src={require('@/assets/images/icon/zhanghao.png')} className="account" />
+            <Input type='number' className="input" value={userName} placeholder='请输入账号' placeholderClass="placeholderClass" maxLength={11} placeholderStyle="color: rgba(185, 185, 185, 1);" />
+          </View>
+          <View className="login_list">
+            <Image src={require('@/assets/images/icon/mima.png')} className="password" />
+            <Input type='number' className="input" value={passWord} placeholder='请输入密码' placeholderClass="placeholderClass" maxLength={11} placeholderStyle="color: rgba(185, 185, 185, 1);" />
+          </View>
+        </View>
+        <View className="login_btn" onClick={this.onLogin}>登录</View>
+        <Image src={require('@/assets/images/icon/bj.png')} className="bg" />
       </View>
     )
   }

@@ -5,11 +5,10 @@ import { AtIcon, AtImagePicker} from 'taro-ui'
 import { API } from '@/apis';
 import RangeDatePicker from '@/components/rangeDatePicker'
 const chooseLocation = Taro.requirePlugin('chooseLocation');
-const OSS:any = require("ali-oss");
+// const OSS:any = require("ali-oss");
 type IProps = {
 
 }
-console.log(OSS)
 const initState = {
   fileList: [],
   authsInfo: Taro.getStorageSync('authsInfo') || {},
@@ -22,12 +21,13 @@ const initState = {
   BiginTiem: '',
   EndTiem: '',
   aliYunConfig: {
-    // region以杭州为例（oss-cn-hangzhou），其他region按实际情况填写。
-    region: 'oss-cn-hangzhou',
-    // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-    accessKeyId: 'LTAI4G3HYZapXoAXeVBWFQ3R',
-    accessKeySecret: 'ins4c8sVV3c4UBM3CLEYqveBBUAW6u',
-    bucket: 'doutui-img.oss-cn-hangzhou.aliyuncs.com '
+    name:'1',
+    key: new Date().valueOf() + "d.jpg",
+    policy:
+        "eyJleHBpcmF0aW9uIjoiMjAyMS0wMS0wMVQxMjowMDowMC4wMDBaIiwiY29uZGl0aW9ucyI6W1siY29udGVudC1sZW5ndGgtcmFuZ2UiLDAsMTA0ODU3NjAwMF1dfQ==",
+    OSSAccessKeyId: "LTAI4Fsbfp2m8HQwLF5etifB",
+    success_action_status: 200,
+    signature: "Aeryc6zJx6kdBFs6pkjsG28QrbY="
   },
   isOpened:false
 }
@@ -107,12 +107,26 @@ class Index extends Component<IProps, IState> {
     });
     console.log(files);
     // if(files&&files.length){
-      this.uploadOssfile(files[0].file);
+      this.uploadOssfile(files[0].url);
     // }
   }
   uploadOssfile = (file) => {
     console.log(file)
     const { aliYunConfig } = this.state
+    Taro.uploadFile({
+      url: 'https://yunkeduo.oss-cn-hangzhou.aliyuncs.com/', //仅为示例，非真实的接口地址
+      filePath: file,
+      name: 'file',
+      formData: aliYunConfig,
+      success: res => {
+        console.log('阿卢云',res)
+        const data = res.data
+        //do something
+      },
+      fail:erro=>{
+        console.log('阿卢云3',erro)
+      }
+    })
     debugger
     // let client = new OSS(aliYunConfig);
     // console.log(client)
