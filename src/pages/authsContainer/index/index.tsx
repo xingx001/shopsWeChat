@@ -61,7 +61,7 @@ class AuthsContainer extends Component {
       pwd: passWord
     }).then(result => {
       const { data, status, msg } = result;
-      if (status === '0'){
+      if (status == 0){
         Taro.setStorageSync('authsInfo', {
           shopid: shopid,
           uid: data

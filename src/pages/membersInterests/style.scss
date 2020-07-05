@@ -1,4 +1,5 @@
 .interests-wrap {
+    padding-bottom: 118px;
 
     .interests-ul {
         background:rgba(255,255,255,1);
@@ -9,7 +10,7 @@
             margin: 30px;
         }
         .interests-content{
-            margin: 30px;
+            margin: 30px 30px 0px 30px;
         }
         .interests-tit{
             font-size:34px;
@@ -26,12 +27,21 @@
         }
         .textarea-wrap{
           height: 100px;
+          padding-bottom: 20px;
         }
     }
     .content_box{
         .boder_bottom{
             border-bottom: 1px solid #E1E1E1;
         }
+    }
+    .delete{
+        font-size:30px;
+        color:rgba(221,76,68,1);
+        text-align: center;
+        text-decoration: underline;
+        line-height: 30px;
+        padding-bottom: 20px;
     }
     .btn_wrap{
         display: flex;

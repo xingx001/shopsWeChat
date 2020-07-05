@@ -21,7 +21,7 @@ class Index extends Component<IProps, IState> {
     svcList: [{
       title: '',
       ctype: '',
-      num: 1,
+      num: '',
       ccontent: ''
     }]
   }
@@ -76,9 +76,10 @@ class Index extends Component<IProps, IState> {
   }
   onDelete = (index) => {
     const { svcList } = this.state;
-    svcList.splice(index, 1);
+    const newlist = [...svcList];
+    newlist.splice(index, 1);
     this.setState({
-      svcList
+      svcList:newlist
     })
   }
   onHandleAdd = () => {
@@ -87,7 +88,7 @@ class Index extends Component<IProps, IState> {
       svcList: [...svcList, {
         title: '',
         ctype: '',
-        num: 1,
+        num: '',
         ccontent: ''
       }]
     })
@@ -149,14 +150,14 @@ class Index extends Component<IProps, IState> {
                 </View>
               </View>
               {
-                index>0 && ( <View className="delete"><AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon><Text onClick={() => this.onDelete(index)}>删除</Text></View>)
+                svcList.length>1 && ( <View className="delete"><AtIcon value='trash' size='18' color='rgba(255, 255, 255, 1)' className="icon-del"></AtIcon><Text onClick={() => this.onDelete(index)}>删除模块</Text></View>)
               }
             </View>
           ))
         }
         <View className="btn_wrap">
           <View className="add_btn btn" onClick={this.onHandleAdd}>
-            新增
+            添加模块
         </View>
           <View className="save_btn btn" onClick={this.onHandleSave}>
             提交
