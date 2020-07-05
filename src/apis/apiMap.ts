@@ -80,4 +80,8 @@ export default {
     method: 'get',
     url: `/API/POSShopVipPage`
   },
+  getShopEquity: {//商户端-会员权益-根据店铺ID获取会员权益信息：
+    method: 'get',
+    url: `/API/POSShopVipConfigGet`
+  },
 }

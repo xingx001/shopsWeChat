@@ -122,23 +122,23 @@ class Index extends Component<IProps, IState> {
         </View>
         <View className="store-box">
           <View className="store-li" onClick={() => this.onJump('/pages/shopDecoration/index')}>
-            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Image src={require('@/assets/images/icon/dianpu.png')} className="icon_img" />
             <Text className="store-title">店面装修</Text>
           </View>
           <View className="store-li" onClick={() => this.onJump('/pages/shopManage/index/index')}>
-            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Image src={require('@/assets/images/icon/shangpin.png')} className="icon_img" />
             <Text className="store-title">商品管理</Text>
           </View>
           <View className="store-li" onClick={() => this.onJump('/pages/coupons/index/index')}>
-            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Image src={require('@/assets/images/icon/youhuiquan.png')} className="icon_img" />
             <Text className="store-title">优惠券</Text>
           </View>
           <View className="store-li" onClick={() => this.onJump('/pages/activities/index/index')}>
-            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Image src={require('@/assets/images/icon/huodong.png')} className="icon_img" />
             <Text className="store-title">活动管理</Text>
           </View>
           <View className="store-li" onClick={() => this.onJump('/pages/membersInterests/index')}>
-            <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
+            <Image src={require('@/assets/images/icon/huiyuanqy.png')} className="icon_img" />
             <Text className="store-title">会员权益</Text>
           </View>
           <View className="store-li" onClick={this.scanCode}>
