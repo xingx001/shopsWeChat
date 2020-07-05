@@ -148,6 +148,11 @@ class Index extends Component<IProps, IState> {
             'title': '保存成功',
             'icon': 'success',
           });
+          setTimeout(()=>{
+            Taro.navigateBack({
+              delta: 1
+            })
+          },2000)
         }
       })
   }

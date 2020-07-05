@@ -78,6 +78,7 @@ class Index extends Component<IProps, IState> {
     })
   }
   onHandleAdd = (type=0,id='') => {
+    console.log(11)
     Taro.navigateTo({
       url: "/pages/coupons/editCoupons/index?type="+type+"&id="+id
     })
@@ -152,7 +153,7 @@ class Index extends Component<IProps, IState> {
             </View>
           )}
         </View>
-        <View className="fix_bottom_btn" onClick={()=>this.onHandleAdd}>创建优惠券</View>
+        <View className="fix_bottom_btn" onClick={()=>this.onHandleAdd()}>创建优惠券</View>
       </View>
     )
   }

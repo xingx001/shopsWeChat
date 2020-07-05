@@ -187,6 +187,11 @@ class EditCoupons extends Component<IProps, IState> {
           'title': '保存成功',
           'icon': 'success',
         });
+        setTimeout(()=>{
+          Taro.navigateBack({
+            delta: 1
+          })
+        },2000)
       }
     })
 
@@ -275,7 +280,7 @@ class EditCoupons extends Component<IProps, IState> {
                   <View className="label">使用时间段</View>
                   <View className="allow" onClick={this.onSelectDate}>
                     {
-                      btime||etime ? `${btime} - ${etime}`: <Text className="placeholderClass">请选择</Text>
+                      btime||etime ? `${btime} 至 ${etime}`: <Text className="placeholderClass">请选择</Text>
                     }
                     <Text className="at-icon at-icon-chevron-right store_right" ></Text>
                     <RangeDatePicker isOpened={isOpened} type="date" BiginTiem={btime} EndTiem={etime} onCancel={this.onCancelSelectDate} onChange={this.onChangePicker} />

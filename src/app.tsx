@@ -31,6 +31,7 @@ class App extends Component {
       'pages/activities/editActivities/index',
       'pages/coupons/index/index',
       'pages/coupons/editCoupons/index',
+      'pages/membersInterests/index',
       'pages/users/index/index',
       'pages/users/membersInterests/index',
       'pages/users/coupons/index',

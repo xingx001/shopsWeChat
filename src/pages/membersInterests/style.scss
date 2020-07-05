@@ -1,0 +1,54 @@
+.interests-wrap {
+
+    .interests-ul {
+        background:rgba(255,255,255,1);   
+        .interests-li{
+            display: flex;
+            justify-content: flex-start;
+            height:110px;
+            margin: 30px;
+        }
+        .interests-content{
+            margin: 30px;
+        }
+        .interests-tit{
+            font-size:34px;
+            color:rgba(51,51,51,1);
+            margin-right: 20px;
+            line-height: 110px;
+        }
+        .input{
+            margin-top: 34px;
+        }
+        .placeholderClass{
+            font-size:34px;
+            color:rgba(185,185,185,1);
+        }
+    }
+    .content_box{
+        .boder_bottom{
+            border-bottom: 1px solid #E1E1E1;
+        }
+    }
+    .btn_wrap{
+        display: flex;
+        justify-content: space-between;
+        height:88px;
+        line-height: 88px;
+        color: #fff;
+        text-align: center;
+        font-size:36px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        .add_btn{
+            background:rgba(255,208,24,1);
+            flex: 1;
+        }
+        .save_btn{
+            background:rgba(245,166,35,1);
+            flex: 1;
+        }
+
+    }
+}

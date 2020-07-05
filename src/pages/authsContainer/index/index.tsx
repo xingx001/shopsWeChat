@@ -39,6 +39,20 @@ class AuthsContainer extends Component {
   }
   componentDidMount() {
   }
+  onChangeInput = (e,type) => {
+    const value = e.target.value;
+    switch(type){
+      case 'userName':
+        this.setState({
+          userName:value
+        })
+        break;
+      default:
+        this.setState({
+          passWord:value
+        })
+    }
+  }
   //登录
   onLogin = () => {
     const { shopid,userName,passWord } = this.state;
@@ -55,6 +69,11 @@ class AuthsContainer extends Component {
         Taro.redirectTo({
           url: "/pages/home/index/index"
         })
+      }else{
+        Taro.showToast({
+          'title': '账号或者密码错误',
+          'icon': 'none',
+        });
       }
     })
 
@@ -73,11 +92,11 @@ class AuthsContainer extends Component {
         <View className="login_wrap">
           <View className="login_list">
             <Image src={require('@/assets/images/icon/zhanghao.png')} className="account" />
-            <Input type='number' className="input" value={userName} placeholder='请输入账号' placeholderClass="placeholderClass" maxLength={11} placeholderStyle="color: rgba(185, 185, 185, 1);" />
+            <Input type='number' className="input"  onInput={(e)=>this.onChangeInput(e,'userName')} value={userName} placeholder='请输入账号' placeholderClass="placeholderClass" maxLength={11} placeholderStyle="color: rgba(185, 185, 185, 1);" />
           </View>
           <View className="login_list">
             <Image src={require('@/assets/images/icon/mima.png')} className="password" />
-            <Input type='number' className="input" value={passWord} placeholder='请输入密码' placeholderClass="placeholderClass" maxLength={11} placeholderStyle="color: rgba(185, 185, 185, 1);" />
+            <Input type='number' className="input" onInput={(e)=>this.onChangeInput(e,'passWord')} value={passWord} placeholder='请输入密码' placeholderClass="placeholderClass" maxLength={11} placeholderStyle="color: rgba(185, 185, 185, 1);" />
           </View>
         </View>
         <View className="login_btn" onClick={this.onLogin}>登录</View>

@@ -16,6 +16,7 @@
     .input{
       font-size: 28px;
       width: 500px;
+      margin-top: 5px;
     }
     .input_area{
       font-size: 28px;
@@ -131,6 +132,9 @@
       }
       .input{
         flex: 1;
+        text-align: right;
+        margin-right: 30px;
+
       }
       .allow{
         font-size:28px;

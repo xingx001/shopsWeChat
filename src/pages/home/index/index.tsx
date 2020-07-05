@@ -137,12 +137,7 @@ class Index extends Component<IProps, IState> {
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">活动管理</Text>
           </View>
-          <View className="store-li" onClick={() => {
-            Taro.showToast({
-              title: '开发中',
-              icon: 'none'
-            })
-          }}>
+          <View className="store-li" onClick={() => this.onJump('/pages/membersInterests/index')}>
             <Image src={require('@/assets/images/icon/huodongh.png')} className="icon_img" />
             <Text className="store-title">会员权益</Text>
           </View>
