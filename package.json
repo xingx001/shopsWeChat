@@ -58,7 +58,7 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "0.11.1",
     "taro-ui": "^2.3.4",
-    "techarts": "^1.0.2"
+    "techarts": "^1.0.3"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^8.2.0",
