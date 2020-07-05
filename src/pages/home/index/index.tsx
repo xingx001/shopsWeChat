@@ -106,6 +106,7 @@ class Index extends Component<IProps, IState> {
   }
   render() {
     const { ShopFullName, Shop_Photo, ShopContent, TodayAdd, TodayInStore, SumUserVIP, option } = this.state;
+    const height = Taro.pxTransform(400);
     return (
       <View className='home_index'>
         <View className="stores-introd">
@@ -172,7 +173,7 @@ class Index extends Component<IProps, IState> {
         </View>
         <View className="echart-wrap">
           <View className="echart-title">优惠券近一周数据</View>
-          <EChart echarts={echarts} style={{ width: '100%', height: Taro.pxTransform(400) }} option={option} />
+          <EChart echarts={echarts} style={{ width: '100%', height }} option={option} />
         </View>
       </View>
     )

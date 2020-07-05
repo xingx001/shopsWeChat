@@ -37,8 +37,7 @@ class App extends Component {
       'pages/users/coupons/index',
       'pages/storesInform/index',
       'pages/shopDecoration/index',
-      'pages/memberDetail/index',
-      'pages/launchEvent/index'
+      'pages/memberDetail/index'
     ],
     window: {
       backgroundTextStyle: 'light',

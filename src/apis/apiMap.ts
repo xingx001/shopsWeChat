@@ -40,6 +40,10 @@ export default {
     method: 'post',
     url: `/API/POSProductMange`
   },
+  getPOSProMangeGet:{ //商户端-根据商品ID获取商品信息
+    method: 'get',
+    url: `/API/POSProMangeGet`
+  },
   getPOSShopCardPage: {//商户端-优惠券数据加载
     method: 'get',
     url: `/API/POSShopCardPage`
@@ -80,8 +84,12 @@ export default {
     method: 'get',
     url: `/API/POSShopVipPage`
   },
-  getShopEquity: {//商户端-会员权益-根据店铺ID获取会员权益信息：
+  saveShopVIPConfigManage:{ // 商户端-会员权益新增修改(POST)：
+    method: 'post',
+    url: `/API/POSShopVIPConfigManage`
+  },
+  getPOSShopVipConfig:{ // 商户端-会员权益-根据店铺ID获取会员权益信息：
     method: 'get',
     url: `/API/POSShopVipConfigGet`
-  },
+  }
 }

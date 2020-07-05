@@ -43,7 +43,14 @@ export default {
         Taro.clearStorage()
         return logError('api', '请先登录')
       } else if (res.statusCode === HTTP_STATUS.SUCCESS) {
-        return res.data
+        if((res.data.code)&&(res.data.code!=0)){
+          Taro.showToast({
+            title: res.data && res.data.msg||'请求异常',
+            icon: 'none'
+          });
+        } else {
+          return res.data
+        }
       }
     }).catch(err=>{
       logError('api', '请求接口出现问题', err);

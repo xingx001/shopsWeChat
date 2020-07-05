@@ -33,16 +33,37 @@ class Index extends Component<IProps, IState> {
   }
   componentDidMount() {
     const { type, id } = this.$router.params;
-    this.getPOSProAddPType();
     if (type === '0') {
       Taro.setNavigationBarTitle({
         title: '新增商品'
-      })
+      });
+      this.getPOSProAddPType();
     } else {
       Taro.setNavigationBarTitle({
         title: '修改商品'
-      })
+      });
+      this.getPOSProMangeGet(id)
     }
+  }
+  getPOSProMangeGet = (Id) => {
+    const { authsInfo } = this.state;
+    API.getPOSProMangeGet({
+      ...authsInfo,
+      pid:Id
+    }).then(res => {
+      const { code,data } = res;
+      if (code === '0') {
+        const { Id,pruname,pruimg,isups,ezinfo,tname } = data;
+        this.setState({
+          Id:Id,
+          pruname,
+          pruimg,
+          isups,
+          ezinfo,
+          tname
+        },this.getPOSProAddPType);
+      }
+    })
   }
   getPOSProAddPType = () => {
     const { authsInfo,tname } = this.state;

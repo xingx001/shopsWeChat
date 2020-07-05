@@ -1,7 +1,7 @@
 .interests-wrap {
 
     .interests-ul {
-        background:rgba(255,255,255,1);   
+        background:rgba(255,255,255,1);
         .interests-li{
             display: flex;
             justify-content: flex-start;
@@ -24,6 +24,9 @@
             font-size:34px;
             color:rgba(185,185,185,1);
         }
+        .textarea-wrap{
+          height: 100px;
+        }
     }
     .content_box{
         .boder_bottom{
@@ -38,9 +41,10 @@
         color: #fff;
         text-align: center;
         font-size:36px;
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
+        z-index: 1000;
         .add_btn{
             background:rgba(255,208,24,1);
             flex: 1;
