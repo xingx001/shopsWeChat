@@ -158,7 +158,7 @@ class Index extends Component<IProps, IState> {
             <View className="label">活动时间</View>
             <View onClick={this.onSelectTime}>
                {
-                  btime||etime ? `${btime}-${etime}`:(<Text className="placeholderClass">请选择</Text>)
+                  btime||etime ? `${btime} 至 ${etime}`:(<Text className="placeholderClass">请选择</Text>)
                }
               <Text className="at-icon at-icon-chevron-right store_right" ></Text>
             </View>
