@@ -235,7 +235,7 @@ class Index extends Component<IProps, IState> {
             <View className="store-msg">营业时间</View>
             <View className="store-msg" onClick={this.onSelectTime}>
             {
-              BiginTiem||EndTiem ? `${BiginTiem}-${EndTiem}`:<Text className="placeholderClass">请选择时间</Text>
+              BiginTiem||EndTiem ? `${BiginTiem}至${EndTiem}`:<Text className="placeholderClass">请选择时间</Text>
             }
           </View>
           </View>

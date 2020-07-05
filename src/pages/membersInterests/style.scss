@@ -24,6 +24,9 @@
             font-size:34px;
             color:rgba(185,185,185,1);
         }
+        .textarea-wrap{
+          height: 100px;
+        }
     }
     .content_box{
         .boder_bottom{
@@ -41,6 +44,7 @@
         position: fixed;
         bottom: 0;
         width: 100%;
+        z-index: 1000;
         .add_btn{
             background:rgba(255,208,24,1);
             flex: 1;
